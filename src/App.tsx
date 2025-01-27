@@ -1,14 +1,21 @@
 import { useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+// import store from './redux/Store';
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import IndexPage from './pages/IndexPage';
+import Header from './components/common/Header';
+import Footer from './components/common/Footer';
 import './App.css'
+
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <div>
+      {/* <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
@@ -27,7 +34,32 @@ function App() {
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
-      </p>
+      </p> */}
+
+
+        {/* <Provider store={store}> */}
+        <BrowserRouter>
+            <div className="App">
+              <Header />
+              <div className="content">
+                <Routes>
+                  <Route path="/" element={<IndexPage />} />
+                  {/* <Route path="/ChatBotPage" element={<ChatBotPage />} />
+                  <Route path="/SignPage" element={<SignPage />} />
+                  <Route path="/BoardPage" element={<BoardPage />} />
+                  <Route path="/StudyPage" element={<StudyPage />} />
+                  <Route path="/ChatListPage" element={<ChatListPage />} /> */}
+                </Routes>
+                  
+              </div>
+              <Footer />
+            </div>
+          </BrowserRouter>
+      {/* </Provider> */}
+
+
+
+
     </>
   )
 }
