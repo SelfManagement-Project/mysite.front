@@ -8,8 +8,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@common/*": ["src/common/*"],
-      "react-native": ["node_modules/react-native-web"]
+      "@common/*": ["src/common/*"]
     }
   }
 }

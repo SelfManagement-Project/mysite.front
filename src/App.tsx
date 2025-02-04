@@ -1,22 +1,14 @@
 import { BrowserRouter } from 'react-router-dom';
-import { Router } from './common/router';
-import Header from './web/components/common/Header';
-import Footer from './web/components/common/Footer';
-import { Platform } from 'react-native';
-import '@/common/assets/styles/main.scss';  // 바로 import
+import { Router } from '@/router';
+import Header from '@/components/common/Header';
+import Footer from '@/components/common/Footer';
+import '@/assets/styles/main.scss';
 import './App.css';
 
-// Conditionally import SCSS for web
-// if (Platform.OS === 'web') {
-//   import('@/common/assets/styles/main.scss');
-// }
-
 function App() {
-  const isWeb = Platform.OS === 'web';
-
   return (
     <BrowserRouter>
-      <div className={isWeb ? 'App web' : 'App mobile'}>
+      <div className="App">
         <Header />
         <div className="content">
           <Router />

@@ -1,5 +1,5 @@
 import { RouteObject } from 'react-router-dom';
-import IndexPage from '@/web/pages/IndexPage';
+import IndexPage from '@/pages/IndexPage';
 
 export const routes: RouteObject[] = [
   {
