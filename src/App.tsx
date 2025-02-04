@@ -4,9 +4,9 @@ import { Provider } from 'react-redux';
 // import store from './redux/Store';
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import IndexPage from './pages/IndexPage';
-import Header from './components/common/Header';
-import Footer from './components/common/Footer';
+import IndexPage from './web/pages/IndexPage';
+import Header from './web/components/common/Header';
+import Footer from './web/components/common/Footer';
 import './App.css'
 
 
