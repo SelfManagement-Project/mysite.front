@@ -1,0 +1,38 @@
+// @import '@common/assets/styles/base/variables';
+// @import '@common/assets/styles/base/mixins';
+
+// .index-page {
+//   padding: $spacing-xl;
+
+//   &__header {
+//     text-align: center;
+//     margin-bottom: $spacing-xl;
+//   }
+
+//   &__title {
+//     font-size: 32px;
+//     color: $primary-color;
+//     margin-bottom: $spacing-md;
+//   }
+
+//   &__description {
+//     color: $secondary-color;
+//   }
+
+//   &__content {
+//     max-width: 1200px;
+//     margin: 0 auto;
+//   }
+
+//   &__button {
+//     @include button($primary-color);
+//   }
+
+//   @include responsive(mobile) {
+//     padding: $spacing-lg;
+
+//     &__title {
+//       font-size: 24px;
+//     }
+//   }
+// }

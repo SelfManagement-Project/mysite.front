@@ -1,67 +1,30 @@
-import { useState } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
-// import store from './redux/Store';
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import IndexPage from './web/pages/IndexPage';
+import { BrowserRouter } from 'react-router-dom';
+import { Router } from './common/router';
 import Header from './web/components/common/Header';
 import Footer from './web/components/common/Footer';
-import './App.css'
+import { Platform } from 'react-native';
+import '@/common/assets/styles/main.scss';  // 바로 import
+import './App.css';
 
+// Conditionally import SCSS for web
+// if (Platform.OS === 'web') {
+//   import('@/common/assets/styles/main.scss');
+// }
 
 function App() {
-  const [count, setCount] = useState(0)
+  const isWeb = Platform.OS === 'web';
 
   return (
-    <>
-      {/* <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <BrowserRouter>
+      <div className={isWeb ? 'App web' : 'App mobile'}>
+        <Header />
+        <div className="content">
+          <Router />
+        </div>
+        <Footer />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p> */}
-
-
-        {/* <Provider store={store}> */}
-        <BrowserRouter>
-            <div className="App">
-              <Header />
-              <div className="content">
-                <Routes>
-                  <Route path="/" element={<IndexPage />} />
-                  {/* <Route path="/ChatBotPage" element={<ChatBotPage />} />
-                  <Route path="/SignPage" element={<SignPage />} />
-                  <Route path="/BoardPage" element={<BoardPage />} />
-                  <Route path="/StudyPage" element={<StudyPage />} />
-                  <Route path="/ChatListPage" element={<ChatListPage />} /> */}
-                </Routes>
-                  
-              </div>
-              <Footer />
-            </div>
-          </BrowserRouter>
-      {/* </Provider> */}
-
-
-
-
-    </>
-  )
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

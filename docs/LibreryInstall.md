@@ -22,3 +22,7 @@ npm install quill-image-resize-module-react
 npm install @react-oauth/google
 
 npm install dompurify
+
+npm install -D @types/node
+npm install -D @vitejs/plugin-react
+npm install react-native-web
