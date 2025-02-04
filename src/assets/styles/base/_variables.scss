@@ -1,20 +1,18 @@
 // Colors
 $primary-color: #007bff;
 $secondary-color: #6c757d;
+$success-color: #28a745;
+$error-color: #dc3545;
+$background-color: #ffffff;
 $text-color: #333333;
-$background-color: #dddddd;
-$border-color: #dddddd;
 
 // Typography
 $font-family: 'Noto Sans KR', sans-serif;
+$font-size-xs: 12px;
 $font-size-sm: 14px;
-$font-size-base: 16px;
+$font-size-md: 16px;
 $font-size-lg: 18px;
-
-// Breakpoints
-$mobile: 768px;
-$tablet: 1024px;
-$desktop: 1280px;
+$font-size-xl: 24px;
 
 // Spacing
 $spacing-xs: 4px;
@@ -22,3 +20,8 @@ $spacing-sm: 8px;
 $spacing-md: 16px;
 $spacing-lg: 24px;
 $spacing-xl: 32px;
+
+// Breakpoints
+$mobile: 768px;
+$tablet: 1024px;
+$desktop: 1280px;
