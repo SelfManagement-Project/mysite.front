@@ -2,7 +2,7 @@ import React from 'react';
 
 function IndexPage() {
   return (
-    <div>testtestestestestestest</div>    
+    <div>indexpage</div>    
   );
 }
 

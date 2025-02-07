@@ -1,0 +1,70 @@
+@use '@/assets/styles/base/variables' as *;
+@use '@/assets/styles/base/mixins' as *;
+
+.header-container {
+  width: 100%;
+  background-color: $background-color;
+  border-bottom: 1px solid $secondary-color;
+  padding: $spacing-md 0;
+  @include flex(space-between, center);
+  max-width: $desktop;
+  margin: 0 auto;
+
+  .auth-buttons {
+    @include flex(center, center);
+    gap: $spacing-md;
+
+    button {
+      @include button($primary-color);
+
+      &:last-child {
+        background-color: $secondary-color;
+      }
+    }
+  }
+
+  @include responsive(mobile) {
+    padding: $spacing-sm 0;
+
+    &-container {
+      padding: 0 $spacing-md;
+
+      nav ul {
+        gap: $spacing-md;
+      }
+
+      .auth-buttons {
+        gap: $spacing-sm;
+      }
+    }
+  }
+}
+
+nav {
+  width: 100%;
+  background-color: $background-color;
+  border-bottom: 1px solid $secondary-color;
+  padding: $spacing-lg;
+  @include flex(space-between, center);
+  max-width: $desktop;
+  margin: 0 auto;
+
+
+
+  ul {
+    @include flex(center, center);
+    gap: $spacing-xl;
+
+    li {
+      a {
+        font-size: $font-size-md;
+        color: $text-color;
+        transition: color 0.2s;
+
+        &:hover {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+}
