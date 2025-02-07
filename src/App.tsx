@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
@@ -7,6 +7,7 @@ import SchedulePage from "@/components/schedule/SchedulePage";
 import HealthPage from "@/components/health/HealthPage";
 import AiPage from "@/components/ai/AiPage";
 import FinancePage from "@/components/finance/FinancePage";
+import FloatingMenu from "@/components/common/FloatingMenu"; // 플로팅 메뉴 추가
 import { useTabs } from "@/hooks/common/useTabs";
 import "@/assets/styles/index.scss";
 import "./App.css";
@@ -18,28 +19,10 @@ const App: React.FC = () => {
     handleMenuClick,
     handleTabClick,
     handleTabClose,
+    handleDragStart,
+    handleDragOver,
+    handleDrop,
   } = useTabs();
-
-  const [draggedTabIndex, setDraggedTabIndex] = useState<number | null>(null);
-
-  const handleDragStart = (index: number) => {
-    setDraggedTabIndex(index);
-  };
-
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault(); // 기본 동작 방지 (드롭 불가능 방지)
-  };
-
-  const handleDrop = (index: number) => {
-    if (draggedTabIndex === null || draggedTabIndex === index) return;
-
-    const reorderedTabs = [...tabs];
-    const [draggedTab] = reorderedTabs.splice(draggedTabIndex, 1);
-    reorderedTabs.splice(index, 0, draggedTab);
-
-    handleTabClick(reorderedTabs[index].name); // 드롭된 탭 활성화
-    setDraggedTabIndex(null);
-  };
 
   const renderTabContent = (tabName: string) => {
     switch (tabName) {
@@ -51,6 +34,8 @@ const App: React.FC = () => {
         return <FinancePage />;
       case "AI":
         return <AiPage />;
+      default:
+        return null;
     }
   };
 
@@ -63,7 +48,7 @@ const App: React.FC = () => {
           <Route
             path="/tab/:name"
             element={
-              <div>
+              <div className="tab-container">
                 <div className="tabs">
                   {tabs.map((tab, index) => (
                     <div
@@ -97,6 +82,7 @@ const App: React.FC = () => {
         </Routes>
       </div>
       <Footer />
+      <FloatingMenu /> {/* 플로팅 메뉴 추가 */}
     </div>
   );
 };

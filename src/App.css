@@ -63,6 +63,8 @@
 }
 
 .tab {
+  display: flex;
+  min-width: 217px;
   position: relative;
   padding: 16px;
   border: 1px solid #ddd;
@@ -76,6 +78,18 @@
   font-weight: bold;
   border-color: #00796b;
 }
+.tab-container {
+  width: 100%;
+  background-color: ＃ffffff;
+  border-bottom: 1px;
+  padding: 24px;
+  /* @include flex(space-between, center); */
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+
+
 .tab-content {
   margin-top: 16px;
   padding: 16px;
@@ -83,9 +97,15 @@
   border-radius: 4px;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-height: 500px; /* 스크롤 활성화를 위한 최대 높이 설정 */
+  overflow-y: auto; /* 세로 스크롤 활성화 */
 }
 
 .close-button {
+  width: 30px;
+  height: 30px;
+  margin: 10px 0px 10px 10px;
+  padding: 0;
   position: absolute;
   top: 4px;
   right: 4px;
@@ -99,4 +119,55 @@
 
 .close-button:hover {
   color: #ff5555;
+}
+
+
+.floating-menu {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.floating-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.floating-button:hover {
+  background-color: #0056b3;
+}
+
+.menu-content {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  z-index: 1000;
+}
+
+.menu-content ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-content li {
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.menu-content li:hover {
+  background-color: #f1f1f1;
 }
