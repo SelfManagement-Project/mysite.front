@@ -11,6 +11,7 @@ import FloatingMenu from "@/components/common/FloatingMenu"; // 플로팅 메뉴
 import { useTabs } from "@/hooks/common/useTabs";
 import "@/assets/styles/index.scss";
 import "./App.css";
+import Router from "@/router/Router";
 
 const App: React.FC = () => {
   const {
@@ -80,6 +81,7 @@ const App: React.FC = () => {
             }
           />
         </Routes>
+        {/* <Router /> */}
       </div>
       <Footer />
       <FloatingMenu /> {/* 플로팅 메뉴 추가 */}

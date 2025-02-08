@@ -1,5 +1,6 @@
 import React from "react";
 import { HeaderProps } from "@/types/common/header"; // 파일 경로에 맞게 수정
+import { Link } from 'react-router-dom';
 
 const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
   // 로고 클릭 핸들러: localStorage 데이터 초기화
@@ -18,7 +19,9 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
           </a>
         </div>
         <div className="auth-buttons">
-          <button>로그인</button>
+          <Link to="/login">
+            로그인
+          </Link>
           <button>회원가입</button>
         </div>
       </div>
