@@ -51,7 +51,7 @@ export const useTabs = () => {
         navigate(`/tab/${updatedTabs[0].name.toLowerCase()}`);
       } else {
         setSelectedTab(null);
-        navigate("/");
+        navigate("/dashboard");
       }
     }
   };

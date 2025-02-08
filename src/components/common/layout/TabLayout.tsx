@@ -1,8 +1,11 @@
-import { useOutlet } from 'react-router-dom';
-import { useTabs } from "@/hooks/common/useTabs";
+import React from "react";
+import { useTabContext } from "@/contexts/TabContext"; // named export로 가져옴
+import SchedulePage from "@/components/schedule/SchedulePage";
+import HealthPage from "@/components/health/HealthPage";
+import AiPage from "@/components/ai/AiPage";
+import FinancePage from "@/components/finance/FinancePage";
 
-const TabLayout = () => {
-  const outlet = useOutlet();
+const TabLayout: React.FC = () => {
   const {
     tabs,
     selectedTab,
@@ -11,7 +14,22 @@ const TabLayout = () => {
     handleDragStart,
     handleDragOver,
     handleDrop,
-  } = useTabs();
+  } = useTabContext();
+
+  const renderTabContent = (tabName: string) => {
+    switch (tabName) {
+      case "Schedule":
+        return <SchedulePage />;
+      case "Health":
+        return <HealthPage />;
+      case "Finance":
+        return <FinancePage />;
+      case "AI":
+        return <AiPage />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className="tab-container">
@@ -40,7 +58,7 @@ const TabLayout = () => {
         ))}
       </div>
       <div className="tab-content">
-        {outlet}
+        {selectedTab && renderTabContent(selectedTab)}
       </div>
     </div>
   );
