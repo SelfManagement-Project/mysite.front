@@ -1,16 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
+import { useFloatingMenu } from '@/hooks/common/useFloating';
 
 const FloatingMenu: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const { isOpen, toggleMenu } = useFloatingMenu();
 
   return (
     <div className="floating-menu">
       <button className="floating-button" onClick={toggleMenu}>
-        ⚙️ {/* 메뉴 버튼 아이콘 */}
+        ⚙️
       </button>
       {isOpen && (
         <div className="menu-content">

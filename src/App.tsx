@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import "@/assets/styles/index.scss";
 import "./App.css";
 import Router from "@/router/Router";
-import TabProvider from "@/contexts/TabContext";
+import TabProvider from "@/hooks/common/useTabContext";
 
 const App: React.FC = () => {
   return (

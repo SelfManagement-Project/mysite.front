@@ -1,5 +1,5 @@
 import React from "react";
-import { useTabContext } from "@/contexts/TabContext"; // named export로 가져옴
+import { useTabContext } from "@/hooks/common/useTabContext"; // named export로 가져옴
 import SchedulePage from "@/components/schedule/SchedulePage";
 import HealthPage from "@/components/health/HealthPage";
 import AiPage from "@/components/ai/AiPage";

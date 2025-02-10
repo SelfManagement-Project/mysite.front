@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Tab } from "@/types/common/tabs";
+import { Tab } from "@/types/common/interfaces";
 
 export const useTabs = () => {
   const [tabs, setTabs] = useState<Tab[]>(() => {

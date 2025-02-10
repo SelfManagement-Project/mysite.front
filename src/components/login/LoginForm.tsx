@@ -1,25 +1,24 @@
-// components/login/LoginForm.tsx
-import { useState } from 'react'
 import "@/assets/styles/components/login/Login.scss"
 import Modal from "@/components/common/Modal"
 import SignUpForm from "@/components/login/SignUpForm"
 import ForgotPasswordForm from "@/components/login/ForgotPasswordForm"
 import { Link } from 'react-router-dom'
+import { useLoginForm } from '@/hooks/login/useLoginForm'; // 경로는 실제 구조에 맞게 수정
+import { LoginFormProps } from "@/types/login/interfaces"; // 파일 경로에 맞게 수정
 
-interface LoginFormProps {
-    onSubmit: (email: string, password: string) => void;
-}
 
 const LoginForm = ({ onSubmit }: LoginFormProps) => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false)
-    const [isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] = useState(false)
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        onSubmit(email, password)
-    }
+    const {
+        email,
+        setEmail,
+        password,
+        setPassword,
+        isSignUpModalOpen,
+        setIsSignUpModalOpen,
+        isForgotPasswordModalOpen,
+        setIsForgotPasswordModalOpen,
+        handleSubmit,
+    } = useLoginForm({ onSubmit });
 
     return (
         <div>
@@ -80,7 +79,7 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
                 <ForgotPasswordForm />
             </Modal>
         </div>
-    )
-}
+    );
+};
 
-export default LoginForm
+export default LoginForm;

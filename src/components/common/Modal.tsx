@@ -1,12 +1,6 @@
 import "@/assets/styles/components/common/Modal.scss";
+import { ModalProps } from "@/types/common/interfaces"; // 파일 경로에 맞게 수정
 
-// components/common/Modal.tsx
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  title?: string;
-  children: React.ReactNode;
-}
 
 const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
   if (!isOpen) return null;
