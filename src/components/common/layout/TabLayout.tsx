@@ -1,6 +1,9 @@
 import React from "react";
 import { useTabContext } from "@/hooks/common/useTabContext"; // named export로 가져옴
 import SchedulePage from "@/components/schedule/SchedulePage";
+import HabitHub from "@/components/schedule/HabitHub";
+import Notifications from "@/components/schedule/Notifications";
+import LocationServices from "@/components/location/LocationServices";
 import HealthPage from "@/components/health/HealthPage";
 import AiPage from "@/components/ai/AiPage";
 import FinancePage from "@/components/finance/FinancePage";
@@ -26,6 +29,12 @@ const TabLayout: React.FC = () => {
         return <FinancePage />;
       case "AI":
         return <AiPage />;
+      case "HabitHub":
+        return <HabitHub />;
+      case "Notification":
+        return <Notifications />;
+      case "LocationServices":
+        return <LocationServices />;
       default:
         return null;
     }

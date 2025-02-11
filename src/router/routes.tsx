@@ -23,4 +23,5 @@ export const routes: RouteObject[] = [
     path: "/tab/:name",
     element: <DefaultLayout><TabLayout /></DefaultLayout>,
   },
+
 ];

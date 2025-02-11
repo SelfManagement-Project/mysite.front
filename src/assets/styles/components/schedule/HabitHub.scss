@@ -1,0 +1,125 @@
+// GoalReport.scss
+.goal-report {
+    
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+  
+      .title {
+        margin: 0;
+      }
+  
+      .buttons {
+        .btn {
+          padding: 5px 15px;
+          background-color: #4a90e2;
+          color: white;
+          border: none;
+          cursor: pointer;
+          margin: 10px 5px 0px 5px;
+          
+          &:hover {
+              background-color: #4a90e2;
+          }
+        }
+      }
+    }
+  
+    .chart-container {
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin-bottom: 30px;
+  
+      h3 {
+        margin-top: 0;
+        margin-bottom: 20px;
+      }
+  
+      .progress-bars {
+        .progress-item {
+          margin-bottom: 20px;
+  
+          .label {
+            display: block;
+            margin-bottom: 8px;
+          }
+  
+          .progress-bar {
+            height: 30px;
+            display: flex;
+            width: 100%;
+  
+            .completed {
+              background: #4a90e2;
+              height: 100%;
+            }
+  
+            .remaining {
+              background: #f5a623;
+              height: 100%;
+            }
+          }
+  
+          .percentage {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            color: #666;
+            font-size: 12px;
+          }
+        }
+      }
+  
+      .legend {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+  
+        .legend-item {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+  
+          .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+  
+            &.completed {
+              background: #4a90e2;
+            }
+  
+            &.remaining {
+              background: #f5a623;
+            }
+          }
+        }
+      }
+    }
+  
+    .report-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+  
+      .report-btn {
+        padding: 5px 15px;
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        cursor: pointer;
+        margin: 10px 5px 0px 5px;
+        
+        &:hover {
+            background-color: #4a90e2;
+        }
+      }
+    }
+  }

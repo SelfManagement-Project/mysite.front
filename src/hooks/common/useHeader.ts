@@ -2,6 +2,9 @@ import { useState } from 'react';
 
 export const useHeader = () => {
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+  const [isAiModalOpen, setIsAiModalOpen] = useState(false);
+  const [showScheduleDropdown, setShowScheduleDropdown] = useState(false);
+
 
   const handleLogoClick = () => {
     localStorage.removeItem("tabs");
@@ -11,7 +14,11 @@ export const useHeader = () => {
 
   return {
     isSignUpModalOpen,
+    showScheduleDropdown,
+    setShowScheduleDropdown,
     setIsSignUpModalOpen,
     handleLogoClick,
+    isAiModalOpen,
+    setIsAiModalOpen
   };
 };

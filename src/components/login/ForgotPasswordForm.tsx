@@ -1,10 +1,12 @@
 import { useForgotPasswordForm } from '@/hooks/login/useForgotPasswordForm'; // 경로는 실제 구조에 맞게 수정
+import "@/assets/styles/components/login/ForgotPasswordForm.scss"
+
 
 const ForgotPasswordForm = () => {
   const { email, setEmail, handleSubmit } = useForgotPasswordForm();
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="forgot-pw-form" onSubmit={handleSubmit}>
       <div className="input-group">
         <label htmlFor="forgot-email">이메일</label>
         <input

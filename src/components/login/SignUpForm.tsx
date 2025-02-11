@@ -1,3 +1,5 @@
+import "@/assets/styles/components/login/SignUpForm.scss"
+
 // components/signup/SignUpForm.tsx
 const SignUpForm = () => {
     return (
