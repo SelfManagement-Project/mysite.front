@@ -15,7 +15,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
   return (
     <header>
       <div className="header-container">
-        <div>
+        <div className="logo-link">
           <a href="#" onClick={(e) => { e.preventDefault(); handleLogoClick(); }}>
             <img
               src={logoImage}

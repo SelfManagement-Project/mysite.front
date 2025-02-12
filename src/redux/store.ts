@@ -1,10 +1,15 @@
-// Store.js
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from './reducers/authReducer';
+import urlReducer from './reducers/urlSlice';
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
-    // 리듀서들 추가
-  }
-})
+    auth: authReducer,
+    url: urlReducer
+  },
+  middleware: (getDefaultMiddleware) => 
+    getDefaultMiddleware().concat([])
+});
 
-export default store
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

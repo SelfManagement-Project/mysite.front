@@ -1,8 +1,14 @@
 import "@/assets/styles/components/login/SignUpForm.scss"
+// import { useSignUpForm } from '@/hooks/login/useSignUpForm';
 
 // components/signup/SignUpForm.tsx
 const SignUpForm = () => {
+  // const {
+  //   handleSubmit
+  // } = useSignUpForm();
+
     return (
+      // <form className="signup-form" onSubmit={handleSubmit}>
       <form className="signup-form">
         <div className="input-group">
           <label>이메일</label>

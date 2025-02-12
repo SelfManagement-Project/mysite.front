@@ -1,13 +1,11 @@
-import "@/assets/styles/components/login/Login.scss"
-import Modal from "@/components/common/Modal"
-import SignUpForm from "@/components/login/SignUpForm"
-import ForgotPasswordForm from "@/components/login/ForgotPasswordForm"
-import { Link } from 'react-router-dom'
-import { useLoginForm } from '@/hooks/login/useLoginForm'; // 경로는 실제 구조에 맞게 수정
-import { LoginFormProps } from "@/types/login/interfaces"; // 파일 경로에 맞게 수정
+import { useLoginForm } from '@/hooks/login/useLoginForm';
+import Modal from "@/components/common/Modal";
+import SignUpForm from "@/components/login/SignUpForm";
+import ForgotPasswordForm from "@/components/login/ForgotPasswordForm";
+import "@/assets/styles/components/login/Login.scss";
+import { Link } from 'react-router-dom';
 
-
-const LoginForm = ({ onSubmit }: LoginFormProps) => {
+const LoginForm = () => {
     const {
         email,
         setEmail,
@@ -18,10 +16,13 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
         isForgotPasswordModalOpen,
         setIsForgotPasswordModalOpen,
         handleSubmit,
-    } = useLoginForm({ onSubmit });
+        isLoading,
+        error
+    } = useLoginForm();
 
     return (
-        <div>
+        <div className="login-form-container">
+            {error && <div className="error-message">{error}</div>}
             <form onSubmit={handleSubmit}>
                 <div className="input-group">
                     <label htmlFor="email">이메일</label>
@@ -45,8 +46,15 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
                         required
                     />
                 </div>
-                <button type="submit" className="login-button">로그인</button>
+                <button 
+                    type="submit" 
+                    className="login-button"
+                    disabled={isLoading}
+                >
+                    {isLoading ? '로그인 중...' : '로그인'}
+                </button>
             </form>
+
             <div className="login-footer">
                 <button
                     className="forgot-password-link"

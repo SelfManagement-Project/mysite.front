@@ -1,17 +1,28 @@
-import { useState } from 'react';
-import { UseLoginFormProps } from "@/types/login/interfaces"; // 파일 경로에 맞게 수정
+import { useState, useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { login } from '@/redux/actions/authActions';
+import { useNavigate } from 'react-router-dom';
 
-
-export const useLoginForm = ({ onSubmit }: UseLoginFormProps) => {
+export const useLoginForm = () => {
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const { isLoading, error, isAuthenticated } = useAppSelector((state) => state.auth);
+    
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
     const [isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        onSubmit(email, password);
+        await dispatch(login({ email, password }));
     };
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate('/dashboard');
+        }
+    }, [isAuthenticated, navigate]);
 
     return {
         email,
@@ -23,5 +34,7 @@ export const useLoginForm = ({ onSubmit }: UseLoginFormProps) => {
         isForgotPasswordModalOpen,
         setIsForgotPasswordModalOpen,
         handleSubmit,
+        isLoading,
+        error
     };
 };

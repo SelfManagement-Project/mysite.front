@@ -10,10 +10,18 @@
   max-width: $desktop;
   margin: 0 auto;
 
-  .logo-image {
-    height: 40px; // 원하는 크기로 조정
-    width: auto;
-    object-fit: contain;
+  .logo-link {
+    width: 100px;
+    a {
+      
+      .logo-image {
+        width: auto;
+        height: 60px; // 원하는 크기로 조정
+        width: auto;
+        border-radius: 30%;
+        object-fit: contain;
+      }
+    }
   }
 
   .auth-buttons {
