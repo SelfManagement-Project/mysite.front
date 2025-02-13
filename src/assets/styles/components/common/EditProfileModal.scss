@@ -1,0 +1,81 @@
+.edit-profile-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.edit-profile-modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 100%; // 너비 증가
+    max-width: 1200px; // 최대 너비 증가
+    height: 90vh; // 높이 설정
+    display: flex; // flexbox 추가
+    flex-direction: column; // 세로 방향 정렬
+    position: relative;
+    animation: modalFadeIn 0.3s ease-in-out;
+}
+
+.edit-profile-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    
+    h2 {
+        margin: 0;
+        font-size: 1.5rem;
+    }
+}
+
+.edit-profile-modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: #666;
+    
+    &:hover {
+        color: #000;
+    }
+}
+
+.edit-profile-modal-body {
+    flex: 1; // 남은 공간 모두 차지
+    overflow-y: auto; // 내용이 넘칠 경우 스크롤
+    padding-right: 10px; // 스크롤바 여유 공간
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// 반응형 스타일 추가
+@media (max-height: 800px) {
+    .edit-profile-modal-content {
+        height: 95vh;
+    }
+}
+
+@media (max-width: 768px) {
+    .edit-profile-modal-content {
+        width: 98%;
+        padding: 1rem;
+    }
+}

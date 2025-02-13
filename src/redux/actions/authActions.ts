@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { authService } from '@/services/authService';
-import { loginRequest, loginSuccess, loginFailure } from '@/redux/reducers/authReducer';
+import { loginRequest, loginSuccess, loginFailure, signUpRequest, signUpSuccess, signUpFailure } from '@/redux/reducers/authReducer';
 
-// authActions.ts 수정
+// login
 export const login = createAsyncThunk(
   'auth/login',
   async ({ email, password }: { email: string; password: string }, { dispatch }) => {
@@ -19,6 +19,22 @@ export const login = createAsyncThunk(
     } catch (error: any) {
       const message = error.response?.data?.message || '로그인 실패';
       dispatch(loginFailure(message));
+      throw error;
+    }
+  }
+);
+
+export const signUp = createAsyncThunk(
+  'auth/signUp',
+  async ({ email, password, name }: { email: string; password: string; name: string; }, { dispatch }) => {
+    try {
+      dispatch(signUpRequest());
+      const response = await authService.signUp({ email, password, name });
+      dispatch(signUpSuccess());
+      return response;
+    } catch (error: any) {
+      const message = error.response?.data?.message || '회원가입 실패';
+      dispatch(signUpFailure(message));
       throw error;
     }
   }

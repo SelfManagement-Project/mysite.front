@@ -1,16 +1,37 @@
 import React from "react";
-import { HeaderProps } from "@/types/common/interfaces"; // 파일 경로에 맞게 수정
-import { Link } from 'react-router-dom';
+import { HeaderProps } from "@/types/common/interfaces";
+import { Link, useNavigate } from 'react-router-dom';
 import { useHeader } from '@/hooks/common/useHeader';
-import Modal from "@/components/common/Modal"
-import AiModal from "@/components/common/AiModal"
-import SignUpForm from "@/components/login/SignUpForm"
-import AiPage from "@/components/ai/AiPage"
+import { useAppSelector } from '@/redux/hooks';
+import Modal from "@/components/common/Modal";
+import AiModal from "@/components/common/AiModal";
+import EditProfileModal from "@/components/common/EditProfileModal";
+import SignUpForm from "@/components/login/SignUpForm";
+import AiPage from "@/components/ai/AiPage";
 import logoImage from '@/assets/images/OneFlowLogo.webp';
+import { useAppDispatch } from '@/redux/hooks';
+import { logout } from '@/redux/reducers/authReducer';
+import EditProfileForm from "@/components/login/EditProfileForm";
 
 const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
-  const { isSignUpModalOpen, setIsSignUpModalOpen, handleLogoClick, showScheduleDropdown, setShowScheduleDropdown, setIsAiModalOpen, isAiModalOpen } = useHeader();
+  const userStr = localStorage.getItem('user');
+  const user = userStr ? JSON.parse(userStr) : null;
+  const userName = user?.apiData?.username || '사용자';  // 기본값 설정
 
+  const { isSignUpModalOpen, setIsSignUpModalOpen, handleLogoClick, showScheduleDropdown, setShowScheduleDropdown, setIsAiModalOpen, isAiModalOpen, isEditProfileModalOpen, setIsEditProfileModalOpen } = useHeader();
+  const navigate = useNavigate();
+
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+
+  // Header 컴포넌트 내부
+  const dispatch = useAppDispatch();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    dispatch(logout());
+    navigate('/');
+  };
 
   return (
     <header>
@@ -25,15 +46,40 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
           </a>
         </div>
         <div className="auth-buttons">
-          <Link className="login-btn" to="/login">
-            로그인
-          </Link>
-          <button
-            className="signup-link"
-            onClick={() => setIsSignUpModalOpen(true)}
-          >
-            회원가입
-          </button>
+          {isAuthenticated ? (
+            <div>
+              <span>{userName}님 환영합니다.</span>
+              <button
+                className="logout-btn"
+                onClick={handleLogout}
+              >
+                로그아웃
+              </button>
+
+              <button 
+                className="editprofile-link"
+                onClick={() => setIsEditProfileModalOpen(true)}
+              >
+                회원정보수정
+              </button>
+
+            </div>
+          ) : (
+            <>
+              <div>
+                <span>로그인을 해주세요.</span>
+                <Link className="login-btn" to="/login">
+                  로그인
+                </Link>
+                <button
+                  className="signup-link"
+                  onClick={() => setIsSignUpModalOpen(true)}
+                >
+                  회원가입
+                </button>
+              </div>
+            </>
+          )}
           <Modal
             isOpen={isSignUpModalOpen}
             onClose={() => setIsSignUpModalOpen(false)}
@@ -41,6 +87,14 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
           >
             <SignUpForm />
           </Modal>
+
+          <EditProfileModal
+            isOpen={isEditProfileModalOpen}
+            onClose={() => setIsEditProfileModalOpen(false)}
+            title="회원가입"
+          >
+            <EditProfileForm />
+          </EditProfileModal>
         </div>
       </div>
       {showNav && (
@@ -49,7 +103,6 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
             <li>
               <Link to="/dashboard">대시보드</Link>
             </li>
-
 
             <li
               className="dropdown"
@@ -72,7 +125,6 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
               )}
             </li>
 
-
             <li>
               <button onClick={() => onMenuClick("Health")}>건강 관리</button>
             </li>
@@ -83,9 +135,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
               <button onClick={() => onMenuClick("LocationServices")}>위치 기반 서비스</button>
             </li>
             <li>
-              <button
-                onClick={() => setIsAiModalOpen(true)}
-              >
+              <button onClick={() => setIsAiModalOpen(true)}>
                 AI 챗봇 서비스
               </button>
               <AiModal

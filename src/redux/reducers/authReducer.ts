@@ -12,6 +12,7 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
+        // 로그인
         loginRequest: (state) => {
             state.isLoading = true;
             state.error = null;
@@ -27,9 +28,27 @@ const authSlice = createSlice({
             state.user = null;
             state.error = action.payload;
             state.isAuthenticated = false;
-        }
+        },
+        // 로그아웃
+        logout: (state) => {
+            state.isAuthenticated = false;
+            state.user = null;
+        },
+        // 회원 가입
+        signUpRequest: (state) => {
+            state.isLoading = true;
+            state.error = null;
+        },
+        signUpSuccess: (state) => {
+            state.isLoading = false;
+            state.error = null;
+        },
+        signUpFailure: (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
     }
 });
 
-export const { loginRequest, loginSuccess, loginFailure } = authSlice.actions;
+export const { loginRequest, loginSuccess, loginFailure, signUpRequest, signUpSuccess, signUpFailure, logout } = authSlice.actions;
 export default authSlice.reducer;

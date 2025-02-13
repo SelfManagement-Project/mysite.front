@@ -5,6 +5,8 @@ import DashboardPage from "@/components/dashboard/DashboardPage";
 import TabLayout from "@/components/common/layout/TabLayout";
 import DefaultLayout from "@/components/common/layout/DefaultLayout";
 import BlankLayout from "@/components/common/layout/BlankLayout";
+import NotFound from "@/components/error/NotFound";
+import ProtectedRoute from "@/router/ProtectedRoute";
 
 export const routes: RouteObject[] = [
   {
@@ -17,11 +19,22 @@ export const routes: RouteObject[] = [
   },
   {
     path: "/dashboard",
-    element: <DefaultLayout><DashboardPage /></DefaultLayout>,
+    element: (
+      <ProtectedRoute>
+        <DefaultLayout><DashboardPage /></DefaultLayout>
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/tab/:name",
-    element: <DefaultLayout><TabLayout /></DefaultLayout>,
+    element: (
+      <ProtectedRoute>
+        <DefaultLayout><TabLayout /></DefaultLayout>
+      </ProtectedRoute>
+    ),
   },
-
+  {
+    path: "*",
+    element: <BlankLayout><NotFound /></BlankLayout>,
+  }
 ];

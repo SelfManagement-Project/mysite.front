@@ -8,14 +8,24 @@ export const useLoginForm = () => {
     const navigate = useNavigate();
     const { isLoading, error, isAuthenticated } = useAppSelector((state) => state.auth);
     
-    const [email, setEmail] = useState('');
+    // 초기 이메일 값을 localStorage에서 가져옴
+    const [email, setEmail] = useState(() => localStorage.getItem('savedEmail') || '');
     const [password, setPassword] = useState('');
     const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
     const [isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] = useState(false);
+    // 아이디 저장 체크박스 상태
+    const [rememberEmail, setRememberEmail] = useState(() => Boolean(localStorage.getItem('savedEmail')));
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         await dispatch(login({ email, password }));
+
+        // 아이디 저장 처리
+        if (rememberEmail) {
+            localStorage.setItem('savedEmail', email);
+        } else {
+            localStorage.removeItem('savedEmail');
+        }
     };
 
     useEffect(() => {
@@ -35,6 +45,8 @@ export const useLoginForm = () => {
         setIsForgotPasswordModalOpen,
         handleSubmit,
         isLoading,
-        error
+        error,
+        rememberEmail,
+        setRememberEmail
     };
 };

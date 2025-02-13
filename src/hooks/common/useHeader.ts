@@ -3,6 +3,7 @@ import { useState } from 'react';
 export const useHeader = () => {
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const [isAiModalOpen, setIsAiModalOpen] = useState(false);
+  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
   const [showScheduleDropdown, setShowScheduleDropdown] = useState(false);
 
 
@@ -19,6 +20,8 @@ export const useHeader = () => {
     setIsSignUpModalOpen,
     handleLogoClick,
     isAiModalOpen,
-    setIsAiModalOpen
+    setIsAiModalOpen,
+    isEditProfileModalOpen,
+    setIsEditProfileModalOpen
   };
 };

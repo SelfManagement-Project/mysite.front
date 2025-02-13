@@ -17,7 +17,9 @@ const LoginForm = () => {
         setIsForgotPasswordModalOpen,
         handleSubmit,
         isLoading,
-        error
+        error,
+        rememberEmail,  // 추가
+        setRememberEmail
     } = useLoginForm();
 
     return (
@@ -45,6 +47,15 @@ const LoginForm = () => {
                         placeholder="비밀번호를 입력하세요"
                         required
                     />
+                </div>
+                <div className="remember-email">
+                    <input
+                        type="checkbox"
+                        id="remember-email"
+                        checked={rememberEmail}
+                        onChange={(e) => setRememberEmail(e.target.checked)}
+                    />
+                    <label htmlFor="remember-email">아이디 저장</label>
                 </div>
                 <button 
                     type="submit" 
