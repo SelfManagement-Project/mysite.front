@@ -57,7 +57,7 @@ const AiPage = () => {
             <li>• 운동 자동화</li>
             <li>• 다이어트 도움말</li>
           </ul>
-          <button className="view-all-btn">전체 대화 목록 보기</button>
+          {/* <button className="view-all-btn">전체 대화 목록 보기</button> */}
         </div>
 
         <div className="suggested-topics">

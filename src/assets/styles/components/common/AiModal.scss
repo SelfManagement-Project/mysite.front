@@ -79,3 +79,37 @@
         padding: 1rem;
     }
 }
+
+.ai-modal-tabs {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+  }
+  
+  .ai-modal-tab {
+    padding: 10px 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+    position: relative;
+    
+    &.active {
+      color: #007bff;
+      font-weight: bold;
+      
+      &:after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: #007bff;
+      }
+    }
+  
+    &:hover {
+      background: #f8f9fa;
+    }
+  }

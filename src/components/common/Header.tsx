@@ -91,7 +91,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
           <EditProfileModal
             isOpen={isEditProfileModalOpen}
             onClose={() => setIsEditProfileModalOpen(false)}
-            title="회원가입"
+            title="회원정보수정"
           >
             <EditProfileForm />
           </EditProfileModal>

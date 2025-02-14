@@ -6,7 +6,7 @@
     overflow: hidden;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
     height: 50vh;
-    min-height: 650px;
+    min-height: 600px;
  
     .sidebar {
         width: 280px;
@@ -68,22 +68,22 @@
             }
         }
  
-        .view-all-btn {
-            width: 100%;
-            padding: 10px;
-            margin-top: 12px;
-            background: transparent;
-            border: 1px solid #2b7eff;
-            color: #2b7eff;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
+        // .view-all-btn {
+        //     width: 100%;
+        //     padding: 10px;
+        //     margin-top: 12px;
+        //     background: transparent;
+        //     border: 1px solid #2b7eff;
+        //     color: #2b7eff;
+        //     border-radius: 6px;
+        //     cursor: pointer;
+        //     transition: all 0.2s;
  
-            &:hover {
-                background: #2b7eff;
-                color: white;
-            }
-        }
+        //     &:hover {
+        //         background: #2b7eff;
+        //         color: white;
+        //     }
+        // }
     }
  
     .chat-main {
