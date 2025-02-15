@@ -18,8 +18,8 @@ export const useLoginForm = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        await dispatch(login({ email, password }));
-
+        const respose = await dispatch(login({ email, password }));
+        console.log('ttttteest::::', respose);
         // 아이디 저장 처리
         if (rememberEmail) {
             localStorage.setItem('savedEmail', email);

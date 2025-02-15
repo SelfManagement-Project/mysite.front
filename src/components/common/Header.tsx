@@ -12,8 +12,21 @@ import logoImage from '@/assets/images/OneFlowLogo.webp';
 import { useAppDispatch } from '@/redux/hooks';
 import { logout } from '@/redux/reducers/authReducer';
 import EditProfileForm from "@/components/login/EditProfileForm";
+import { useAiPage } from '@/hooks/ai/useAiPage';
 
 const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
+
+  const {
+    loadChatHistory  // useAiPage에서 새로 추가할 함수
+  } = useAiPage();
+
+  const handleChatSelect = async (chatId: number) => {
+    await loadChatHistory(chatId);
+    // 필요한 경우 채팅 탭으로 다시 전환
+  };
+
+
+
   const userStr = localStorage.getItem('user');
   const user = userStr ? JSON.parse(userStr) : null;
   const userName = user?.apiData?.username || '사용자';  // 기본값 설정
@@ -56,7 +69,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
                 로그아웃
               </button>
 
-              <button 
+              <button
                 className="editprofile-link"
                 onClick={() => setIsEditProfileModalOpen(true)}
               >
@@ -142,6 +155,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
                 isOpen={isAiModalOpen}
                 onClose={() => setIsAiModalOpen(false)}
                 title="AI 챗봇 서비스"
+                onSelectChat={handleChatSelect}
               >
                 <AiPage />
               </AiModal>

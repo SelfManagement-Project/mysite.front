@@ -1,0 +1,71 @@
+// styles/components/ai/ChatHistoryList.scss
+.chat-history-container {
+    background-color: #2A2A2A;
+    color: white;
+    padding: 20px;
+    height: 65vh;
+
+    .search-section {
+        margin-bottom: 20px;
+
+        .search-bar {
+            position: relative;
+            margin-bottom: 15px;
+
+            input {
+                width: 100%;
+                padding: 10px 15px;
+                background-color: #3A3A3A;
+                border: none;
+                border-radius: 5px;
+                color: white;
+                font-size: 14px;
+
+                &::placeholder {
+                    color: #888;
+                }
+            }
+
+            .search-icon {
+                position: absolute;
+                right: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #888;
+            }
+        }
+
+        .total-chats {
+            font-size: 14px;
+            color: #CCC;
+
+            .select-text {
+                color: #4A9EFF;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .chat-list {
+        .chat-item {
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 5px;
+
+            &:hover {
+                background-color: #3A3A3A;
+            }
+
+            .chat-title {
+                font-size: 16px;
+                margin-bottom: 5px;
+            }
+
+            .last-message {
+                font-size: 12px;
+                color: #888;
+            }
+        }
+    }
+}

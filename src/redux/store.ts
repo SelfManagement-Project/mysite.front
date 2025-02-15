@@ -1,11 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './reducers/authReducer';
 import urlReducer from './reducers/urlSlice';
+import chatReducer from './reducers/aiReducer';
+
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
-    url: urlReducer
+    url: urlReducer,
+    chat: chatReducer
   },
   middleware: (getDefaultMiddleware) => 
     getDefaultMiddleware().concat([])

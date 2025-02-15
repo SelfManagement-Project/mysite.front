@@ -21,6 +21,7 @@ export interface AiModalProps {
   onClose: () => void;
   title?: string;
   children: React.ReactNode;
+  onSelectChat: (chatId: number) => void;  // 새로운 props 추가
 }
 
 export interface EditProfileModalProps {
