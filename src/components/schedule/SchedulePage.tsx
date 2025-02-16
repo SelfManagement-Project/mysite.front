@@ -1,4 +1,6 @@
 import "@/assets/styles/components/schedule/SchedulePage.scss";
+import Calendar from '@/components/schedule/Calendar';
+import ScheduleProgressBar from '@/components/schedule/ScheduleProgressBar';
 // import { useNavigate } from 'react-router-dom';
 
 
@@ -9,62 +11,23 @@ const SchedulePage = () => {
   // };
 
   return (
-    <div className="calendar-wrapper">
-      <div className="month-header">
-        <h2>
-          일정 관리
-          {'< 1월 >'}
-        </h2>
-
-        <div className="view-options">
-          <label>
-            <input type="radio" name="view" defaultChecked /> 월별 보기
-          </label>
-          <label>
-            <input type="radio" name="view" /> 주별 보기
-          </label>
-          <label>
-            <input type="radio" name="view" /> 일별 보기
-          </label>
-        </div>
+    <div className="schedule-page">
+      <div className="schedule-header">
+        <h2>일정 관리</h2>
       </div>
 
-      <div className="calendar-container">
-        {/* 좌측 달력 */}
-        <div className="calendar-section">
-
-          <table className="calendar">
-            <thead>
-              <tr>
-                <th>일</th>
-                <th>월</th>
-                <th>화</th>
-                <th>수</th>
-                <th>목</th>
-                <th>금</th>
-                <th>토</th>
-              </tr>
-            </thead>
-            <tbody>
-              {[...Array(5)].map((_, weekIndex) => (
-                <tr key={weekIndex}>
-                  {[...Array(7)].map((_, dayIndex) => (
-                    <td key={dayIndex}></td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <button className="save-btn">일정 저장</button>
+      <div className="schedule-content">
+        {/* 왼쪽 캘린더 영역 */}
+        <div className="schedule-calendar">
+          <Calendar />
+          <button className="schedule-save-btn">일정 저장</button>
         </div>
 
-        {/* 우측 일정 */}
-        <div className="schedule-section">
-
-
-          <div className="today-tasks">
+        {/* 오른쪽 일정 영역 */}
+        <div className="schedule-details">
+          <div className="schedule-todo">
             <h3>오늘의 할 일</h3>
-            <table className="task-table">
+            <table className="todo-table">
               <thead>
                 <tr>
                   <th>우선순위</th>
@@ -85,12 +48,12 @@ const SchedulePage = () => {
                 </tr>
               </tbody>
             </table>
-            <button className="save-btn">저장</button>
+            <button className="todo-save-btn">저장</button>
           </div>
 
-          <div className="upcoming-schedule">
+          <div className="schedule-upcoming">
             <h3>다가오는 일정</h3>
-            <table className="schedule-table">
+            <table className="upcoming-table">
               <thead>
                 <tr>
                   <th>시간</th>
@@ -112,14 +75,12 @@ const SchedulePage = () => {
         </div>
       </div>
 
-      <div className="progress-section">
-        <div className="progress-text">주간 할 일 완료율</div>
-        <div className="progress-bar">
-          <div className="progress" style={{ width: '47%' }}></div>
+      <div className="schedule-progress">
+        <div className="progress-title">주간 할 일 완료율</div>
+        <div className="progress-box">
+          <ScheduleProgressBar completedTasks={42} totalTasks={100} />
         </div>
-        <div className="progress-value">47% 달성 (chart.js)</div>
       </div>
-
     </div>
   );
 };

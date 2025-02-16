@@ -1,5 +1,6 @@
 import "@/assets/styles/components/location/LocationServices.scss";
 import { useLocationServices } from '@/hooks/location/useLocationServices';
+import KakaoMap from '@/components/location/KakaoMap';
 
 const LocationServices = () => {
     const { categories, handleCategoryChange } = useLocationServices();
@@ -60,7 +61,7 @@ const LocationServices = () => {
                 <div className="map-container">
                     {/* 카카오맵 컴포넌트가 들어갈 자리 */}
                     <div className="map-placeholder">
-                        카카오맵
+                        <KakaoMap width="100%" height="500px" />
                     </div>
                 </div>
             </div>

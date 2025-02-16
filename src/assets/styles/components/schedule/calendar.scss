@@ -1,0 +1,19 @@
+.fullcalendar-wrapper {
+  .fc {
+    height: 600px;
+    width: 100%;
+  }
+
+  .fc-event {
+    cursor: pointer;
+  }
+
+  .fc-toolbar-title {
+    font-size: 1.2em !important;
+  }
+
+  .fc-button {
+    background-color: #4a90e2 !important;
+    border-color: #4a90e2 !important;
+  }
+}

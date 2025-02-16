@@ -9,6 +9,7 @@
     "paths": {
       "@/*": ["src/*"],
       "@common/*": ["src/common/*"]
-    }
+    },
+    "types": ["@fullcalendar/core"]
   }
 }

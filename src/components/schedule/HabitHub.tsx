@@ -1,6 +1,7 @@
+// src/components/HabitHub.tsx
+import HabitHubBar from '@/components/schedule/HabitHubBar';
 import "@/assets/styles/components/schedule/HabitHub.scss";
 
-// GoalReport.tsx
 const HabitHub = () => {
   const goalData = [
     { id: 1, name: '습관 1', completed: 70, remaining: 30 },
@@ -17,43 +18,9 @@ const HabitHub = () => {
         </div>
       </div>
 
-      <div className="chart-container">
+      <div className="chart-container" style={{ height: '300px' }}>
         <h3>습관</h3>
-        <div className="progress-bars">
-          {goalData.map(goal => (
-            <div key={goal.id} className="progress-item">
-              <span className="label">{goal.name}</span>
-              <div className="progress-bar">
-                <div 
-                  className="completed" 
-                  style={{ width: `${goal.completed}%` }}
-                ></div>
-                <div 
-                  className="remaining" 
-                  style={{ width: `${goal.remaining}%` }}
-                ></div>
-              </div>
-              <div className="percentage">
-                <span>0%</span>
-                <span>20%</span>
-                <span>40%</span>
-                <span>60%</span>
-                <span>80%</span>
-                <span>100%</span>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="legend">
-          <div className="legend-item">
-            <span className="dot completed"></span>
-            <span>진행</span>
-          </div>
-          <div className="legend-item">
-            <span className="dot remaining"></span>
-            <span>미진행</span>
-          </div>
-        </div>
+        <HabitHubBar data={goalData} />
       </div>
 
       <div className="report-buttons">
