@@ -64,6 +64,9 @@ const LoginForm = () => {
                 >
                     {isLoading ? '로그인 중...' : '로그인'}
                 </button>
+                <button type="button" className="google-login-button">구글 로그인</button>
+                <button type="button" className="kakao-login-button">카카오 로그인</button>
+                <button type="button" className="naver-login-button">네이버 로그인</button>
             </form>
 
             <div className="login-footer">
@@ -71,7 +74,7 @@ const LoginForm = () => {
                     className="forgot-password-link"
                     onClick={() => setIsForgotPasswordModalOpen(true)}
                 >
-                    비밀번호 찾기
+                    아이디/비밀번호 찾기
                 </button>
                 <button
                     className="signup-link"
