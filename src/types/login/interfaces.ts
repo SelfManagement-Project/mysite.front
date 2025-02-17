@@ -7,10 +7,12 @@ export interface UseLoginFormProps {
 }
 
 export interface LoginResponse {
-    userId: number;
-    email: string;
-    username: string;
-    token: string;
+    apiData: {
+        userId: number;
+        email: string;
+        username: string;
+        token: string;
+    }
 }
 
 export interface LoginRequest {

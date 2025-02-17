@@ -12,7 +12,8 @@ export const login = createAsyncThunk(
       
       // localStorage에 저장
       localStorage.setItem('user', JSON.stringify(response));
-      localStorage.setItem('token', response.token);
+      // console.log(localStorage.getItem('user'));
+      localStorage.setItem('token', response.apiData.token);
       
       dispatch(loginSuccess(response));
       return response;

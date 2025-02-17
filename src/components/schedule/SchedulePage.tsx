@@ -20,7 +20,7 @@ const SchedulePage = () => {
         {/* 왼쪽 캘린더 영역 */}
         <div className="schedule-calendar">
           <Calendar />
-          <button className="schedule-save-btn">일정 저장</button>
+          {/* <button className="schedule-save-btn">일정 저장</button> */}
         </div>
 
         {/* 오른쪽 일정 영역 */}

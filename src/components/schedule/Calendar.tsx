@@ -1,72 +1,55 @@
-import { useState } from 'react'
+// components/schedule/Calendar.tsx
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import listPlugin from '@fullcalendar/list'
-import { EventApi, DateSelectArg, EventClickArg } from '@fullcalendar/core'
 import koLocale from '@fullcalendar/core/locales/ko'
-
-// 스타일 import
-
+import Toast from '@/components/schedule/Toast'
 import '@/assets/styles/components/schedule/calendar.scss'
-
-interface Event {
-  id: string;
-  title: string;
-  start: string;
-  end: string;
-  allDay?: boolean;
-}
+import { useCalendar } from '@/hooks/schedule/useCalendar';
 
 const Calendar = () => {
-  const [events, setEvents] = useState<Event[]>([
-    {
-      id: '1',
-      title: '미팅',
-      start: '2024-02-16',
-      end: '2024-02-16'
-    },
-    {
-      id: '2',
-      title: '프로젝트 발표',
-      start: '2024-02-20',
-      end: '2024-02-20'
-    },
-    {
-      id: '3',
-      title: '팀 워크샵',
-      start: '2024-02-25',
-      end: '2024-02-26'
-    }
-  ])
+  const {
+    events,
+    isLoading,
+    error,
+    toast,
+    setToast,
+    fetchEvents,
+    handleEventClick,
+    handleDateSelect,
+    handleEventDrop,
+    handleEventDelete
+  } = useCalendar()
 
-  const handleEventClick = (clickInfo: EventClickArg) => {
-    // 이벤트 클릭 처리
-    console.log('Event clicked:', clickInfo.event)
+  if (isLoading) {
+    return (
+      <div className="calendar-loading">
+        <div className="loading-spinner"></div>
+        <p>일정을 불러오는 중입니다...</p>
+      </div>
+    )
   }
 
-  const handleDateSelect = (selectInfo: DateSelectArg) => {
-    const title = prompt('Enter event title:')
-    if (title) {
-      const newEvent: Event = {
-        id: String(events.length + 1),
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay
-      }
-      setEvents([...events, newEvent])
-    }
-  }
-
-  const handleEventDrop = (info: { event: EventApi }) => {
-    // 이벤트 드래그 앤 드롭 처리
-    console.log('Event dropped:', info.event)
+  if (error) {
+    return (
+      <div className="calendar-error">
+        <p>에러가 발생했습니다: {error}</p>
+        <button onClick={fetchEvents}>다시 시도</button>
+      </div>
+    )
   }
 
   return (
     <div className="fullcalendar-wrapper">
+      {toast.show && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast({ ...toast, show: false })}
+        />
+      )}
       <FullCalendar
         plugins={[
           dayGridPlugin,
@@ -97,8 +80,20 @@ const Calendar = () => {
           day: '일',
           list: '목록'
         }}
+        eventTimeFormat={{
+          hour: '2-digit',
+          minute: '2-digit',
+          meridiem: false,
+          hour12: false
+        }}
+        slotLabelFormat={{
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false
+        }}
       />
     </div>
   )
 }
+
 export default Calendar
