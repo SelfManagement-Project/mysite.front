@@ -68,26 +68,37 @@ export const useCalendar = () => {
         try {
             const title = prompt('일정 제목을 입력하세요:')
             if (!title) return
+            
+            const start = prompt('시작 시간을 입력하세요(ex: 12:00):')
+            if (!start) return
+
+            const end = prompt('종료 시간을 입력하세요(ex: 12:00):')
+            if (!end) return
 
             const description = prompt('일정 설명을 입력하세요 (선택사항):')
-
-            const newEvent: Omit<Event, 'id'> = {
+    
+            const newEvent = {
                 title,
-                start: selectInfo.startStr,
-                end: selectInfo.endStr,
-                allDay: selectInfo.allDay,
-                description: description || undefined,
+                date: selectInfo.startStr.split('T')[0],
+                start: selectInfo.startStr.split('T')[1] || '00:00',
+                end: selectInfo.endStr.split('T')[1] || '23:59',
+                type: selectInfo.allDay ? '종일' : '시간',
+                description: description || '',
                 status: 'active'
             }
-
-            const response = await axios.post('http://localhost:9000/api/events', newEvent, {
+    
+            const response = await axios.post('http://localhost:9000/api/schedule/calendar/write', newEvent, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             })
-
+    
             if (response.data.result === 'success') {
-                setEvents(prevEvents => [...prevEvents, response.data.data[0]])
+                // 서버 응답 확인을 위한 콘솔 로그
+                console.log('서버 응답:', response.data);
+                
+                // 새로운 이벤트 데이터 가져오기
+                await fetchEvents();
                 showToast('일정이 생성되었습니다.', 'success')
             } else {
                 throw new Error(response.data.message)

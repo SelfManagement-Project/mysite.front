@@ -1,9 +1,6 @@
 import '@/assets/styles/components/schedule/Toast.scss'
-
-// components/common/Toast.tsx
-import { useEffect } from 'react'
-
-
+import { useCalendar } from '@/hooks/schedule/useCalendar';
+import { useState } from 'react';
 
 interface ToastProps {
   message: string;
@@ -12,17 +9,23 @@ interface ToastProps {
 }
 
 const Toast = ({ message, type, onClose }: ToastProps) => {
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      onClose()
-    }, 3000)
+  const [isClosing, setIsClosing] = useState(false);
+  const {
+    handleEventDelete
+  } = useCalendar()
 
-    return () => clearTimeout(timer)
-  }, [onClose])
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 300); // 애니메이션 시간과 동일하게 설정
+  }
 
   return (
-    <div className={`toast toast-${type}`}>
+    <div className={`toast toast-${type} ${isClosing ? 'closing' : ''}`}>
       {message}
+      <button onClick={handleClose}>닫기</button>
+      <button>삭제</button>
     </div>
   )
 }
