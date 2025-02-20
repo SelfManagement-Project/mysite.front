@@ -58,6 +58,19 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
             />
           </a>
         </div>
+
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="검색어를 입력하세요..."
+            className="search-input"
+          />
+          <button className="search-button">
+            검색
+          </button>
+          <Link to="/total_search">검색링크</Link>
+        </div>
+
         <div className="auth-buttons">
           {isAuthenticated ? (
             <div>
