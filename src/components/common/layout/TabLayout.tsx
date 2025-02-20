@@ -7,6 +7,7 @@ import LocationServices from "@/components/location/LocationServices";
 import HealthPage from "@/components/health/HealthPage";
 import AiPage from "@/components/ai/AiPage";
 import FinancePage from "@/components/finance/FinancePage";
+import Footer from "../Footer";
 
 const TabLayout: React.FC = () => {
   const {
@@ -41,34 +42,37 @@ const TabLayout: React.FC = () => {
   };
 
   return (
-    <div className="tab-container">
-      <div className="tabs">
-        {tabs.map((tab, index) => (
-          <div
-            key={index}
-            className={`tab ${selectedTab === tab.name ? "active" : ""}`}
-            draggable
-            onDragStart={() => handleDragStart(index)}
-            onDragOver={handleDragOver}
-            onDrop={() => handleDrop(index)}
-            onClick={() => handleTabClick(tab.name)}
-          >
-            <span>{tab.name}</span>
-            <button
-              className="close-button"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleTabClose(tab.name);
-              }}
+    <div className="tab-box">
+      <div className="tab-container">
+        <div className="tabs">
+          {tabs.map((tab, index) => (
+            <div
+              key={index}
+              className={`tab ${selectedTab === tab.name ? "active" : ""}`}
+              draggable
+              onDragStart={() => handleDragStart(index)}
+              onDragOver={handleDragOver}
+              onDrop={() => handleDrop(index)}
+              onClick={() => handleTabClick(tab.name)}
             >
-              ✖
-            </button>
-          </div>
-        ))}
+              <span>{tab.name}</span>
+              <button
+                className="close-button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleTabClose(tab.name);
+                }}
+              >
+                ✖
+              </button>
+            </div>
+          ))}
+        </div>
+        <div className="tab-content">
+          {selectedTab && renderTabContent(selectedTab)}
+        </div>
       </div>
-      <div className="tab-content">
-        {selectedTab && renderTabContent(selectedTab)}
-      </div>
+          <Footer />
     </div>
   );
 };

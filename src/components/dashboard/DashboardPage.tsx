@@ -1,7 +1,10 @@
+import Footer from "@/components/common/Footer";
 
 function DashboardPage() {
   return (
-    <div>dashboard</div>    
+    <div>dashboard
+      <Footer/>
+    </div>    
   );
 }
 

@@ -1,12 +1,9 @@
-// src/components/HabitHub.tsx
 import HabitHubBar from '@/components/schedule/HabitHubBar';
 import "@/assets/styles/components/schedule/HabitHub.scss";
+import { useHabit } from '@/hooks/schedule/useHabit';
 
 const HabitHub = () => {
-  const goalData = [
-    { id: 1, name: '습관 1', completed: 70, remaining: 30 },
-    { id: 2, name: '습관 2', completed: 30, remaining: 70 }
-  ];
+  const { habits, isLoading, error } = useHabit();
 
   return (
     <div className="goal-report">
@@ -20,7 +17,7 @@ const HabitHub = () => {
 
       <div className="chart-container" style={{ height: '300px' }}>
         <h3>습관</h3>
-        <HabitHubBar data={goalData} />
+        {isLoading ? <p>로딩 중...</p> : error ? <p>{error}</p> : <HabitHubBar data={habits} />}
       </div>
 
       <div className="report-buttons">

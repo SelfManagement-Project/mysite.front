@@ -11,7 +11,7 @@
 
  &-container {
    @include flex(center, center);  // 중앙 정렬
-   max-width: $desktop;
+  //  max-width: $desktop;
    height: 100px;
    margin: 0 auto;
    padding: 0 $spacing-lg;

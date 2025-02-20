@@ -4,11 +4,12 @@ export const useFloatingMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => !prev);
   };
 
   return {
     isOpen,
-    toggleMenu
+    toggleMenu,
+    setIsOpen, // 👈 바깥에서 직접 닫을 수 있도록 추가
   };
 };

@@ -7,8 +7,9 @@
   border-bottom: 1px solid $secondary-color;
   padding: $spacing-md 0;
   @include flex(space-between, center);
-  max-width: $desktop;
+  // max-width: $desktop;
   margin: 0 auto;
+  
 
   .logo-link {
     width: 100px;
@@ -88,7 +89,7 @@ nav {
   border-bottom: 1px solid $secondary-color;
   padding: $spacing-lg;
   @include flex(space-between, center);
-  max-width: $desktop;
+  // max-width: $desktop;
   margin: 0 auto;
 
 
@@ -116,6 +117,17 @@ nav {
 }
 
 .nav-container {
+
+  display: flex;  /* 플렉스 박스로 변경 */
+  justify-content: center; /* 내부 아이템을 가운대로 정렬 */
+  align-items: center; /* 세로 정렬 (필요할 경우) */
+  width: 100%; /* 네비게이션 바 전체 너비 */
+  margin: 0 auto; /* 중앙 정렬 */
+  background: #ffffff; /* 배경 유지 */
+  padding: 24px; /* 기존 패딩 유지 */
+
+
+
   .dropdown {
     position: relative;
 

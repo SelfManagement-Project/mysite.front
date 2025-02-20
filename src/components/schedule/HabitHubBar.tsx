@@ -22,7 +22,7 @@ ChartJS.register(
 );
 
 interface HabitData {
-    id: number;
+    habitId: number;
     name: string;
     completed: number;
     remaining: number;
