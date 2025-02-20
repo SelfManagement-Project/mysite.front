@@ -1,14 +1,20 @@
 import "@/assets/styles/components/schedule/SchedulePage.scss";
 import Calendar from '@/components/schedule/Calendar';
 import ScheduleProgressBar from '@/components/schedule/ScheduleProgressBar';
-// import { useNavigate } from 'react-router-dom';
-
+import { useSchedule } from '@/hooks/schedule/useSchedule';
 
 const SchedulePage = () => {
-  // const navigate = useNavigate();
-  // const handleGoalTracking = () => {
-  //   navigate('/schedule/habithub');
-  // };
+  const {
+    todos,
+    upcomingEvents,
+    weeklyProgress,
+    isLoading,
+    error,
+    handleTodoCheck
+  } = useSchedule();
+
+  if (isLoading) return <div>로딩 중...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <div className="schedule-page">
@@ -36,19 +42,22 @@ const SchedulePage = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td><input type="checkbox" /></td>
-                  <td>운동하기</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td><input type="checkbox" /></td>
-                  <td>공부하기</td>
-                </tr>
+                {todos?.map(todo => (
+                  <tr key={todo.taskId}>
+                    <td>{todo.priority}</td>
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={todo.isCompleted}
+                        onChange={(e) => handleTodoCheck(todo.taskId, e.target.checked)}
+                      />
+                    </td>
+                    <td>{todo.content}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
-            <button className="todo-save-btn">저장</button>
+            {/* <button className="todo-save-btn">저장</button> */}
           </div>
 
           <div className="schedule-upcoming">
@@ -61,14 +70,12 @@ const SchedulePage = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>15:00</td>
-                  <td>팀 미팅</td>
-                </tr>
-                <tr>
-                  <td>18:00</td>
-                  <td>프로젝트 리뷰</td>
-                </tr>
+                {upcomingEvents?.map(event => (
+                  <tr key={event.id}> {/* unique key 추가 */}
+                    <td>{event.time}</td>
+                    <td>{event.title}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -78,9 +85,15 @@ const SchedulePage = () => {
       <div className="schedule-progress">
         <div className="progress-title">주간 할 일 완료율</div>
         <div className="progress-box">
-          <ScheduleProgressBar completedTasks={42} totalTasks={100} />
+          <ScheduleProgressBar
+            completedTasks={weeklyProgress.completedTasks}
+            totalTasks={weeklyProgress.totalTasks}
+          // completedTasks={42}
+          // totalTasks={100}
+          />
         </div>
       </div>
+
     </div>
   );
 };

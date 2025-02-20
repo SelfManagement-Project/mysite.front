@@ -19,8 +19,7 @@ const Calendar = () => {
     fetchEvents,
     handleEventClick,
     handleDateSelect,
-    handleEventDrop,
-    handleEventDelete
+    handleEventDrop
   } = useCalendar()
 
   if (isLoading) {
@@ -48,6 +47,7 @@ const Calendar = () => {
           message={toast.message}
           type={toast.type}
           onClose={() => setToast({ ...toast, show: false })}
+          eventId={toast.eventId}  // eventId 전달 추가
         />
       )}
       <FullCalendar

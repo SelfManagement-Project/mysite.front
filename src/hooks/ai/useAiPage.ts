@@ -1,6 +1,6 @@
 // hooks/ai/useAiPage.ts
 import { useState, useEffect, useRef } from 'react';
-import { fetchChatHistory, sendMessage } from '@/redux/actions/aiActions';
+import { fetchChatHistory, sendMessage } from '@/redux/actions/ai/aiActions';
 import { useAppDispatch } from '@/redux/hooks';
 import { ChatMessage } from '@/types/ai/interfaces';
 

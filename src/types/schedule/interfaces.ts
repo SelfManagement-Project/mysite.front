@@ -20,6 +20,7 @@ export interface ToastState {
     show: boolean;
     message: string;
     type: 'success' | 'error' | 'info';
+    eventId?: string;
 }
 
 
@@ -36,4 +37,22 @@ export interface ScheduleEvent {
     isCompleted: boolean;
     createdAt: string;
     updatedAt: string;
+}
+
+export interface Todo {
+    taskId: number;
+    priority: number;
+    content: string;
+    isCompleted: boolean;
+}
+
+export interface UpcomingEvent {
+    id: number;
+    time: string;
+    title: string;
+}
+
+export interface WeeklyProgress {
+    completedTasks: number;
+    totalTasks: number;
 }

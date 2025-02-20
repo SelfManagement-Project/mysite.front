@@ -13,8 +13,6 @@ const SignUpForm = () => {
   } = useSignUpForm();
 
 
-
-
   return (
     <form className="signup-form" onSubmit={handleSubmit}>
       {error && <div className="error-message">{error}</div>}

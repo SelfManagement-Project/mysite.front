@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { authService } from '@/services/authService';
-import { loginRequest, loginSuccess, loginFailure, signUpRequest, signUpSuccess, signUpFailure } from '@/redux/reducers/authReducer';
+import { authService } from '@/services/login/authService';
+import { loginRequest, loginSuccess, loginFailure, signUpRequest, signUpSuccess, signUpFailure } from '@/redux/reducers/login/authReducer';
 
 // login
 export const login = createAsyncThunk(

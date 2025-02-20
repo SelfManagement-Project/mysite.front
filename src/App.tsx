@@ -7,7 +7,7 @@ import TabProvider from "@/hooks/common/useTabContext";
 import { Provider } from 'react-redux';
 import { store } from '@/redux/store';
 import { useAppDispatch } from '@/redux/hooks';
-import { loginSuccess } from '@/redux/reducers/authReducer';
+import { loginSuccess } from '@/redux/reducers/login/authReducer';
 
 const App = () => {
   const dispatch = useAppDispatch();

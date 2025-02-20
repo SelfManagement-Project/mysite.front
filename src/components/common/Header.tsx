@@ -10,7 +10,7 @@ import SignUpForm from "@/components/login/SignUpForm";
 import AiPage from "@/components/ai/AiPage";
 import logoImage from '@/assets/images/OneFlowLogo.webp';
 import { useAppDispatch } from '@/redux/hooks';
-import { logout } from '@/redux/reducers/authReducer';
+import { logout } from '@/redux/reducers/login/authReducer';
 import EditProfileForm from "@/components/login/EditProfileForm";
 import { useAiPage } from '@/hooks/ai/useAiPage';
 

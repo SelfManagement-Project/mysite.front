@@ -1,5 +1,5 @@
 // services/chatService.ts
-import axios from 'axios';
+import axios from '@/services/api/instance';
 import { ChatHistoryResponse, SendMessageRequest } from '@/types/ai/interfaces';
 import { store } from '@/redux/store';
 

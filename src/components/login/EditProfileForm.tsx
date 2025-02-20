@@ -6,7 +6,7 @@ const EditProfileForm = () => {
 
   return (
     <form className="signup-form">
-      <div className="error-message">error</div>
+      {/* {error && <div className="error-message">{error}</div>} */}
       <div className="input-group">
         <label>이메일</label>
         <input

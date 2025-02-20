@@ -1,6 +1,6 @@
 // redux/actions/chatActions.ts
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { chatService } from '@/services/aiServices';
+import { chatService } from '@/services/ai/aiServices';
 import { 
     fetchHistoryRequest, 
     fetchHistorySuccess, 
@@ -8,7 +8,7 @@ import {
     sendMessageRequest,
     sendMessageSuccess,
     sendMessageFailure 
-} from '@/redux/reducers/aiReducer';
+} from '@/redux/reducers/ai/aiReducer';
 
 export const fetchChatHistory = createAsyncThunk(
     'chat/fetchHistory',

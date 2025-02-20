@@ -1,7 +1,7 @@
 import React from "react";
 import { useFloatingMenu } from '@/hooks/common/useFloating';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { logout } from '@/redux/reducers/authReducer';
+import { logout } from '@/redux/reducers/login/authReducer';
 import { Link, useNavigate } from 'react-router-dom';
 import { useHeader } from '@/hooks/common/useHeader';
 import EditProfileForm from "@/components/login/EditProfileForm";

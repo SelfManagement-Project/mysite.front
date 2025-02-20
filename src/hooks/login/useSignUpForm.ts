@@ -1,7 +1,7 @@
 // hooks/login/useSignUpForm.ts
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { signUp } from '@/redux/actions/authActions';
+import { signUp } from '@/redux/actions/login/authActions';
 // import { useNavigate } from 'react-router-dom';
 
 
