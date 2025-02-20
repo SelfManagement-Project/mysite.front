@@ -47,8 +47,9 @@ export interface Todo {
 }
 
 export interface UpcomingEvent {
-    id: number;
-    time: string;
+    scheduleId: number;
+    date: string;
+    start: string;
     title: string;
 }
 

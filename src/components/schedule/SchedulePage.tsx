@@ -2,6 +2,9 @@ import "@/assets/styles/components/schedule/SchedulePage.scss";
 import Calendar from '@/components/schedule/Calendar';
 import ScheduleProgressBar from '@/components/schedule/ScheduleProgressBar';
 import { useSchedule } from '@/hooks/schedule/useSchedule';
+import { groupByDate } from "@/utils/groupByDate.ts"; // 유틸 함수 가져오기
+import { UpcomingEvent } from "@/types/schedule/interfaces"; // 타입 가져오기
+import React from "react";
 
 const SchedulePage = () => {
   const {
@@ -26,7 +29,6 @@ const SchedulePage = () => {
         {/* 왼쪽 캘린더 영역 */}
         <div className="schedule-calendar">
           <Calendar />
-          {/* <button className="schedule-save-btn">일정 저장</button> */}
         </div>
 
         {/* 오른쪽 일정 영역 */}
@@ -57,7 +59,6 @@ const SchedulePage = () => {
                 ))}
               </tbody>
             </table>
-            {/* <button className="todo-save-btn">저장</button> */}
           </div>
 
           <div className="schedule-upcoming">
@@ -70,15 +71,31 @@ const SchedulePage = () => {
                 </tr>
               </thead>
               <tbody>
-                {upcomingEvents?.map(event => (
-                  <tr key={event.id}> {/* unique key 추가 */}
-                    <td>{event.time}</td>
-                    <td>{event.title}</td>
+                {upcomingEvents && upcomingEvents.length > 0 ? (
+                  Object.entries(groupByDate(upcomingEvents)).map(([date, events]) => (
+                    <React.Fragment key={date}>
+                      {/* 날짜별 구분 헤더 */}
+                      <tr className="date-header">
+                        <td colSpan={2}>{date}</td>
+                      </tr>
+                      {/* 일정 목록 */}
+                      {events.map((event: UpcomingEvent) => (
+                        <tr key={event.scheduleId}>
+                          <td>{event.start}</td>
+                          <td>{event.title}</td>
+                        </tr>
+                      ))}
+                    </React.Fragment>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={2} style={{ textAlign: "center" }}>다가오는 일정이 없습니다.</td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>
+
         </div>
       </div>
 
@@ -88,12 +105,9 @@ const SchedulePage = () => {
           <ScheduleProgressBar
             completedTasks={weeklyProgress.completedTasks}
             totalTasks={weeklyProgress.totalTasks}
-          // completedTasks={42}
-          // totalTasks={100}
           />
         </div>
       </div>
-
     </div>
   );
 };

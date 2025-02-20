@@ -22,10 +22,10 @@ export const useSchedule = () => {
                 scheduleService.fetchUpcomingEvents(token!),
                 scheduleService.fetchWeeklyProgress(token!)
             ]);
-            console.log(todosData.apiData);
+            console.log(progressData.apiData);
             setTodos(todosData.apiData || []);
-            setUpcomingEvents(eventsData.data || []);
-            setWeeklyProgress(progressData.data || { completedTasks: 0, totalTasks: 0 });
+            setUpcomingEvents(eventsData.apiData || []);
+            setWeeklyProgress(progressData.apiData || { completedTasks: 0, totalTasks: 0 });
         } catch (error) {
             setError('데이터를 불러오는데 실패했습니다.');
             setTodos([]); // 빈 배열로 설정
@@ -38,7 +38,7 @@ export const useSchedule = () => {
     
 
     const handleTodoCheck = async (todoId: number, isCompleted: boolean) => {
-        console.log(isCompleted);
+        // console.log(isCompleted);
         try {
             await scheduleService.updateTodo(token!, todoId, isCompleted);
             setTodos(prevTodos => 
@@ -46,8 +46,8 @@ export const useSchedule = () => {
                     todo.taskId === todoId ? { ...todo, isCompleted } : todo
                 )
             );
-            // const progressData = await scheduleService.fetchWeeklyProgress(token!);
-            // setWeeklyProgress(progressData.data);
+            const progressData = await scheduleService.fetchWeeklyProgress(token!);
+            setWeeklyProgress(progressData.apiData);
         } catch (error) {
             setError('할 일 업데이트에 실패했습니다.');
         }
