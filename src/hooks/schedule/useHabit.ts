@@ -1,12 +1,6 @@
 import { useState, useEffect } from 'react';
 import { habitService } from '@/services/schedule/habitService';
-
-export interface Habit {
-    habitId: number;
-    name: string;
-    completed: number;  // 진행률 (%)
-    remaining: number;   // 미진행률 (%)
-}
+import { Habit } from '@/types/schedule/interfaces';
 
 export const useHabit = () => {
     const token = localStorage.getItem('token');

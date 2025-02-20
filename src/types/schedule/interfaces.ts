@@ -57,3 +57,10 @@ export interface WeeklyProgress {
     completedTasks: number;
     totalTasks: number;
 }
+
+export interface Habit {
+    habitId: number;
+    name: string;
+    completed: number;  // 진행률 (%)
+    remaining: number;   // 미진행률 (%)
+}
