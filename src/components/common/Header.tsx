@@ -13,9 +13,16 @@ import { useAppDispatch } from '@/redux/hooks';
 import { logout } from '@/redux/reducers/login/authReducer';
 import EditProfileForm from "@/components/login/EditProfileForm";
 import { useAiPage } from '@/hooks/ai/useAiPage';
+import { useSearch } from "@/hooks/common/useSearch";
 
 const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
-
+  const navigate = useNavigate();
+  const { query, setQuery, handleSearch } = useSearch();
+  const handleSearchSubmit = async () => {
+    await handleSearch();
+    navigate('/total_search'); // 검색 결과 페이지로 이동
+  };
+  
   const {
     loadChatHistory  // useAiPage에서 새로 추가할 함수
   } = useAiPage();
@@ -32,7 +39,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
   const userName = user?.apiData?.username || '사용자';  // 기본값 설정
 
   const { isSignUpModalOpen, setIsSignUpModalOpen, handleLogoClick, showScheduleDropdown, setShowScheduleDropdown, setIsAiModalOpen, isAiModalOpen, isEditProfileModalOpen, setIsEditProfileModalOpen } = useHeader();
-  const navigate = useNavigate();
+  
 
   const { isAuthenticated } = useAppSelector((state) => state.auth);
 
@@ -61,6 +68,17 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
 
         <div className="search-container">
           <input
+            className="search-input"
+            type="text"
+            placeholder="검색어 입력..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          <button className="search-button" onClick={handleSearchSubmit}>검색</button>
+        </div>
+
+        {/* <div className="search-container">
+          <input
             type="text"
             placeholder="검색어를 입력하세요..."
             className="search-input"
@@ -68,8 +86,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
           <button className="search-button">
             검색
           </button>
-          <Link to="/total_search">검색링크</Link>
-        </div>
+        </div> */}
 
         <div className="auth-buttons">
           {isAuthenticated ? (

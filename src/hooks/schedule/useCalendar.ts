@@ -87,6 +87,7 @@ export const useCalendar = () => {
             if (response.result === 'success') {
                 await fetchEvents();
                 showToast('일정이 생성되었습니다.', 'success')
+                
             } else {
                 throw new Error(response.message)
             }

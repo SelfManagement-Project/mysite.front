@@ -1,34 +1,56 @@
 // FinancePage.tsx
+import { useEffect, useState } from 'react';
+import axios from '@/services/api/instance';
 import "@/assets/styles/components/finance/FinancePage.scss";
 import IncomeExpenseChart from '@/components/finance/IncomeExpenseChart';
 import CategoryChart from '@/components/finance/CategoryChart';
 import ProgressChart from '@/components/finance/ProgressChart';
-
-interface TransactionData {
-  date: string;
-  type: string;
-  category: string;
-  amount: string;
-  description: string;
-}
+import { Transaction, CategoryBudget, BudgetStatus, SavingsStatus } from '@/types/finance/interfaces';
 
 const FinancePage = () => {
-  const transactions: TransactionData[] = [
-    {
-      date: '02/01',
-      type: '지출',
-      category: '식비',
-      amount: '-30,000원',
-      description: '점심식사'
-    },
-    {
-      date: '02/01',
-      type: '수입',
-      category: '급여',
-      amount: '+3,000,000원',
-      description: '월급'
-    }
-  ];
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [categoryBudgets, setCategoryBudgets] = useState<CategoryBudget[]>([]);
+  const [budgetStatus, setBudgetStatus] = useState<BudgetStatus>();
+  const [savingsStatus, setSavingsStatus] = useState<SavingsStatus>();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const [transactionsRes, categoryRes, budgetRes, savingsRes] = await Promise.all([
+          axios.get('/api/finance/transactions', {
+            headers: { Authorization: `Bearer ${token}` }
+          }),
+          axios.get('/api/finance/category-budgets', {
+            headers: { Authorization: `Bearer ${token}` }
+          }),
+          axios.get('/api/finance/budget-status', {
+            headers: { Authorization: `Bearer ${token}` }
+          }),
+          axios.get('/api/finance/savings-status', {
+            headers: { Authorization: `Bearer ${token}` }
+          })
+        ]);
+
+        setTransactions(transactionsRes.data || []);
+        // 배열인지 확인하고 설정
+        setCategoryBudgets(Array.isArray(categoryRes.data) ? categoryRes.data : []);
+        setBudgetStatus(budgetRes.data);
+        setSavingsStatus(savingsRes.data);
+      } catch (error) {
+        console.error('데이터 로딩 실패:', error);
+        // 에러 발생시 빈 배열로 설정
+        setCategoryBudgets([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) return <div>로딩 중...</div>;
 
   return (
     <div className="finance-container">
@@ -44,24 +66,26 @@ const FinancePage = () => {
         <div className="box income-expense">
           <h3>수입/지출 현황</h3>
           <div className="chart-area">
-            <IncomeExpenseChart />
+            <IncomeExpenseChart transactions={transactions} />
           </div>
           <ul className="stats">
-            <li>수입: 3,000,000원</li>
-            <li>지출: 2,000,000원</li>
-            <li>잔액: 1,000,000원</li>
+            <li>수입: {budgetStatus?.total_income?.toLocaleString()}원</li>
+            <li>지출: {budgetStatus?.total_expense?.toLocaleString()}원</li>
+            <li>잔액: {budgetStatus?.remaining?.toLocaleString()}원</li>
           </ul>
         </div>
 
         <div className="box category">
           <h3>카테고리별 지출 분석</h3>
           <div className="chart-area">
-            <CategoryChart />
+            <CategoryChart categoryBudgets={categoryBudgets} />
           </div>
           <ul className="stats">
-            <li>식비: 600,000원 (30%)</li>
-            <li>교통비: 400,000원 (20%)</li>
-            <li>생활비: 1,000,000원 (50%)</li>
+            {Array.isArray(categoryBudgets) && categoryBudgets.map((budget, index) => (
+              <li key={index}>
+                {budget.category_name}: {budget.amount.toLocaleString()}원 ({budget.percentage}%)
+              </li>
+            ))}
           </ul>
         </div>
       </div>
@@ -70,40 +94,43 @@ const FinancePage = () => {
         <div className="box prediction">
           <h3>예산 현황</h3>
           <div>
-            <span>총 예산: 2,500,000원</span>
+            <span>총 예산: {budgetStatus?.total_budget.toLocaleString()}원</span>
           </div>
           <div className="stat-row">
             <div className="progress-container">
               <ProgressChart
-                percentage={87}
+                percentage={budgetStatus?.usage_percentage || 0}
                 label="예산 사용률"
                 color="#4CAF50"
               />
             </div>
           </div>
-          <span>87%</span>
+          <span>{budgetStatus?.usage_percentage}%</span>
           <div className="stat-row">
-            <span>남은 예산: 500,000원</span>
+            <span>남은 예산: {budgetStatus?.remaining.toLocaleString()}원</span>
           </div>
         </div>
 
         <div className="box budget">
-          <h3>수입/지출 현황</h3>
+          <h3>저축 현황</h3>
           <div>
-            <span>목표: 연말저금 1,000만원</span>
+            <span>목표: {savingsStatus?.target_amount.toLocaleString()}원</span>
           </div>
           <div className="stat-row">
             <div className="progress-container">
               <ProgressChart
-                percentage={91}
+                percentage={savingsStatus?.achievement_rate || 0}
                 label="저축 달성률"
                 color="#2196F3"
               />
             </div>
           </div>
-          <span>91%</span>
+          <span>{savingsStatus?.achievement_rate}%</span>
           <div className="stat-row">
-            <span>현재: 5,000,000원 (50%)</span>
+            <span>
+              현재: {savingsStatus?.current_amount.toLocaleString()}원
+              ({((savingsStatus?.current_amount || 0) / (savingsStatus?.target_amount || 1) * 100).toFixed(1)}%)
+            </span>
           </div>
         </div>
       </div>
@@ -126,10 +153,13 @@ const FinancePage = () => {
           <tbody>
             {transactions.map((transaction, index) => (
               <tr key={index}>
-                <td>{transaction.date}</td>
-                <td>{transaction.type}</td>
+                <td>{new Date(transaction.date).toLocaleDateString()}</td>
+                <td>{transaction.is_income ? '수입' : '지출'}</td>
                 <td>{transaction.category}</td>
-                <td>{transaction.amount}</td>
+                <td className={transaction.is_income ? 'income' : 'expense'}>
+                  {transaction.is_income ? '+' : '-'}
+                  {transaction.amount.toLocaleString()}원
+                </td>
                 <td>{transaction.description}</td>
               </tr>
             ))}
@@ -138,11 +168,11 @@ const FinancePage = () => {
       </div>
 
       <div className="action-buttons">
-        <button>거래 추가</button>
-        <button>예산 설정</button>
-        <button>저축 목표 설정</button>
-        <button>리포트 보기</button>
-        <button>지출분석</button>
+        <button onClick={() => {/* 거래 추가 모달 열기 */ }}>거래 추가</button>
+        <button onClick={() => {/* 예산 설정 모달 열기 */ }}>예산 설정</button>
+        <button onClick={() => {/* 저축 목표 설정 모달 열기 */ }}>저축 목표 설정</button>
+        <button onClick={() => {/* 리포트 페이지로 이동 */ }}>리포트 보기</button>
+        <button onClick={() => {/* 지출 분석 페이지로 이동 */ }}>지출분석</button>
       </div>
     </div>
   );

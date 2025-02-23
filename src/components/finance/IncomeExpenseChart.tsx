@@ -12,6 +12,7 @@ import {
   ChartOptions,
   ChartData
 } from 'chart.js';
+import { Transaction } from '@/types/finance/interfaces';
 
 ChartJS.register(
   CategoryScale,
@@ -23,25 +24,12 @@ ChartJS.register(
   Legend
 );
 
-const IncomeExpenseChart = () => {
-  const data: ChartData<'line'> = {
-    labels: ['1월', '2월', '3월', '4월', '5월', '6월'],
-    datasets: [
-      {
-        label: '수입',
-        data: [3000000, 2800000, 3200000, 3000000, 3100000, 3000000],
-        borderColor: '#4CAF50',
-        tension: 0.1,
-      },
-      {
-        label: '지출',
-        data: [2000000, 2100000, 1900000, 2200000, 2000000, 2000000],
-        borderColor: '#F44336',
-        tension: 0.1,
-      }
-    ]
-  };
+// components/charts/IncomeExpenseChart.tsx
+interface IncomeExpenseChartProps {
+  transactions: Transaction[];
+}
 
+const IncomeExpenseChart = ({ transactions }: IncomeExpenseChartProps) => {
   const options: ChartOptions<'line'> = {
     responsive: true,
     plugins: {
@@ -54,8 +42,38 @@ const IncomeExpenseChart = () => {
       }
     }
   };
+  const processData = () => {
+    const monthlyData = Array(12).fill(0).map(() => ({ income: 0, expense: 0 }));
 
-  return <Line data={data} options={options} />;
+    transactions.forEach(transaction => {
+      const month = new Date(transaction.date).getMonth();
+      if (transaction.is_income) {
+        monthlyData[month].income += transaction.amount;
+      } else {
+        monthlyData[month].expense += transaction.amount;
+      }
+    });
+
+    return {
+      labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+      datasets: [
+        {
+          label: '수입',
+          data: monthlyData.map(d => d.income),
+          borderColor: '#4CAF50',
+          tension: 0.1,
+        },
+        {
+          label: '지출',
+          data: monthlyData.map(d => d.expense),
+          borderColor: '#F44336',
+          tension: 0.1,
+        }
+      ]
+    };
+  };
+
+  return <Line data={processData()} options={options} />;
 };
 
 export default IncomeExpenseChart;

@@ -8,25 +8,15 @@ import {
   ChartOptions,
   ChartData
 } from 'chart.js';
+import { CategoryBudget } from '@/types/finance/interfaces';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const CategoryChart = () => {
-  const data: ChartData<'doughnut'> = {
-    labels: ['식비', '교통비', '생활비'],
-    datasets: [
-      {
-        data: [600000, 400000, 1000000],
-        backgroundColor: [
-          '#FF6384',
-          '#36A2EB',
-          '#FFCE56'
-        ],
-        hoverOffset: 4
-      }
-    ]
-  };
+interface CategoryChartProps {
+  categoryBudgets: CategoryBudget[];
+}
 
+const CategoryChart = ({ categoryBudgets }: CategoryChartProps) => {
   const options: ChartOptions<'doughnut'> = {
     responsive: true,
     plugins: {
@@ -39,8 +29,21 @@ const CategoryChart = () => {
       }
     }
   };
+  const data: ChartData<'doughnut'> = {
+    labels: Array.isArray(categoryBudgets) ? categoryBudgets.map(budget => budget.category_name) : [],
+    datasets: [
+      {
+        data: Array.isArray(categoryBudgets) ? categoryBudgets.map(budget => budget.amount) : [],
+        backgroundColor: [
+          '#FF6384',
+          '#36A2EB',
+          '#FFCE56',
+        ],
+        hoverOffset: 4
+      }
+    ]
+  };
 
   return <Doughnut data={data} options={options} />;
 };
-
 export default CategoryChart;
