@@ -1,7 +1,5 @@
-// LocationService.scss
 .location-service {
   padding: 20px;
-  // max-width: 1200px;
   margin: 0 auto;
 
   .header {
@@ -14,16 +12,39 @@
       display: flex;
       gap: 10px;
 
+      .search-bar {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        input {
+          padding: 5px 10px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          width: 200px;
+          height: 35px;
+          font-size: 14px;
+
+          &:focus {
+            outline: none;
+            border-color: #4a90e2;
+          }
+        }
+      }
+
       button {
         padding: 5px 15px;
         background-color: #4a90e2;
         color: white;
         border: none;
+        border-radius: 4px;
         cursor: pointer;
         margin: 10px 5px 0px 5px;
+        height: 35px;
+        transition: background-color 0.2s ease;
 
         &:hover {
-          background-color: #4a90e2;
+          background-color: #357abd;
         }
       }
     }
@@ -44,20 +65,40 @@
         padding: 15px;
         border: 1px solid #ddd;
         border-radius: 4px;
+        background-color: #fff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
         h3 {
           margin-bottom: 10px;
+          color: #333;
+          font-size: 16px;
         }
 
         label {
           display: block;
           margin-bottom: 8px;
           cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          input[type="checkbox"] {
+            cursor: pointer;
+          }
         }
 
         ul {
           list-style: none;
           padding-left: 0;
+
+          li {
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+            
+            &:last-child {
+              border-bottom: none;
+            }
+          }
         }
 
         button {
@@ -65,11 +106,13 @@
           background-color: #4a90e2;
           color: white;
           border: none;
+          border-radius: 4px;
           cursor: pointer;
           margin: 10px 5px 0px 5px;
+          transition: background-color 0.2s ease;
 
           &:hover {
-            background-color: #4a90e2;
+            background-color: #357abd;
           }
         }
       }
@@ -79,14 +122,14 @@
       flex: 1;
       border: 1px solid #ddd;
       border-radius: 4px;
-      overflow: hidden; // 지도가 컨테이너를 벗어나지 않도록
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     
       .map-placeholder {
         width: 100%;
         height: 500px;
-        background: #fff; // 배경색 추가
+        background: #fff;
         
-        // 지도 div에 대한 스타일
         & > div {
           width: 100%;
           height: 100%;
@@ -96,6 +139,36 @@
   }
 
   .bottom-section {
+    h3 {
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .location-details {
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      background-color: #fff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+      .selected-location-info {
+        h4 {
+          color: #4a90e2;
+          margin-bottom: 10px;
+          font-size: 16px;
+        }
+
+        p {
+          margin: 8px 0;
+          color: #666;
+          font-size: 14px;
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
+
     .detail-buttons {
       display: flex;
       gap: 10px;
@@ -107,11 +180,13 @@
         background-color: #4a90e2;
         color: white;
         border: none;
+        border-radius: 4px;
         cursor: pointer;
         margin: 10px 5px 0px 5px;
+        transition: background-color 0.2s ease;
 
         &:hover {
-          background-color: #4a90e2;
+          background-color: #357abd;
         }
       }
     }
@@ -120,6 +195,8 @@
       border: 1px solid #ddd;
       padding: 15px;
       border-radius: 4px;
+      background-color: #fff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
       ul {
         list-style: none;
@@ -127,6 +204,20 @@
 
         li {
           margin-bottom: 8px;
+          padding: 8px;
+          border-bottom: 1px solid #eee;
+          color: #666;
+          font-size: 14px;
+          
+          &:last-child {
+            border-bottom: none;
+          }
+
+          &:before {
+            content: "•";
+            color: #4a90e2;
+            margin-right: 8px;
+          }
         }
       }
     }

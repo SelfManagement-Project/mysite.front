@@ -9,8 +9,7 @@ import {
   Title,
   Tooltip,
   Legend,
-  ChartOptions,
-  ChartData
+  ChartOptions
 } from 'chart.js';
 import { Transaction } from '@/types/finance/interfaces';
 
@@ -44,16 +43,18 @@ const IncomeExpenseChart = ({ transactions }: IncomeExpenseChartProps) => {
   };
   const processData = () => {
     const monthlyData = Array(12).fill(0).map(() => ({ income: 0, expense: 0 }));
-
-    transactions.forEach(transaction => {
-      const month = new Date(transaction.date).getMonth();
-      if (transaction.is_income) {
-        monthlyData[month].income += transaction.amount;
-      } else {
-        monthlyData[month].expense += transaction.amount;
-      }
-    });
-
+  
+    if (Array.isArray(transactions)) {
+      transactions.forEach(transaction => {
+        const month = new Date(transaction.date).getMonth();
+        if (transaction.is_income) {
+          monthlyData[month].income += transaction.amount;
+        } else {
+          monthlyData[month].expense += transaction.amount;
+        }
+      });
+    }
+  
     return {
       labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
       datasets: [
