@@ -13,6 +13,8 @@ interface MapMarker {
     };
     content: string;
     category: string;
+    address?: string;
+    phone?: string;
 }
 
 interface Place {
@@ -33,7 +35,7 @@ interface KakaoMapProps {
     };
     markers?: MapMarker[];
     onMarkerClick?: (marker: MapMarker) => void;
-    onSearchComplete?: (places: Place[]) => void;  // Place[] 타입으로 변경
+    onSearchComplete?: (places: Place[]) => void;
     onCurrentLocation?: (position: { lat: number; lng: number }) => void;
 }
 
@@ -49,8 +51,8 @@ const KakaoMap = forwardRef(({
     const mapRef = useRef<HTMLDivElement>(null);
     const [map, setMap] = useState<any>(null);
     const [currentOverlay, setCurrentOverlay] = useState<any>(null);
+    const [clickMarkers, setClickMarkers] = useState<any[]>([]);
 
-    // 지도 초기화
     useEffect(() => {
         const loadKakaoMap = () => {
             window.kakao.maps.load(() => {
@@ -63,6 +65,57 @@ const KakaoMap = forwardRef(({
                     const mapInstance = new window.kakao.maps.Map(mapRef.current, options);
                     setMap(mapInstance);
 
+                    // 지도 클릭 이벤트 리스너 추가
+                    // KakaoMap 컴포넌트 내부
+window.kakao.maps.event.addListener(mapInstance, 'click', (mouseEvent: any) => {
+    const latlng = mouseEvent.latLng;
+    
+    // 새로운 마커 데이터 생성
+    const newMarkerData: MapMarker = {
+        position: {
+            lat: latlng.getLat(),
+            lng: latlng.getLng()
+        },
+        content: "새로 추가된 위치",
+        category: "custom",
+        address: "클릭한 위치" // 필요한 경우 주소 검색 API로 실제 주소를 가져올 수 있습니다
+    };
+    
+    // 새로운 마커 생성
+    const marker = new window.kakao.maps.Marker({
+        position: latlng,
+        map: mapInstance
+    });
+
+    // 인포윈도우 생성
+    const infoWindow = new window.kakao.maps.InfoWindow({
+        content: `
+            <div style="padding:5px;width:150px;text-align:center;">
+                클릭한 위치<br>
+                위도: ${latlng.getLat().toFixed(4)}<br>
+                경도: ${latlng.getLng().toFixed(4)}
+            </div>
+        `
+    });
+
+    // 마커 클릭 이벤트
+    window.kakao.maps.event.addListener(marker, 'click', () => {
+        if (currentOverlay) {
+            currentOverlay.close();
+        }
+        infoWindow.open(mapInstance, marker);
+        setCurrentOverlay(infoWindow);
+
+        // 상위 컴포넌트의 onMarkerClick 호출
+        if (onMarkerClick) {
+            onMarkerClick(newMarkerData);
+        }
+    });
+
+    // 클릭 마커 배열에 추가
+    setClickMarkers(prev => [...prev, { marker, infoWindow }]);
+});
+
                     // 기본 컨트롤 추가
                     const zoomControl = new window.kakao.maps.ZoomControl();
                     const mapTypeControl = new window.kakao.maps.MapTypeControl();
@@ -74,6 +127,13 @@ const KakaoMap = forwardRef(({
         };
 
         loadKakaoMap();
+
+        return () => {
+            clickMarkers.forEach(({ marker, infoWindow }) => {
+                marker.setMap(null);
+                infoWindow.close();
+            });
+        };
     }, [initialCenter]);
 
     // 마커 관리
@@ -94,7 +154,6 @@ const KakaoMap = forwardRef(({
                 map: map
             });
 
-            // 인포윈도우 생성
             const infoWindow = new window.kakao.maps.InfoWindow({
                 content: `
                     <div style="padding:5px;width:150px;text-align:center;">
@@ -103,7 +162,6 @@ const KakaoMap = forwardRef(({
                 `
             });
 
-            // 마커 클릭 이벤트
             window.kakao.maps.event.addListener(marker, 'click', () => {
                 if (currentOverlay) {
                     currentOverlay.close();
@@ -120,18 +178,15 @@ const KakaoMap = forwardRef(({
             infoWindows.push(infoWindow);
         });
 
-        // 모든 마커가 보이도록 지도 범위 조정
         if (markers.length > 0) {
             map.setBounds(bounds);
         }
 
-        // 클린업
         return () => {
             infoWindows.forEach(infoWindow => infoWindow.close());
         };
     }, [map, markers, onMarkerClick]);
 
-    // 현재 위치 찾기
     const findCurrentLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -142,11 +197,17 @@ const KakaoMap = forwardRef(({
                     );
                     map.setCenter(currentPos);
 
-                    // 현재 위치 마커 표시
                     new window.kakao.maps.Marker({
                         position: currentPos,
                         map: map
                     });
+
+                    if (onCurrentLocation) {
+                        onCurrentLocation({
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        });
+                    }
                 },
                 (error) => {
                     console.error("현재 위치를 찾을 수 없습니다:", error);
@@ -155,8 +216,6 @@ const KakaoMap = forwardRef(({
         }
     };
 
-    // 장소 검색
-    // 장소 검색
     const searchPlaces = (keyword: string) => {
         const ps = new window.kakao.maps.services.Places();
 
@@ -190,7 +249,6 @@ const KakaoMap = forwardRef(({
         });
     };
 
-    // 카테고리 기반 장소 검색
     const searchByCategory = (category: string) => {
         const ps = new window.kakao.maps.services.Places(map);
 
@@ -206,7 +264,6 @@ const KakaoMap = forwardRef(({
         });
     };
 
-    // 커스텀 오버레이 생성
     const createCustomOverlay = (position: any, content: string) => {
         const customOverlay = new window.kakao.maps.CustomOverlay({
             position: position,
@@ -217,7 +274,6 @@ const KakaoMap = forwardRef(({
         return customOverlay;
     };
 
-    // 로드뷰 표시
     const showRoadView = (position: any) => {
         const roadviewContainer = document.getElementById('roadview');
         const roadview = new window.kakao.maps.Roadview(roadviewContainer);
@@ -231,18 +287,15 @@ const KakaoMap = forwardRef(({
     const showHeatmap = (data: Array<{ position: { lat: number; lng: number }, weight: number }>) => {
         if (!map) return;
     
-        // 기존 히트맵 삭제
         if ((window as any).heatmap) {
             (window as any).heatmap.setMap(null);
         }
     
-        // 히트맵 데이터 포맷 변환
         const heatData = data.map(item => ({
             location: new window.kakao.maps.LatLng(item.position.lat, item.position.lng),
             weight: item.weight
         }));
     
-        // 히트맵 생성
         (window as any).heatmap = new window.kakao.maps.HeatmapOverlay({
             map: map,
             data: heatData
@@ -257,7 +310,7 @@ const KakaoMap = forwardRef(({
                     searchByCategory,
                     showRoadView,
                     findCurrentLocation,
-                    showHeatmap  // 추가
+                    showHeatmap
                 };
             }
         }
