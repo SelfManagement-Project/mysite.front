@@ -67,54 +67,58 @@ const KakaoMap = forwardRef(({
 
                     // 지도 클릭 이벤트 리스너 추가
                     // KakaoMap 컴포넌트 내부
-window.kakao.maps.event.addListener(mapInstance, 'click', (mouseEvent: any) => {
-    const latlng = mouseEvent.latLng;
-    
-    // 새로운 마커 데이터 생성
-    const newMarkerData: MapMarker = {
-        position: {
-            lat: latlng.getLat(),
-            lng: latlng.getLng()
-        },
-        content: "새로 추가된 위치",
-        category: "custom",
-        address: "클릭한 위치" // 필요한 경우 주소 검색 API로 실제 주소를 가져올 수 있습니다
-    };
-    
-    // 새로운 마커 생성
-    const marker = new window.kakao.maps.Marker({
-        position: latlng,
-        map: mapInstance
-    });
-
-    // 인포윈도우 생성
-    const infoWindow = new window.kakao.maps.InfoWindow({
-        content: `
-            <div style="padding:5px;width:150px;text-align:center;">
-                클릭한 위치<br>
-                위도: ${latlng.getLat().toFixed(4)}<br>
-                경도: ${latlng.getLng().toFixed(4)}
-            </div>
-        `
-    });
-
-    // 마커 클릭 이벤트
-    window.kakao.maps.event.addListener(marker, 'click', () => {
-        if (currentOverlay) {
-            currentOverlay.close();
-        }
-        infoWindow.open(mapInstance, marker);
-        setCurrentOverlay(infoWindow);
-
-        // 상위 컴포넌트의 onMarkerClick 호출
-        if (onMarkerClick) {
-            onMarkerClick(newMarkerData);
-        }
-    });
-
-    // 클릭 마커 배열에 추가
-    setClickMarkers(prev => [...prev, { marker, infoWindow }]);
-});
+                    window.kakao.maps.event.addListener(mapInstance, 'click', (mouseEvent: any) => {
+                        const latlng = mouseEvent.latLng;
+                        
+                        const newMarkerData: MapMarker = {
+                            position: {
+                                lat: latlng.getLat(),
+                                lng: latlng.getLng()
+                            },
+                            content: "새로 추가된 위치",
+                            category: "custom",
+                            address: "클릭한 위치"
+                        };
+                        
+                        const marker = new window.kakao.maps.Marker({
+                            position: latlng,
+                            map: mapInstance
+                        });
+                    
+                        const infoWindow = new window.kakao.maps.InfoWindow({
+                            content: `
+                                <div style="padding:5px;width:150px;text-align:center;">
+                                    클릭한 위치<br>
+                                    위도: ${latlng.getLat().toFixed(4)}<br>
+                                    경도: ${latlng.getLng().toFixed(4)}
+                                </div>
+                            `
+                        });
+                    
+                        // 일반 클릭 이벤트
+                        window.kakao.maps.event.addListener(marker, 'click', () => {
+                            if (currentOverlay) {
+                                currentOverlay.close();
+                            }
+                            infoWindow.open(mapInstance, marker);
+                            setCurrentOverlay(infoWindow);
+                    
+                            if (onMarkerClick) {
+                                onMarkerClick(newMarkerData);
+                            }
+                        });
+                    
+                        // 우클릭 이벤트 추가
+                        window.kakao.maps.event.addListener(marker, 'rightclick', () => {
+                            marker.setMap(null);  // 마커 삭제
+                            infoWindow.close();   // 인포윈도우 닫기
+                            
+                            // clickMarkers 상태에서도 해당 마커 제거
+                            setClickMarkers(prev => prev.filter(item => item.marker !== marker));
+                        });
+                    
+                        setClickMarkers(prev => [...prev, { marker, infoWindow }]);
+                    });
 
                     // 기본 컨트롤 추가
                     const zoomControl = new window.kakao.maps.ZoomControl();
@@ -129,12 +133,16 @@ window.kakao.maps.event.addListener(mapInstance, 'click', (mouseEvent: any) => {
         loadKakaoMap();
 
         return () => {
-            clickMarkers.forEach(({ marker, infoWindow }) => {
-                marker.setMap(null);
-                infoWindow.close();
-            });
+            if (map) {  // map이 존재할 때만 실행
+                clickMarkers.forEach(({ marker, infoWindow }) => {
+                    if (marker && marker.getMap()) {  // 마커가 맵에 존재할 때만 제거
+                        marker.setMap(null);
+                        infoWindow.close();
+                    }
+                });
+            }
         };
-    }, [initialCenter]);
+    }, []);  // initialCenter 의존성 제거
 
     // 마커 관리
     useEffect(() => {
@@ -264,15 +272,15 @@ window.kakao.maps.event.addListener(mapInstance, 'click', (mouseEvent: any) => {
         });
     };
 
-    const createCustomOverlay = (position: any, content: string) => {
-        const customOverlay = new window.kakao.maps.CustomOverlay({
-            position: position,
-            content: content,
-            map: map
-        });
+    // const createCustomOverlay = (position: any, content: string) => {
+    //     const customOverlay = new window.kakao.maps.CustomOverlay({
+    //         position: position,
+    //         content: content,
+    //         map: map
+    //     });
 
-        return customOverlay;
-    };
+    //     return customOverlay;
+    // };
 
     const showRoadView = (position: any) => {
         const roadviewContainer = document.getElementById('roadview');
@@ -319,7 +327,7 @@ window.kakao.maps.event.addListener(mapInstance, 'click', (mouseEvent: any) => {
     return (
         <div style={{ position: 'relative' }}>
             <div ref={mapRef} style={{ width, height }} />
-            <div id="roadview" style={{ width, height: '200px', marginTop: '10px', display: 'none' }} />
+            <div id="roadview" style={{ width: '100%', height: '500px', marginTop: '10px', display: 'none' }} />
         </div>
     );
 });
