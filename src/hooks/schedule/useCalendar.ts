@@ -1,8 +1,7 @@
 // hooks/schedule/useCalendar.ts
 import { useState, useEffect, useRef } from 'react'
 import { EventClickArg, DateSelectArg } from '@fullcalendar/core'
-import { Event, ToastState } from '@/types/schedule/interfaces';
-import { ScheduleEvent } from '@/types/schedule/interfaces';
+import { Event, ToastState, ScheduleEvent } from '@/types/schedule/interfaces';
 import { calendarService } from '@/services/schedule/calendarService';
 import FullCalendar from '@fullcalendar/react';
 
@@ -34,7 +33,8 @@ export const useCalendar = () => {
                     title: event.title,
                     start: `${event.date}T${event.start}`,
                     end: `${event.date}T${event.end}`,
-                    allDay: event.type === '종일'
+                    type: event.type,
+                    description: event.description
                 }));
                 setEvents(formattedEvents);
             } else {
@@ -52,9 +52,10 @@ export const useCalendar = () => {
     const handleEventClick = (clickInfo: EventClickArg) => {
         const event = clickInfo.event
         showToast(`
-          일정: ${event.title}
-          시작: ${event.start?.toLocaleString()}
-          종료: ${event.end?.toLocaleString()}
+          일정제목: ${event.title} | 
+          시작: ${event.start?.toLocaleString()} |
+          종료: ${event.end?.toLocaleString()} |
+          종류: ${event.extendedProps.type } |
           ${event.extendedProps.description ? `설명: ${event.extendedProps.description}` : ''}
         `, 'info', event.id)
     }
@@ -70,14 +71,17 @@ export const useCalendar = () => {
             const end = prompt('종료 시간을 입력하세요(ex: 12:00):')
             if (!end) return
 
+            const type = prompt('일정 종류를 입력하세요(ex: 회의):')
+            if (!type) return
+
             const description = prompt('일정 설명을 입력하세요 (선택사항):')
 
             const newEvent = {
                 title,
                 date: selectInfo.startStr.split('T')[0],
-                start: selectInfo.startStr.split('T')[1] || '00:00',
-                end: selectInfo.endStr.split('T')[1] || '23:59',
-                type: selectInfo.allDay ? '종일' : '시간',
+                start: start,
+                end: end,
+                type: type,
                 description: description || '',
                 status: 'active'
             }
@@ -100,16 +104,17 @@ export const useCalendar = () => {
     const handleEventDrop = async (info: any) => {
         try {
             const event = info.event
+            
             const updatedEvent = {
                 scheduleId: event.id,
                 title: event.title,
                 date: event.startStr.split('T')[0],
                 start: event.startStr.split('T')[1] || '00:00',
                 end: event.endStr.split('T')[1] || '23:59',
-                type: event.allDay ? '종일' : '시간',
-                status: 'active'
+                type: event.extendedProps.type,
+                status: 'active',
+                description: event.extendedProps.description,
             }
-
             const response = await calendarService.updateEvent(token!, updatedEvent);
 
             if (response.result === 'success') {

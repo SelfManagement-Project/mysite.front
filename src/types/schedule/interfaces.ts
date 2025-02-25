@@ -4,6 +4,7 @@ export interface Event {
     start: string;
     end: string;
     allDay?: boolean;
+    type: string;
     description?: string;
     status?: string;
     createdBy?: string;
@@ -37,19 +38,21 @@ export interface ScheduleEvent {
     isCompleted: boolean;
     createdAt: string;
     updatedAt: string;
+    description: string;
 }
 
 export interface Todo {
-    taskId: number;
+    scheduleId: number;
     priority: number;
-    content: string;
-    isCompleted: boolean;
+    title: string;
+    completed: boolean;
 }
 
 export interface UpcomingEvent {
     scheduleId: number;
     date: string;
     start: string;
+    end: string;
     title: string;
 }
 

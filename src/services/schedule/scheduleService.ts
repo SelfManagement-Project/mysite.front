@@ -14,6 +14,7 @@ export const scheduleService = {
 
     // 오늘 할일 수정
     updateTodo: async (token: string, todoId: number, isCompleted: boolean) => {
+        console.log('isCompleted::', isCompleted);
         const response = await axios.put(
             `${baseUrl}/api/schedule/todos/${todoId}`, 
             { isCompleted },

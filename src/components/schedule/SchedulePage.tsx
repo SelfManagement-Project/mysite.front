@@ -45,16 +45,16 @@ const SchedulePage = () => {
               </thead>
               <tbody>
                 {todos?.map(todo => (
-                  <tr key={todo.taskId}>
+                  <tr key={todo.scheduleId}>
                     <td>{todo.priority}</td>
                     <td>
                       <input
                         type="checkbox"
-                        checked={todo.isCompleted}
-                        onChange={(e) => handleTodoCheck(todo.taskId, e.target.checked)}
+                        checked={todo.completed}
+                        onChange={(e) => handleTodoCheck(todo.scheduleId, e.target.checked)}
                       />
                     </td>
-                    <td>{todo.content}</td>
+                    <td>{todo.title}</td>
                   </tr>
                 ))}
               </tbody>
@@ -81,7 +81,7 @@ const SchedulePage = () => {
                       {/* 일정 목록 */}
                       {events.map((event: UpcomingEvent) => (
                         <tr key={event.scheduleId}>
-                          <td>{event.start}</td>
+                          <td>{event.start} ~ {event.end}</td>
                           <td>{event.title}</td>
                         </tr>
                       ))}

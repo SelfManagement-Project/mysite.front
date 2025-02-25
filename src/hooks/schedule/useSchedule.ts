@@ -22,7 +22,7 @@ export const useSchedule = () => {
                 scheduleService.fetchUpcomingEvents(token!),
                 scheduleService.fetchWeeklyProgress(token!)
             ]);
-            console.log(progressData.apiData);
+            // console.log(todosData.apiData);
             setTodos(todosData.apiData || []);
             setUpcomingEvents(eventsData.apiData || []);
             setWeeklyProgress(progressData.apiData || { completedTasks: 0, totalTasks: 0 });
@@ -37,13 +37,13 @@ export const useSchedule = () => {
     };
     
 
-    const handleTodoCheck = async (todoId: number, isCompleted: boolean) => {
-        // console.log(isCompleted);
+    const handleTodoCheck = async (todoId: number, completed: boolean) => {
         try {
-            await scheduleService.updateTodo(token!, todoId, isCompleted);
+            await scheduleService.updateTodo(token!, todoId, completed);
+            
             setTodos(prevTodos => 
                 prevTodos.map(todo => 
-                    todo.taskId === todoId ? { ...todo, isCompleted } : todo
+                    todo.scheduleId === todoId ? { ...todo, completed } : todo
                 )
             );
             const progressData = await scheduleService.fetchWeeklyProgress(token!);

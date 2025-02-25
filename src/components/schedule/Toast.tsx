@@ -13,7 +13,7 @@ const Toast = ({ message, type, onClose, eventId }: ToastProps) => {
   const [isClosing, setIsClosing] = useState(false);
   const {
     handleEventDelete,
-    fetchEvents // fetchEvents도 가져옵니다
+    // fetchEvents // fetchEvents도 가져옵니다
   } = useCalendar();
 
   const handleClose = () => {
