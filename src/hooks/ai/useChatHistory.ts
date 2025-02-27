@@ -1,44 +1,31 @@
-// hooks/ai/useChatHistory.ts
+// hooks/chat/useChatHistory.ts
 import { useState, useEffect } from 'react';
 import { ChatHistory } from '@/types/components';
+import { chatHistoryService } from '@/services/ai/chatHistoryService';
 
 export const useChatHistory = () => {
-
-    
-
     const [chatHistories, setChatHistories] = useState<ChatHistory[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [totalChats, setTotalChats] = useState(0);
+    const token = localStorage.getItem('token');
 
-    // 임시 데이터
-    const fetchChatHistories = async () => {
-        const histories: ChatHistory[] = [
-            {
-                id: 1,
-                title: "Resolving Foreign Key Constraint Error in Database Schema",
-                lastMessage: "Last message 2 minutes ago",
-                lastMessageTime: "2 minutes ago"
-            },
-            {
-                id: 2,
-                title: "Designing PostgreSQL ERD from UI Mockup",
-                lastMessage: "Last message 1 hour ago",
-                lastMessageTime: "1 hour ago"
-            },
-            // ... 더 많은 대화 기록
-        ];
-        setChatHistories(histories);
-        setTotalChats(145); // 임시 총 대화 수
+    // 채팅 기록 불러오기
+    const fetchChatHistories = async (searchText = '') => {
+        if (!token) return;
+        const data = await chatHistoryService.fetchChatHistories(token, searchText);
+        setChatHistories(data);
+        setTotalChats(data.length);
     };
 
+    // 검색어 변경 핸들러
     const handleSearch = (searchText: string) => {
         setSearchTerm(searchText);
-        // 실제 구현 시 검색 로직 추가
+        fetchChatHistories(searchText);
     };
 
     useEffect(() => {
         fetchChatHistories();
-    }, []);
+    }, [token]);
 
     return {
         chatHistories,

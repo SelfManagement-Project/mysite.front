@@ -23,7 +23,7 @@ const ChatHistoryList = ({ onSelectChat }: ChatHistoryListProps) => {
                         value={searchTerm}
                         onChange={(e) => handleSearch(e.target.value)}
                     />
-                      <i className="search-icon">🔍</i>
+                      {/* <i className="search-icon">🔍</i> */}
                 </div>
                 <div className="total-chats">
                     You have {totalChats} previous chats with Claude <span className="select-text">Select</span>
