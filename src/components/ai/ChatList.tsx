@@ -7,7 +7,7 @@ import { ChatListProps } from '@/types/ai/interfaces';
 const ChatList = ({ onSelectChat }: ChatListProps) => {
     const { chatList, totalChats, searchTerm, handleSearch } = useChatList();
 
-    const handleChatSelect = (id: number, title: string) => {
+    const handleChatSelect = (id: number) => {
         onSelectChat(id);  // 선택된 채팅 ID를 부모 컴포넌트로 전달
     };
 
@@ -33,10 +33,10 @@ const ChatList = ({ onSelectChat }: ChatListProps) => {
                     <div
                         key={chat.chatId}  // ✅ chatId로 변경 (고유한 값)
                         className="chat-item"
-                        onClick={() => handleChatSelect(chat.chatId, chat.message)}
+                        onClick={() => handleChatSelect(chat.chatId)}
                     >
                         
-                        <div className="chat-id">{chat.chatId}</div>  {/* ✅ chatId 사용 */}
+                        {/* <div className="chat-id">{chat.chatId}</div>  ✅ chatId 사용 */}
                         <div className="chat-title">{chat.message}</div>  {/* ✅ message 사용 */}
                         <div className="last-message">{chat.createdAt}</div>  {/* ✅ createdAt 사용 */}
                     </div>
