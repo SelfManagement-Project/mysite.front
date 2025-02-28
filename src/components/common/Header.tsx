@@ -22,7 +22,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
     await handleSearch();
     navigate('/total_search'); // 검색 결과 페이지로 이동
   };
-  
+
   const {
     fetchChatHistories  // useAiPage에서 새로 추가할 함수
   } = useChatList();
@@ -39,7 +39,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
   const userName = user?.apiData?.username || '사용자';  // 기본값 설정
 
   const { isSignUpModalOpen, setIsSignUpModalOpen, handleLogoClick, showScheduleDropdown, setShowScheduleDropdown, setIsAiModalOpen, isAiModalOpen, isEditProfileModalOpen, setIsEditProfileModalOpen } = useHeader();
-  
+
 
   const { isAuthenticated } = useAppSelector((state) => state.auth);
 
@@ -66,17 +66,18 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
           </a>
         </div>
 
-        <div className="search-container">
-          <input
-            className="search-input"
-            type="text"
-            placeholder="검색어 입력..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          <button className="search-button" onClick={handleSearchSubmit}>검색</button>
-        </div>
-
+        {isAuthenticated && (
+          <div className="search-container">
+            <input
+              className="search-input"
+              type="text"
+              placeholder="검색어 입력..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            <button className="search-button" onClick={handleSearchSubmit}>검색</button>
+          </div>
+        )}
         {/* <div className="search-container">
           <input
             type="text"

@@ -528,7 +528,7 @@ const SearchComponent = () => {
     return (
         <div className="search-wrap">
             <div className="search-container">
-                <h2>🔍 데이터 결과</h2>
+                <h2>🔍 내 데이터 결과</h2>
 
                 <div className="results-container">
                     {results.length === 0 ? (
