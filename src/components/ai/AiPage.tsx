@@ -11,13 +11,14 @@ const AiPage = () => {
         handleSendMessage,
         handleMessageChange,
         handleKeyPress,
-        canSendMessage
+        canSendMessage,
+        handleNewChat
     } = useAiPage();
 
     return (
         <div className="chatbot-container">
             <div className="sidebar">
-                <button className="new-chat-btn">
+                <button className="new-chat-btn" onClick={handleNewChat}>
                     <i className="fas fa-plus"></i>
                     새 대화하기
                 </button>

@@ -6,7 +6,7 @@ const urlSlice = createSlice({
     SpringbaseUrl: 'http://localhost:9000',     // 개발용
     //SpringbaseUrl: 'http://3.35.170.116',     // 서버용
 
-    PythonbaseUrl: 'http://localhost:3000',      // 개발용
+    PythonbaseUrl: 'http://localhost:8000',      // 개발용
     // PythonbaseUrl: 'https://3.35.170.116',   // 서버용
   },
   reducers: {

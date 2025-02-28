@@ -1,23 +1,13 @@
 // services/chatService.ts
 import axios from '@/services/api/instance';
-import { ChatHistoryResponse, SendMessageRequest } from '@/types/ai/interfaces';
+import { SendMessageRequest } from '@/types/ai/interfaces';
 import { store } from '@/redux/store';
 
 const baseUrl = store.getState().url.PythonbaseUrl;
 
 export const chatService = {
-    getChatHistory: async (chatId: number): Promise<ChatHistoryResponse> => {
-        const response = await axios({
-            method: 'get',
-            url: `${baseUrl}/api/chat-history/${chatId}`,
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-        });
-        return response.data;
-    },
-
     sendMessage: async (data: SendMessageRequest) => {
+        console.log('data:::', data);
         const response = await axios({
             method: 'post',
             url: `${baseUrl}/api/chat/send`,

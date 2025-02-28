@@ -1,8 +1,11 @@
 // hooks/ai/useAiPage.ts
 import { useState, useEffect, useRef } from 'react';
-import { fetchChatHistory, sendMessage } from '@/redux/actions/ai/aiActions';
+import { sendMessage } from '@/redux/actions/ai/aiActions';
 import { useAppDispatch } from '@/redux/hooks';
 import { ChatMessage } from '@/types/ai/interfaces';
+import { store } from '@/redux/store';
+
+const userID = store.getState().auth.user?.apiData.userId;
 
 // const INITIAL_MESSAGES: ChatMessage[] = [
 //     {
@@ -23,17 +26,7 @@ export const useAiPage = () => {
     const [chatMessages, setChatMessages] = useState<any[]>([]);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const [canSendMessage, setCanSendMessage] = useState(true); // 메시지 전송 가능 여부
-
-    const loadChatHistory = async (chatId: number) => {
-        try {
-            // 채팅 히스토리를 가져오는 API 호출
-            // const response = await fetch(`/api/chat-history/${chatId}`);
-            await dispatch(fetchChatHistory( chatId ));
-            // console.log(response);
-        } catch (error) {
-            console.error('채팅 히스토리 로딩 오류:', error);
-        }
-    };
+    const [chatId, setChatId] = useState<number | undefined>(undefined);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -51,9 +44,9 @@ export const useAiPage = () => {
 
     const handleSendMessage = async () => {
         if (!message.trim() || !canSendMessage || isLoading) return;
-        
+
         try {
-            setCanSendMessage(false); // 메시지 전송 비활성화
+            setCanSendMessage(false);
             setIsLoading(true);
 
             const userMessage: ChatMessage = {
@@ -61,27 +54,35 @@ export const useAiPage = () => {
                 content: message
             };
             setChatMessages(prev => [...prev, userMessage]);
-            
-            const response = await dispatch(sendMessage({ message })).unwrap();
-            
-            const aiMessage: ChatMessage = {
-                type: 'ai',
-                content: response.content
-            };
-            setChatMessages(prev => [...prev, aiMessage]);
-            
+
+            const user_id = userID; // 로그인된 사용자 ID
+            if (user_id) {
+                const response = await dispatch(sendMessage({ message, user_id: user_id as number, chat_id: chatId ?? undefined })).unwrap();
+
+                const aiMessage: ChatMessage = {
+                    type: 'ai',
+                    content: response.response
+                };
+                setChatMessages(prev => [...prev, aiMessage]);
+            } else {
+                // 사용자가 로그인하지 않은 경우 처리
+                setChatMessages(prev => [...prev, { type: 'ai', content: '로그인이 필요한 서비스입니다.' }]);
+            }
         } catch (error) {
-            const errorMessage: ChatMessage = {
-                type: 'ai',
-                content: '죄송합니다. 메시지 처리 중 오류가 발생했습니다.'
-            };
-            setChatMessages(prev => [...prev, errorMessage]);
+            setChatMessages(prev => [...prev, { type: 'ai', content: '죄송합니다. 메시지 처리 중 오류가 발생했습니다.' }]);
             console.error('Error sending message:', error);
         } finally {
             setIsLoading(false);
             setMessage('');
-            setCanSendMessage(true); // 메시지 전송 다시 활성화
+            setCanSendMessage(true);
         }
+    };
+
+    // 🔹 "새 대화하기" 버튼 기능
+    const handleNewChat = () => {
+        setChatMessages([]); // 기존 메시지 초기화
+        setMessage('');
+        setChatId(Date.now()); // 새로운 채팅 ID 생성 (임시)
     };
 
     useEffect(() => {
@@ -100,7 +101,7 @@ export const useAiPage = () => {
         handleSendMessage,
         handleMessageChange,
         handleKeyPress,
-        loadChatHistory,
-        canSendMessage
+        canSendMessage,
+        handleNewChat
     };
 };

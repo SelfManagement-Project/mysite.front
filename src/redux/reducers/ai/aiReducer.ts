@@ -12,19 +12,6 @@ const chatSlice = createSlice({
     name: 'chat',
     initialState,
     reducers: {
-        fetchHistoryRequest: (state) => {
-            state.isLoading = true;
-            state.error = null;
-        },
-        fetchHistorySuccess: (state, action: PayloadAction<ChatMessage[]>) => {
-            state.isLoading = false;
-            state.messages = action.payload;
-            state.error = null;
-        },
-        fetchHistoryFailure: (state, action: PayloadAction<string>) => {
-            state.isLoading = false;
-            state.error = action.payload;
-        },
         sendMessageRequest: (state) => {
             state.isLoading = true;
             state.error = null;
@@ -42,9 +29,6 @@ const chatSlice = createSlice({
 });
 
 export const {
-    fetchHistoryRequest,
-    fetchHistorySuccess,
-    fetchHistoryFailure,
     sendMessageRequest,
     sendMessageSuccess,
     sendMessageFailure

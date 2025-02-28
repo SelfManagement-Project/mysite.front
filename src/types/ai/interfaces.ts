@@ -15,5 +15,6 @@ export interface ChatHistoryResponse {
 
 export interface SendMessageRequest {
     message: string;
-    chatId?: number;
+    chat_id?: number;
+    user_id: number;
 }
