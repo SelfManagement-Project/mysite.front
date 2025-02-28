@@ -12,7 +12,7 @@ import logoImage from '@/assets/images/OneFlowLogo.webp';
 import { useAppDispatch } from '@/redux/hooks';
 import { logout } from '@/redux/reducers/login/authReducer';
 import EditProfileForm from "@/components/login/EditProfileForm";
-import { useAiPage } from '@/hooks/ai/useAiPage';
+import { useChatHistory } from '@/hooks/ai/useChatHistory';
 import { useSearch } from "@/hooks/common/useSearch";
 
 const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
@@ -24,11 +24,11 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
   };
   
   const {
-    loadChatHistory  // useAiPage에서 새로 추가할 함수
-  } = useAiPage();
+    fetchChatHistories  // useAiPage에서 새로 추가할 함수
+  } = useChatHistory();
 
-  const handleChatSelect = async (chatId: number) => {
-    await loadChatHistory(chatId);
+  const handleChatSelect = async () => {
+    await fetchChatHistories();
     // 필요한 경우 채팅 탭으로 다시 전환
   };
 

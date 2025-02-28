@@ -31,6 +31,7 @@ export const useChatHistory = () => {
         chatHistories,
         totalChats,
         searchTerm,
-        handleSearch
+        handleSearch,
+        fetchChatHistories
     };
 };
