@@ -51,8 +51,8 @@
 
 .ai-modal-body {
     flex: 1; // 남은 공간 모두 차지
-    overflow-y: auto; // 내용이 넘칠 경우 스크롤
-    padding-right: 10px; // 스크롤바 여유 공간
+    // overflow-y: auto; // 내용이 넘칠 경우 스크롤
+    // padding-right: 10px; // 스크롤바 여유 공간
 }
 
 @keyframes modalFadeIn {

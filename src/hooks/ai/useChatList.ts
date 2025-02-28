@@ -1,10 +1,10 @@
 // hooks/chat/useChatHistory.ts
 import { useState, useEffect } from 'react';
-import { ChatHistory } from '@/types/components';
-import { chatHistoryService } from '@/services/ai/chatHistoryService';
+import { ChatList } from '@/types/components';
+import { chatListService } from '@/services/ai/chatListService';
 
-export const useChatHistory = () => {
-    const [chatHistories, setChatHistories] = useState<ChatHistory[]>([]);
+export const useChatList = () => {
+    const [chatList, setChatList] = useState<ChatList[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [totalChats, setTotalChats] = useState(0);
     const token = localStorage.getItem('token');
@@ -12,8 +12,11 @@ export const useChatHistory = () => {
     // 채팅 기록 불러오기
     const fetchChatHistories = async (searchText = '') => {
         if (!token) return;
-        const data = await chatHistoryService.fetchChatHistories(token, searchText);
-        setChatHistories(data);
+        const data = await chatListService.fetchChatHistories(token, searchText);
+
+        // console.log('data:::::',data);
+
+        setChatList(data);
         setTotalChats(data.length);
     };
 
@@ -28,7 +31,7 @@ export const useChatHistory = () => {
     }, [token]);
 
     return {
-        chatHistories,
+        chatList,
         totalChats,
         searchTerm,
         handleSearch,

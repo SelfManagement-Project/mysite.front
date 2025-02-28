@@ -1,10 +1,10 @@
-// services/ai/chatHistoryService.ts
+// services/ai/chatListService.ts
 import axios from '@/services/api/instance';
 import { store } from '@/redux/store';
 
 const baseUrl = store.getState().url.SpringbaseUrl;
 
-export const chatHistoryService = {
+export const chatListService = {
     // 채팅 기록 조회
     fetchChatHistories: async (token: string, searchText = '') => {
         try {

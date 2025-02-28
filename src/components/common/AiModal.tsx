@@ -1,7 +1,7 @@
 import "@/assets/styles/components/common/AiModal.scss";
 import { AiModalProps } from "@/types/common/interfaces";
 import { useState } from 'react';
-import ChatHistoryList from '@/components/ai/ChatHistoryList';
+import ChatList from '@/components/ai/ChatList';
 
 const AiModal = ({ isOpen, onClose, title, children, onSelectChat }: AiModalProps) => {
   const [activeTab, setActiveTab] = useState(0);
@@ -10,7 +10,7 @@ const AiModal = ({ isOpen, onClose, title, children, onSelectChat }: AiModalProp
 
   const tabs = [
     { id: 0, title: '챗봇', content: children },
-    { id: 1, title: '전체 대화 목록', content: <ChatHistoryList onSelectChat={onSelectChat} /> }
+    { id: 1, title: '전체 대화 목록', content: <ChatList onSelectChat={onSelectChat} /> }
   ];
   return (
     <div className="ai-modal-overlay">
@@ -30,6 +30,7 @@ const AiModal = ({ isOpen, onClose, title, children, onSelectChat }: AiModalProp
             </button>
           ))}
         </div>
+        
         <div className="ai-modal-body">
           {tabs[activeTab].content}
         </div>

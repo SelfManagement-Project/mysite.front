@@ -1,9 +1,9 @@
-// styles/components/ai/ChatHistoryList.scss
+// styles/components/ai/ChatList.scss
 .chat-history-container {
     background-color: #2A2A2A;
     color: white;
     padding: 20px;
-    height: 65vh;
+    // height: 65vh;
 
     .search-section {
         margin-bottom: 20px;
@@ -47,6 +47,9 @@
     }
 
     .chat-list {
+        overflow-y: auto;
+        padding-right: 10px; 
+        max-height: 480px;
         .chat-item {
             padding: 15px;
             border-radius: 5px;
