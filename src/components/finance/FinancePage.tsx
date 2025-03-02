@@ -30,6 +30,7 @@ const FinancePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        
         const token = localStorage.getItem('token');
         const [transactionsRes, categoryRes, budgetRes, savingsRes] = await Promise.all([
           axios.get('/api/finance/transactions', {
@@ -45,10 +46,9 @@ const FinancePage = () => {
             headers: { Authorization: `Bearer ${token}` }
           })
         ]);
-
-        setTransactions(transactionsRes.data || []);
-        setCategoryBudgets(Array.isArray(categoryRes.data) ? categoryRes.data : []);
-        setBudgetStatus(budgetRes.data || {
+        setTransactions(transactionsRes.data.apiData || []);
+        setCategoryBudgets(Array.isArray(categoryRes.data.apiData) ? categoryRes.data.apiData : []);
+        setBudgetStatus(budgetRes.data.apiData || {
           total_budget: 0,
           used_amount: 0,
           remaining: 0,
@@ -56,7 +56,7 @@ const FinancePage = () => {
           total_income: 0,
           total_expense: 0
         });
-        setSavingsStatus(savingsRes.data || {
+        setSavingsStatus(savingsRes.data.apiData || {
           target_amount: 0,
           current_amount: 0,
           achievement_rate: 0

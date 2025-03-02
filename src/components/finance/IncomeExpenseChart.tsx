@@ -43,7 +43,6 @@ const IncomeExpenseChart = ({ transactions }: IncomeExpenseChartProps) => {
   };
   const processData = () => {
     const monthlyData = Array(12).fill(0).map(() => ({ income: 0, expense: 0 }));
-  
     if (Array.isArray(transactions)) {
       transactions.forEach(transaction => {
         const month = new Date(transaction.date).getMonth();
