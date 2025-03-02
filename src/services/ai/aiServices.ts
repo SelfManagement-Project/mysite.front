@@ -7,6 +7,7 @@ const baseUrl = store.getState().url.PythonbaseUrl;
 
 export const chatService = {
     sendMessage: async (data: SendMessageRequest) => {
+        console.log('data::::',data);
         const response = await axios({
             method: 'post',
             url: `${baseUrl}/api/chat/send`,

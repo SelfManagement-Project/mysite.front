@@ -10,6 +10,7 @@ import {
 export const sendMessage = createAsyncThunk(
     'chat/sendMessage',
     async (data: { message: string, user_id: number, chat_id?: number }, { dispatch }) => {
+        console.log('data::::1',data);
         try {
             dispatch(sendMessageRequest());
             const response = await chatService.sendMessage(data);

@@ -55,7 +55,9 @@ export const useAiPage = () => {
             };
             setChatMessages(prev => [...prev, userMessage]);
 
+
             const user_id = userID; // 로그인된 사용자 ID
+            console.log('user_id::::',user_id);
             if (user_id) {
                 const response = await dispatch(sendMessage({ message, user_id: user_id as number, chat_id: chatId ?? undefined })).unwrap();
 
