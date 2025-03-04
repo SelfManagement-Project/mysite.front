@@ -27,3 +27,17 @@ export interface SavingsStatus {
     current_amount: number;
     achievement_rate: number;
 }
+
+export interface CategoryChartProps {
+    categoryBudgets: CategoryBudget[];
+}
+
+export interface IncomeExpenseChartProps {
+    transactions: Transaction[];
+}
+
+export interface ProgressChartProps {
+    percentage: number;
+    label: string;
+    color?: string;
+}

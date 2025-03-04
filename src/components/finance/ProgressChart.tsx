@@ -11,6 +11,7 @@ import {
   ChartOptions,
   ChartData
 } from 'chart.js';
+import { ProgressChartProps } from '@/types/finance/interfaces';
 
 ChartJS.register(
   CategoryScale,
@@ -21,11 +22,7 @@ ChartJS.register(
   Legend
 );
 
-interface ProgressChartProps {
-  percentage: number;
-  label: string;
-  color?: string;
-}
+
 
 const ProgressChart = ({ 
   percentage, 

@@ -1,91 +1,18 @@
 // FinancePage.tsx
-import { useEffect, useState } from 'react';
-import axios from '@/services/api/instance';
 import "@/assets/styles/components/finance/FinancePage.scss";
 import IncomeExpenseChart from '@/components/finance/IncomeExpenseChart';
 import CategoryChart from '@/components/finance/CategoryChart';
 import ProgressChart from '@/components/finance/ProgressChart';
-import { Transaction, CategoryBudget, BudgetStatus, SavingsStatus } from '@/types/finance/interfaces';
+import { useFinance } from '@/hooks/finance/useFinance';
 
 const FinancePage = () => {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [categoryBudgets, setCategoryBudgets] = useState<CategoryBudget[]>([
-    {
-      category_name: '',
-      amount: 0,
-      percentage: 0
-    }
-  ]);
-  const [budgetStatus, setBudgetStatus] = useState<BudgetStatus>({
-    total_budget: 0,
-    used_amount: 0,
-    remaining: 0,
-    usage_percentage: 0,
-    total_income: 0,
-    total_expense: 0
-  });
-  const [savingsStatus, setSavingsStatus] = useState<SavingsStatus>();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        
-        const token = localStorage.getItem('token');
-        const [transactionsRes, categoryRes, budgetRes, savingsRes] = await Promise.all([
-          axios.get('/api/finance/transactions', {
-            headers: { Authorization: `Bearer ${token}` }
-          }),
-          axios.get('/api/finance/category-budgets', {
-            headers: { Authorization: `Bearer ${token}` }
-          }),
-          axios.get('/api/finance/budget-status', {
-            headers: { Authorization: `Bearer ${token}` }
-          }),
-          axios.get('/api/finance/savings-status', {
-            headers: { Authorization: `Bearer ${token}` }
-          })
-        ]);
-        setTransactions(transactionsRes.data.apiData || []);
-        setCategoryBudgets(Array.isArray(categoryRes.data.apiData) ? categoryRes.data.apiData : []);
-        setBudgetStatus(budgetRes.data.apiData || {
-          total_budget: 0,
-          used_amount: 0,
-          remaining: 0,
-          usage_percentage: 0,
-          total_income: 0,
-          total_expense: 0
-        });
-        setSavingsStatus(savingsRes.data.apiData || {
-          target_amount: 0,
-          current_amount: 0,
-          achievement_rate: 0
-        });
-      } catch (error) {
-        console.error('데이터 로딩 실패:', error);
-        // 에러 발생시 기본값 설정
-        setTransactions([]);
-        setCategoryBudgets([]);
-        setBudgetStatus({
-          total_budget: 0,
-          used_amount: 0,
-          remaining: 0,
-          usage_percentage: 0,
-          total_income: 0,
-          total_expense: 0
-        });
-        setSavingsStatus({
-          target_amount: 0,
-          current_amount: 0,
-          achievement_rate: 0
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const {
+    transactions,
+    categoryBudgets,
+    budgetStatus,
+    savingsStatus,
+    loading
+  } = useFinance();
 
   if (loading) return <div>로딩 중...</div>;
 

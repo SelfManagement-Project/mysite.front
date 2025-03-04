@@ -11,7 +11,7 @@ import {
   Legend,
   ChartOptions
 } from 'chart.js';
-import { Transaction } from '@/types/finance/interfaces';
+import { IncomeExpenseChartProps } from '@/types/finance/interfaces';
 
 ChartJS.register(
   CategoryScale,
@@ -22,11 +22,6 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
-// components/charts/IncomeExpenseChart.tsx
-interface IncomeExpenseChartProps {
-  transactions: Transaction[];
-}
 
 const IncomeExpenseChart = ({ transactions }: IncomeExpenseChartProps) => {
   const options: ChartOptions<'line'> = {

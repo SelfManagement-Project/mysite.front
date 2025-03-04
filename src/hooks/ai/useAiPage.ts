@@ -7,22 +7,10 @@ import { store } from '@/redux/store';
 
 const userID = store.getState().auth.user?.apiData.userId;
 
-// const INITIAL_MESSAGES: ChatMessage[] = [
-//     {
-//         type: 'user',
-//         content: '일정 알려줘'
-//     },
-//     {
-//         type: 'ai',
-//         content: '2/5 12:00 회의가 있습니다.'
-//     }
-// ];
-
 export const useAiPage = () => {
     const dispatch = useAppDispatch();
     const [message, setMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    // const [chatMessages, setChatMessages] = useState<ChatMessage[]>(INITIAL_MESSAGES);
     const [chatMessages, setChatMessages] = useState<any[]>([]);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const [canSendMessage, setCanSendMessage] = useState(true); // 메시지 전송 가능 여부

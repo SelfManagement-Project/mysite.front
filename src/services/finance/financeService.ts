@@ -1,35 +1,36 @@
 import axios from '@/services/api/instance';
+import { store } from '@/redux/store';
 
-const token = localStorage.getItem('token');
+const baseUrl = store.getState().url.SpringbaseUrl;
 
 export const financeService = {
     // 거래 내역 조회
-    getTransactions: async () => {
-        const response = await axios.get('/api/finance/transactions', {
+    transactionsRes: async (token: string) => {
+        const response = await axios.get(`${baseUrl}/api/finance/transactions`, {
             headers: { Authorization: `Bearer ${token}` }
         });
         return response.data;
     },
 
     // 예산 정보 조회
-    getBudget: async () => {
-        const response = await axios.get('/api/finance/budget', {
+    categoryRes: async (token: string) => {
+        const response = await axios.get(`${baseUrl}/api/finance/category-budgets`, {
             headers: { Authorization: `Bearer ${token}` }
         });
         return response.data;
     },
 
     // 카테고리별 예산 조회
-    getCategoryBudgets: async () => {
-        const response = await axios.get('/api/finance/category-budgets', {
+    budgetRes: async (token: string) => {
+        const response = await axios.get(`${baseUrl}/api/finance/budget-status`, {
             headers: { Authorization: `Bearer ${token}` }
         });
         return response.data;
     },
 
     // 저축 목표 조회
-    getSavingsGoal: async () => {
-        const response = await axios.get('/api/finance/savings-goal', {
+    savingsRes: async (token: string) => {
+        const response = await axios.get(`${baseUrl}/api/finance/savings-status`, {
             headers: { Authorization: `Bearer ${token}` }
         });
         return response.data;

@@ -1,51 +1,16 @@
-import { useEffect, useState } from "react";
-import axios from "@/services/api/instance";
 import "@/assets/styles/components/health/HealthPage.scss";
+import { useHealth } from "@/hooks/health/useHealth";
 
 // 인터페이스 import
-import { Exercise, Diet, Sleep, HealthMetrics } from "@/types/health/interface";
 
 const HealthPage = () => {
-  // 상태를 타입 지정하여 사용
-  const [exerciseData, setExerciseData] = useState<Exercise[]>([]);
-  const [dietData, setDietData] = useState<Diet[]>([]);
-  const [sleepData, setSleepData] = useState<Sleep | null>(null);
-  const [healthMetrics, setHealthMetrics] = useState<HealthMetrics | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem("token");
-
-        const [exerciseRes, dietRes, sleepRes, metricsRes] = await Promise.all([
-          axios.get<Exercise[]>("/api/health/exercise", {
-            headers: { Authorization: `Bearer ${token}` }
-          }),
-          axios.get<Diet[]>("/api/health/diet", {
-            headers: { Authorization: `Bearer ${token}` }
-          }),
-          axios.get<Sleep>("/api/health/sleep", {
-            headers: { Authorization: `Bearer ${token}` }
-          }),
-          axios.get<HealthMetrics>("/api/health/metrics", {
-            headers: { Authorization: `Bearer ${token}` }
-          })
-        ]);
-
-        setExerciseData(exerciseRes.data || []);
-        setDietData(dietRes.data || []);
-        setSleepData(sleepRes.data || null);
-        setHealthMetrics(metricsRes.data || null);
-      } catch (error) {
-        console.error("데이터 로딩 실패:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const {
+      exerciseData,
+        dietData,
+        sleepData,
+        healthMetrics,
+        loading
+    } = useHealth();
 
   if (loading) return <div>로딩 중...</div>;
 

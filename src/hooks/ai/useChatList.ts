@@ -9,6 +9,10 @@ export const useChatList = () => {
     const [totalChats, setTotalChats] = useState(0);
     const token = localStorage.getItem('token');
 
+    useEffect(() => {
+        fetchChatHistories();
+    }, [token]);
+
     // 채팅 기록 불러오기
     const fetchChatHistories = async (searchText = '') => {
         if (!token) return;
@@ -26,9 +30,7 @@ export const useChatList = () => {
         fetchChatHistories(searchText);
     };
 
-    useEffect(() => {
-        fetchChatHistories();
-    }, [token]);
+    
 
     return {
         chatList,

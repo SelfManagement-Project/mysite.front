@@ -8,13 +8,9 @@ import {
   ChartOptions,
   ChartData
 } from 'chart.js';
-import { CategoryBudget } from '@/types/finance/interfaces';
+import { CategoryChartProps } from '@/types/finance/interfaces';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
-
-interface CategoryChartProps {
-  categoryBudgets: CategoryBudget[];
-}
 
 const CategoryChart = ({ categoryBudgets }: CategoryChartProps) => {
   const options: ChartOptions<'doughnut'> = {
