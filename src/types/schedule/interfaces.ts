@@ -67,3 +67,10 @@ export interface Habit {
     completed: number;  // 진행률 (%)
     remaining: number;   // 미진행률 (%)
 }
+
+export interface CalendarModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    title?: string;
+    children: React.ReactNode;
+  }
