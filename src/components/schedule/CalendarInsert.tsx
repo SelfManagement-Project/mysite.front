@@ -1,13 +1,23 @@
 import "@/assets/styles/components/schedule/CalendarInsert.scss";
 import { useCalendarInsert } from '@/hooks/schedule/useCalendarInsert';
+import { useState } from 'react';
 
 const CalendarInsert = () => {
-  const {
-    handleSubmit
-  } = useCalendarInsert();
+  const { handleSubmit } = useCalendarInsert();
+  const [isAllDay, setIsAllDay] = useState(false);
 
   return (
     <form className="calendar-form" onSubmit={handleSubmit}>
+      <div className="input-group">
+        <label>종일 이벤트</label>
+        <input
+          type="checkbox"
+          name="allDay"
+          checked={isAllDay}
+          onChange={(e) => setIsAllDay(e.target.checked)}
+        />
+      </div>
+      
       <div className="input-group">
         <label>일정 제목</label>
         <input
@@ -17,22 +27,47 @@ const CalendarInsert = () => {
           required
         />
       </div>
-      <div className="input-group">
-        <label>시작 시간</label>
-        <input
-          type="datetime-local"
-          name="startTime"
-          required
-        />
-      </div>
-      <div className="input-group">
-        <label>종료 시간</label>
-        <input
-          type="datetime-local"
-          name="endTime"
-          required
-        />
-      </div>
+      
+      {isAllDay ? (
+        <>
+          <div className="input-group">
+            <label>시작일</label>
+            <input
+              type="date"
+              name="startDate"
+              required
+            />
+          </div>
+          <div className="input-group">
+            <label>종료일</label>
+            <input
+              type="date"
+              name="endDate"
+              required
+            />
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="input-group">
+            <label>시작 시간</label>
+            <input
+              type="datetime-local"
+              name="startTime"
+              required
+            />
+          </div>
+          <div className="input-group">
+            <label>종료 시간</label>
+            <input
+              type="datetime-local"
+              name="endTime"
+              required
+            />
+          </div>
+        </>
+      )}
+      
       <div className="input-group">
         <label>타입</label>
         <select name="type" required>
@@ -42,6 +77,7 @@ const CalendarInsert = () => {
           <option value="work">업무</option>
         </select>
       </div>
+      
       <div className="input-group">
         <label>설명</label>
         <textarea
@@ -49,6 +85,7 @@ const CalendarInsert = () => {
           placeholder="일정에 대한 설명을 입력하세요"
         />
       </div>
+      
       <div className="input-group">
         <label>우선순위</label>
         <select name="priority" required>

@@ -34,11 +34,13 @@ export interface ScheduleEvent {
     date: string;
     start: string;
     end: string;
+    endDate: string;
     type: string;
     isCompleted: boolean;
     createdAt: string;
     updatedAt: string;
     description: string;
+    allDay: boolean;
 }
 
 export interface Todo {
