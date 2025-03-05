@@ -6,8 +6,10 @@ import interactionPlugin from '@fullcalendar/interaction'
 import listPlugin from '@fullcalendar/list'
 import koLocale from '@fullcalendar/core/locales/ko'
 import Toast from '@/components/schedule/Toast'
-import '@/assets/styles/components/schedule/calendar.scss'
+import '@/assets/styles/components/schedule/Calendar.scss'
 import { useCalendar } from '@/hooks/schedule/useCalendar';
+import CalendarModal from "@/components/common/CalendarModal";
+import CalendarInsert from "@/components/schedule/CalendarInsert";
 
 const Calendar = () => {
   const {
@@ -19,7 +21,9 @@ const Calendar = () => {
     fetchEvents,
     handleEventClick,
     handleDateSelect,
-    handleEventDrop
+    handleEventDrop,
+    isCalendarModalOpen,
+    setIsCalendarModalOpen
   } = useCalendar()
 
   if (isLoading) {
@@ -92,6 +96,19 @@ const Calendar = () => {
           hour12: false
         }}
       />
+      {/* <button
+        className="calendar-link"
+        onClick={() => setIsCalendarModalOpen(true)}
+      >
+        일정 추가
+      </button> */}
+      <CalendarModal
+        isOpen={isCalendarModalOpen}
+        onClose={() => setIsCalendarModalOpen(false)}
+        title="일정 추가"
+      >
+        <CalendarInsert />
+      </CalendarModal>
     </div>
   )
 }

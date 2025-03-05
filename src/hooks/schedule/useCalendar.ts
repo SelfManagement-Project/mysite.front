@@ -1,11 +1,12 @@
 // hooks/schedule/useCalendar.ts
 import { useState, useEffect, useRef } from 'react'
-import { EventClickArg, DateSelectArg } from '@fullcalendar/core'
+import { EventClickArg } from '@fullcalendar/core'
 import { Event, ToastState, ScheduleEvent } from '@/types/schedule/interfaces';
 import { calendarService } from '@/services/schedule/calendarService';
 import FullCalendar from '@fullcalendar/react';
 
 export const useCalendar = () => {
+    const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
     const calendarRef = useRef<FullCalendar>(null);
     const token = localStorage.getItem('token')
     const [events, setEvents] = useState<Event[]>([])
@@ -60,45 +61,46 @@ export const useCalendar = () => {
         `, 'info', event.id)
     }
 
-    const handleDateSelect = async (selectInfo: DateSelectArg) => {
-        try {
-            const title = prompt('일정 제목을 입력하세요:')
-            if (!title) return
+    const handleDateSelect = () => {
+        setIsCalendarModalOpen(true);
+        // try {
+        //     const title = prompt('일정 제목을 입력하세요:')
+        //     if (!title) return
 
-            const start = prompt('시작 시간을 입력하세요(ex: 12:00):')
-            if (!start) return
+        //     const start = prompt('시작 시간을 입력하세요(ex: 12:00):')
+        //     if (!start) return
 
-            const end = prompt('종료 시간을 입력하세요(ex: 12:00):')
-            if (!end) return
+        //     const end = prompt('종료 시간을 입력하세요(ex: 12:00):')
+        //     if (!end) return
 
-            const type = prompt('일정 종류를 입력하세요(ex: 회의):')
-            if (!type) return
+        //     const type = prompt('일정 종류를 입력하세요(ex: 회의):')
+        //     if (!type) return
 
-            const description = prompt('일정 설명을 입력하세요 (선택사항):')
+        //     const description = prompt('일정 설명을 입력하세요 (선택사항):')
 
-            const newEvent = {
-                title,
-                date: selectInfo.startStr.split('T')[0],
-                start: start,
-                end: end,
-                type: type,
-                description: description || '',
-                status: 'active'
-            }
+        //     const newEvent = {
+        //         title,
+        //         date: selectInfo.startStr.split('T')[0],
+        //         start: start,
+        //         end: end,
+        //         type: type,
+        //         description: description || '',
+        //         status: 'active'
+        //     }
 
-            const response = await calendarService.createEvent(token!, newEvent);
+        //     const response = await calendarService.createEvent(token!, newEvent);
 
-            if (response.result === 'success') {
-                await fetchEvents();
-                showToast('일정이 생성되었습니다.', 'success')
+        //     if (response.result === 'success') {
+        //         await fetchEvents();
+        //         showToast('일정이 생성되었습니다.', 'success')
                 
-            } else {
-                throw new Error(response.message)
-            }
-        } catch (error) {
-            const errorMessage = error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.'
-            showToast(errorMessage, 'error')
-        }
+        //     } else {
+        //         throw new Error(response.message)
+        //     }
+        // } catch (error) {
+        //     const errorMessage = error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.'
+        //     showToast(errorMessage, 'error')
+        // }
     }
 
     const handleEventDrop = async (info: any) => {
@@ -165,6 +167,8 @@ export const useCalendar = () => {
         handleEventClick,
         handleDateSelect,
         handleEventDrop,
-        handleEventDelete
+        handleEventDelete,
+        isCalendarModalOpen,
+        setIsCalendarModalOpen
     }
 }

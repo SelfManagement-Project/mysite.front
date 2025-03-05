@@ -1,63 +1,69 @@
-// import "@/assets/styles/components/login/SignUpForm.scss";
+import "@/assets/styles/components/schedule/CalendarInsert.scss";
+import { useCalendarInsert } from '@/hooks/schedule/useCalendarInsert';
 
-
-const EditProfileForm = () => {
-
+const CalendarInsert = () => {
+  const {
+    handleSubmit
+  } = useCalendarInsert();
 
   return (
-    <form className="signup-form">
-      {/* {error && <div className="error-message">{error}</div>} */}
+    <form className="calendar-form" onSubmit={handleSubmit}>
       <div className="input-group">
-        <label>이메일</label>
-        <input
-          type="email"
-          name="email"
-        //   value={formData.email}
-        //   onChange={handleChange}
-          placeholder="이메일을 입력하세요"
-          required
-        />
-      </div>
-      <div className="input-group">
-        <label>비밀번호</label>
-        <input
-          type="password"
-          name="password"
-        //   value={formData.password}
-        //   onChange={handleChange}
-          placeholder="비밀번호를 입력하세요"
-          required
-        />
-      </div>
-      <div className="input-group">
-        <label>비밀번호 확인</label>
-        <input
-          type="password"
-          name="passwordConfirm"
-        //   value={formData.passwordConfirm}
-        //   onChange={handleChange}
-          placeholder="비밀번호를 다시 입력하세요"
-          required
-        />
-      </div>
-      <div className="input-group">
-        <label>이름</label>
+        <label>일정 제목</label>
         <input
           type="text"
-          name="username"
-        //   value={formData.username}
-        //   onChange={handleChange}
-          placeholder="이름을 입력하세요"
+          name="title"
+          placeholder="일정 제목을 입력하세요"
           required
         />
       </div>
-      {/* <button type="submit" className="submit-button" disabled={isLoading}> */}
+      <div className="input-group">
+        <label>시작 시간</label>
+        <input
+          type="datetime-local"
+          name="startTime"
+          required
+        />
+      </div>
+      <div className="input-group">
+        <label>종료 시간</label>
+        <input
+          type="datetime-local"
+          name="endTime"
+          required
+        />
+      </div>
+      <div className="input-group">
+        <label>타입</label>
+        <select name="type" required>
+          <option value="">일정 타입 선택</option>
+          <option value="meeting">미팅</option>
+          <option value="personal">개인</option>
+          <option value="work">업무</option>
+        </select>
+      </div>
+      <div className="input-group">
+        <label>설명</label>
+        <textarea
+          name="description"
+          placeholder="일정에 대한 설명을 입력하세요"
+        />
+      </div>
+      <div className="input-group">
+        <label>우선순위</label>
+        <select name="priority" required>
+          <option value="">우선순위 선택</option>
+          <option value="1">높음</option>
+          <option value="2">중간</option>
+          <option value="3">낮음</option>
+        </select>
+      </div>
+
       <button type="submit" className="submit-button">
-        {/* {isLoading ? '처리중...' : '가입하기'} */}
-        수정하기
+        추가하기
       </button>
     </form>
   );
 }
 
-export default EditProfileForm;
+export default CalendarInsert;
