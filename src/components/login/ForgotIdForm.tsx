@@ -1,4 +1,3 @@
-import React from 'react';
 import { useForgotIdForm } from '@/hooks/login/useForgotIdForm';
 import "@/assets/styles/components/login/ForgotIdForm.scss";
 
@@ -15,7 +14,12 @@ const ForgotIdForm = () => {
     setPhoneMiddle,
     phoneLast,
     setPhoneLast,
-    handleNumberInput
+    handleNumberInput,
+    showVerification,
+    setShowVerification,
+    verificationCode,
+    setVerificationCode,
+    handleRequestVerification
   } = useForgotIdForm();
 
   return (
@@ -64,6 +68,7 @@ const ForgotIdForm = () => {
           </div>
           
           {/* 두 번째 행: 중간 번호 */}
+          <p> - </p>
           <input
             type="text"
             value={phoneMiddle}
@@ -77,6 +82,7 @@ const ForgotIdForm = () => {
           />
           
           {/* 세 번째 행: 마지막 번호 */}
+          <p> - </p>
           <input
             type="text"
             value={phoneLast}
@@ -88,6 +94,29 @@ const ForgotIdForm = () => {
             required
             className="phone-last"
           />
+        </div>
+        
+        <div className="verification-section">
+          <button
+            className='sms-check-button'
+            type="button"
+            onClick={handleRequestVerification}
+          >
+            {showVerification ? '다시 인증 받기' : '인증 받기'}
+          </button>
+          
+          {showVerification && (
+            <div>
+              <input
+                className="sms-check-input"
+                type="text"
+                value={verificationCode}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setVerificationCode(e.target.value)}
+                placeholder='인증번호를 입력하세요.'
+              />
+              <button type="button">확인</button>
+            </div>
+          )}
         </div>
       </div>
 

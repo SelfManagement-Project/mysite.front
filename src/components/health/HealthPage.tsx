@@ -1,9 +1,18 @@
 import "@/assets/styles/components/health/HealthPage.scss";
 import { useHealth } from "@/hooks/health/useHealth";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 // 인터페이스 import
 
 const HealthPage = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
   const {
       exerciseData,
         dietData,

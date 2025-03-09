@@ -1,10 +1,19 @@
 import "@/assets/styles/components/location/LocationServices.scss";
 import { useLocationServices } from '@/hooks/location/useLocationServices';
 import KakaoMap from '@/components/location/KakaoMap';
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 
 const LocationServices = () => {
-    const { 
+    const navigate = useNavigate();
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate("/login");
+        }
+    }, [navigate]);
+    const {
         categories,
         handleCategoryChange,
         setSearchKeyword,
@@ -24,7 +33,7 @@ const LocationServices = () => {
     } = useLocationServices();
 
 
-    
+
     return (
         <div className="location-service">
             <div className="header">

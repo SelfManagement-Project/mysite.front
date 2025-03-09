@@ -1,8 +1,17 @@
 import HabitHubBar from '@/components/schedule/HabitHubBar';
 import "@/assets/styles/components/schedule/HabitHub.scss";
 import { useHabit } from '@/hooks/schedule/useHabit';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const HabitHub = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
   const { habits, isLoading, error } = useHabit();
 
   return (

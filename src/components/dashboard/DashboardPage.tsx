@@ -1,6 +1,17 @@
 import Footer from "@/components/common/Footer";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const DashboardPage = () => {
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <h1 className="text-2xl font-bold mb-4">Dashboard</h1>

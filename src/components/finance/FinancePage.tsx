@@ -4,8 +4,17 @@ import IncomeExpenseChart from '@/components/finance/IncomeExpenseChart';
 import CategoryChart from '@/components/finance/CategoryChart';
 import ProgressChart from '@/components/finance/ProgressChart';
 import { useFinance } from '@/hooks/finance/useFinance';
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const FinancePage = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
   const {
     transactions,
     categoryBudgets,

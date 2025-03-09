@@ -1,7 +1,6 @@
 import { useForgotPasswordForm } from '@/hooks/login/useForgotPasswordForm'; // 경로는 실제 구조에 맞게 수정
 import "@/assets/styles/components/login/ForgotPasswordForm.scss"
 
-
 const ForgotPasswordForm = () => {
   const {
     email,
@@ -15,7 +14,12 @@ const ForgotPasswordForm = () => {
     setPhoneMiddle,
     phoneLast,
     setPhoneLast,
-    handleNumberInput
+    handleNumberInput,
+    showVerification,
+    setShowVerification,
+    verificationCode,
+    setVerificationCode,
+    handleRequestVerification
   } = useForgotPasswordForm();
 
   return (
@@ -88,6 +92,28 @@ const ForgotPasswordForm = () => {
             required
             className="phone-last"
           />
+        </div>
+        <div className="verification-section">
+          <button
+            className='sms-check-button'
+            type="button"
+            onClick={handleRequestVerification}
+          >
+            {showVerification ? '다시 인증 받기' : '인증 받기'}
+          </button>
+          
+          {showVerification && (
+            <div>
+              <input
+                className="sms-check-input"
+                type="text"
+                value={verificationCode}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setVerificationCode(e.target.value)}
+                placeholder='인증번호를 입력하세요.'
+              />
+              <button type="button">확인</button>
+            </div>
+          )}
         </div>
       </div>
 

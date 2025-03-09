@@ -1,8 +1,16 @@
 import "@/assets/styles/components/schedule/Notifications.scss";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 // GoalReport.tsx
 const Notifications = () => {
-
+    const navigate = useNavigate();
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate("/login");
+        }
+    }, [navigate]);
 
     return (
         <div className="notification-settings">

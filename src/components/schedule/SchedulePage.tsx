@@ -4,9 +4,17 @@ import ScheduleProgressBar from '@/components/schedule/ScheduleProgressBar';
 import { useSchedule } from '@/hooks/schedule/useSchedule';
 import { groupByDate } from "@/utils/groupByDate.ts"; // 유틸 함수 가져오기
 import { UpcomingEvent } from "@/types/schedule/interfaces"; // 타입 가져오기
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SchedulePage = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
   const {
     todos,
     upcomingEvents,
