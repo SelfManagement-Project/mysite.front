@@ -38,7 +38,7 @@ export const useCalendar = () => {
                     description: event.description,
                     allDay: event.allDay // 종일 이벤트 여부
                 }));
-                console.log('formattedEvents', formattedEvents)
+                // console.log('formattedEvents', formattedEvents)
                 setEvents(formattedEvents);
             } else {
                 throw new Error(response.message)

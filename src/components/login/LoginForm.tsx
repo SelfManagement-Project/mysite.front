@@ -2,6 +2,7 @@ import { useLoginForm } from '@/hooks/login/useLoginForm';
 import Modal from "@/components/common/Modal";
 import SignUpForm from "@/components/login/SignUpForm";
 import ForgotPasswordForm from "@/components/login/ForgotPasswordForm";
+import ForgotIdForm from "@/components/login/ForgotIdForm";
 import "@/assets/styles/components/login/Login.scss";
 import { Link } from 'react-router-dom';
 
@@ -15,6 +16,8 @@ const LoginForm = () => {
         setIsSignUpModalOpen,
         isForgotPasswordModalOpen,
         setIsForgotPasswordModalOpen,
+        isForgotIdModalOpen,
+        setIsForgotIdModalOpen,
         handleSubmit,
         isLoading,
         error,
@@ -57,8 +60,8 @@ const LoginForm = () => {
                     />
                     <label htmlFor="remember-email">아이디 저장</label>
                 </div>
-                <button 
-                    type="submit" 
+                <button
+                    type="submit"
                     className="login-button"
                     disabled={isLoading}
                 >
@@ -71,10 +74,16 @@ const LoginForm = () => {
 
             <div className="login-footer">
                 <button
+                    className="forgot-id-link"
+                    onClick={() => setIsForgotIdModalOpen(true)}
+                >
+                    아이디 찾기
+                </button>
+                <button
                     className="forgot-password-link"
                     onClick={() => setIsForgotPasswordModalOpen(true)}
                 >
-                    아이디/비밀번호 찾기
+                    비밀번호 찾기
                 </button>
                 <button
                     className="signup-link"
@@ -99,6 +108,14 @@ const LoginForm = () => {
                 title="비밀번호 찾기"
             >
                 <ForgotPasswordForm />
+            </Modal>
+
+            <Modal
+                isOpen={isForgotIdModalOpen}
+                onClose={() => setIsForgotIdModalOpen(false)}
+                title="아이디 찾기"
+            >
+                <ForgotIdForm />
             </Modal>
         </div>
     );

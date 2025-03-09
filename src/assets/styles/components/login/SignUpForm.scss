@@ -1,14 +1,134 @@
 .signup-form {
-    button {
-        padding: 5px 15px;
+    width: 100%;
+    max-width: 550px;
+    margin: 0 auto;
+
+    .error-message {
+        background-color: #ffe0e0;
+        color: #d83131;
+        padding: 0.7rem;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        border-left: 4px solid #d83131;
+    }
+
+    .input-group {
+        margin-bottom: 1rem;
+        .email-input {
+            display: flex;
+            gap: 0.5rem;
+            input {
+                flex: 1;
+                width: 100%;
+                padding: 0.6rem 0.8rem;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 0.9rem;
+                background-color: black;
+                transition: all 0.2s ease;
+    
+                &:focus {
+                    border-color: #4a90e2;
+                    background-color: #fff;
+                    outline: none;
+                    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+                }
+    
+                &::placeholder {
+                    color: #999;
+                    font-size: 0.85rem;
+                }
+            }
+            .check-id-btn {
+                white-space: nowrap;
+                padding: 0 1rem;
+                background-color: #4a90e2;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 0.9rem;
+                
+                &:hover {
+                  background-color: #357ab8;
+                }
+                
+                &:disabled {
+                  background-color: #a5c6f0;
+                  cursor: not-allowed;
+                }
+              }
+            }
+            .email-check-message {
+                margin-top: 0.5rem;
+                font-size: 0.85rem;
+                
+                &.success {
+                  color: #2ecc71;
+                }
+                
+                &.error {
+                  color: #e74c3c;
+                }
+              }
+        label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 500;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.6rem 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            background-color: black;
+            transition: all 0.2s ease;
+
+            &:focus {
+                border-color: #4a90e2;
+                background-color: #fff;
+                outline: none;
+                box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+            }
+
+            &::placeholder {
+                color: #999;
+                font-size: 0.85rem;
+            }
+        }
+    }
+
+    .submit-button {
+        width: 100%;
+        padding: 0.7rem;
         background-color: #4a90e2;
         color: white;
         border: none;
+        border-radius: 4px;
+        font-size: 0.95rem;
+        font-weight: 500;
         cursor: pointer;
-        margin: 10px 5px 0px 5px;
+        transition: background-color 0.2s;
+        margin-top: 0.8rem;
 
         &:hover {
-            background-color: #4a90e2;
+            background-color: #3a7bc8;
+        }
+
+        &:active {
+            background-color: #3070b8;
+            transform: translateY(1px);
+        }
+
+        &:disabled {
+            background-color: #a5c6f0;
+            cursor: not-allowed;
         }
     }
 }
+

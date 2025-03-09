@@ -13,6 +13,7 @@ export const useLoginForm = () => {
     const [password, setPassword] = useState('');
     const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
     const [isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] = useState(false);
+    const [isForgotIdModalOpen, setIsForgotIdModalOpen] = useState(false);
     // 아이디 저장 체크박스 상태
     const [rememberEmail, setRememberEmail] = useState(() => Boolean(localStorage.getItem('savedEmail')));
 
@@ -43,6 +44,8 @@ export const useLoginForm = () => {
         setIsSignUpModalOpen,
         isForgotPasswordModalOpen,
         setIsForgotPasswordModalOpen,
+        isForgotIdModalOpen,
+        setIsForgotIdModalOpen,
         handleSubmit,
         isLoading,
         error,

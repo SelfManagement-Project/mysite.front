@@ -8,8 +8,11 @@ const SignUpForm = () => {
     formData,
     error,
     isLoading,
+    emailCheckStatus,
+    emailCheckMessage,
     handleChange,
-    handleSubmit
+    handleSubmit,
+    checkEmailDuplicate
   } = useSignUpForm();
 
 
@@ -18,14 +21,29 @@ const SignUpForm = () => {
       {error && <div className="error-message">{error}</div>}
       <div className="input-group">
         <label>이메일</label>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="이메일을 입력하세요"
-          required
-        />
+        <div className="email-input">
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="이메일을 입력하세요"
+            required
+          />
+          <button
+            className="check-id-btn"
+            type="button"
+            onClick={checkEmailDuplicate}
+            disabled={emailCheckStatus === 'checking'}
+          >
+            {emailCheckStatus === 'checking' ? '확인 중...' : '중복체크'}
+          </button>
+        </div>
+        {emailCheckMessage && (
+          <div className={`email-check-message ${emailCheckStatus === 'available' ? 'success' : 'error'}`}>
+            {emailCheckMessage}
+          </div>
+        )}
       </div>
       <div className="input-group">
         <label>비밀번호</label>
@@ -60,7 +78,46 @@ const SignUpForm = () => {
           required
         />
       </div>
-      <button type="submit" className="submit-button" disabled={isLoading}>
+      <div className="input-group">
+        <label>H.P</label>
+        <input
+          type="text"
+          name="userHp"
+          value={formData.userHp}
+          onChange={handleChange}
+          placeholder="이름을 입력하세요"
+          required
+        />
+      </div>
+      <div className="input-group">
+        <label>주소</label>
+        <input
+          type="text"
+          name="userAddress"
+          value={formData.userAddress}
+          onChange={handleChange}
+          placeholder="이름을 입력하세요"
+          required
+        />
+      </div>
+      <div className="input-group">
+        <label>주민번호</label>
+        <input
+          type="text"
+          name="residentNum"
+          value={formData.residentNum}
+          onChange={handleChange}
+          placeholder="이름을 입력하세요"
+          required
+        />
+      </div>
+
+
+      <button 
+        type="submit" 
+        className="submit-button" 
+        disabled={isLoading || emailCheckStatus !== 'available'}
+      >
         {isLoading ? '처리중...' : '가입하기'}
       </button>
     </form>

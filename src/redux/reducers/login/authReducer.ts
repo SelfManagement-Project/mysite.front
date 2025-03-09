@@ -47,8 +47,35 @@ const authSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         },
+        // 아이디 찾기
+        forgotIdRequest: (state) => {
+            state.isLoading = true;
+            state.error = null;
+        },
+        forgotIdSuccess: (state) => {
+            state.isLoading = false;
+            state.error = null;
+        },
+        forgotIdFailure: (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
+        // 아이디 찾기
+        forgotPwRequest: (state) => {
+            state.isLoading = true;
+            state.error = null;
+        },
+        forgotPwSuccess: (state) => {
+            state.isLoading = false;
+            state.error = null;
+        },
+        forgotPwFailure: (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
+        
     }
 });
 
-export const { loginRequest, loginSuccess, loginFailure, signUpRequest, signUpSuccess, signUpFailure, logout } = authSlice.actions;
+export const { loginRequest, loginSuccess, loginFailure, signUpRequest, signUpSuccess, signUpFailure, logout, forgotIdRequest, forgotIdSuccess, forgotIdFailure, forgotPwRequest, forgotPwSuccess, forgotPwFailure } = authSlice.actions;
 export default authSlice.reducer;

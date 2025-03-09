@@ -1,11 +1,11 @@
-import { useForgotPasswordForm } from '@/hooks/login/useForgotPasswordForm'; // 경로는 실제 구조에 맞게 수정
-import "@/assets/styles/components/login/ForgotPasswordForm.scss"
+import React from 'react';
+import { useForgotIdForm } from '@/hooks/login/useForgotIdForm';
+import "@/assets/styles/components/login/ForgotIdForm.scss";
 
-
-const ForgotPasswordForm = () => {
+const ForgotIdForm = () => {
   const {
-    email,
-    setEmail,
+    username,
+    setUsername,
     handleSubmit,
     countryCode,
     setCountryCode,
@@ -16,17 +16,17 @@ const ForgotPasswordForm = () => {
     phoneLast,
     setPhoneLast,
     handleNumberInput
-  } = useForgotPasswordForm();
+  } = useForgotIdForm();
 
   return (
-    <form className="forgot-pw-form" onSubmit={handleSubmit}>
+    <form className="forgot-id-form" onSubmit={handleSubmit}>
       <div className="input-group">
-        <label htmlFor="forgot-username">이메일</label>
+        <label htmlFor="forgot-username">이름</label>
         <input
-          id="forgot-email"
-          type="email"
-          value={email}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+          id="forgot-username"
+          type="text"
+          value={username}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
           placeholder="이름을 입력하세요"
           required
         />
@@ -37,7 +37,7 @@ const ForgotPasswordForm = () => {
         <div className="phone-input-container">
           {/* 첫 번째 행: 국가 코드와 휴대폰 앞자리 */}
           <div className="phone-first-row">
-            <select
+            <select 
               value={countryCode}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setCountryCode(e.target.value)}
               className="country-code"
@@ -48,8 +48,8 @@ const ForgotPasswordForm = () => {
               <option value="+81">+81 (일본)</option>
               <option value="+86">+86 (중국)</option>
             </select>
-
-            <select
+            
+            <select 
               value={phonePrefix}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setPhonePrefix(e.target.value)}
               className="phone-prefix"
@@ -62,12 +62,12 @@ const ForgotPasswordForm = () => {
               <option value="019">019</option>
             </select>
           </div>
-
+          
           {/* 두 번째 행: 중간 번호 */}
           <input
             type="text"
             value={phoneMiddle}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => 
               handleNumberInput(e.target.value, setPhoneMiddle, 4)
             }
             placeholder="중간 번호"
@@ -75,12 +75,12 @@ const ForgotPasswordForm = () => {
             required
             className="phone-middle"
           />
-
+          
           {/* 세 번째 행: 마지막 번호 */}
           <input
             type="text"
             value={phoneLast}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => 
               handleNumberInput(e.target.value, setPhoneLast, 4)
             }
             placeholder="마지막 번호"
@@ -91,9 +91,9 @@ const ForgotPasswordForm = () => {
         </div>
       </div>
 
-      <button type="submit" className="submit-button">비밀번호 찾기</button>
+      <button type="submit" className="submit-button">아이디 찾기</button>
     </form>
   );
 };
 
-export default ForgotPasswordForm;
+export default ForgotIdForm;
