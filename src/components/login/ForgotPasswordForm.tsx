@@ -19,7 +19,10 @@ const ForgotPasswordForm = () => {
     setShowVerification,
     verificationCode,
     setVerificationCode,
-    handleRequestVerification
+    handleRequestVerification,
+    handleVerifyCode,
+    verificationMessage,
+    isVerificationConfirmed
   } = useForgotPasswordForm();
 
   return (
@@ -98,10 +101,11 @@ const ForgotPasswordForm = () => {
             className='sms-check-button'
             type="button"
             onClick={handleRequestVerification}
+            disabled={isVerificationConfirmed}
           >
             {showVerification ? '다시 인증 받기' : '인증 받기'}
           </button>
-          
+
           {showVerification && (
             <div>
               <input
@@ -110,11 +114,21 @@ const ForgotPasswordForm = () => {
                 value={verificationCode}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setVerificationCode(e.target.value)}
                 placeholder='인증번호를 입력하세요.'
+                disabled={isVerificationConfirmed}
               />
-              <button type="button">확인</button>
+              <button
+                type="button"
+                onClick={handleVerifyCode}
+                disabled={isVerificationConfirmed}
+              >
+                확인
+              </button>
             </div>
           )}
+
+          <span>{verificationMessage}</span>
         </div>
+
       </div>
 
       <button type="submit" className="submit-button">비밀번호 찾기</button>

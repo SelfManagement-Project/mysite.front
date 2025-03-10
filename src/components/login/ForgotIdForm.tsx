@@ -19,7 +19,10 @@ const ForgotIdForm = () => {
     setShowVerification,
     verificationCode,
     setVerificationCode,
-    handleRequestVerification
+    handleRequestVerification,
+    verificationMessage,
+    handleVerifyCode,
+    isVerificationConfirmed
   } = useForgotIdForm();
 
   return (
@@ -41,7 +44,7 @@ const ForgotIdForm = () => {
         <div className="phone-input-container">
           {/* 첫 번째 행: 국가 코드와 휴대폰 앞자리 */}
           <div className="phone-first-row">
-            <select 
+            <select
               value={countryCode}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setCountryCode(e.target.value)}
               className="country-code"
@@ -52,8 +55,8 @@ const ForgotIdForm = () => {
               <option value="+81">+81 (일본)</option>
               <option value="+86">+86 (중국)</option>
             </select>
-            
-            <select 
+
+            <select
               value={phonePrefix}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setPhonePrefix(e.target.value)}
               className="phone-prefix"
@@ -66,13 +69,13 @@ const ForgotIdForm = () => {
               <option value="019">019</option>
             </select>
           </div>
-          
+
           {/* 두 번째 행: 중간 번호 */}
-          <p> - </p>
+          {/* <p> - </p> */}
           <input
             type="text"
             value={phoneMiddle}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => 
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               handleNumberInput(e.target.value, setPhoneMiddle, 4)
             }
             placeholder="중간 번호"
@@ -80,13 +83,13 @@ const ForgotIdForm = () => {
             required
             className="phone-middle"
           />
-          
+
           {/* 세 번째 행: 마지막 번호 */}
-          <p> - </p>
+          {/* <p> - </p> */}
           <input
             type="text"
             value={phoneLast}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => 
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               handleNumberInput(e.target.value, setPhoneLast, 4)
             }
             placeholder="마지막 번호"
@@ -95,16 +98,17 @@ const ForgotIdForm = () => {
             className="phone-last"
           />
         </div>
-        
+
         <div className="verification-section">
           <button
             className='sms-check-button'
             type="button"
             onClick={handleRequestVerification}
+            disabled={isVerificationConfirmed}
           >
             {showVerification ? '다시 인증 받기' : '인증 받기'}
           </button>
-          
+
           {showVerification && (
             <div>
               <input
@@ -113,10 +117,14 @@ const ForgotIdForm = () => {
                 value={verificationCode}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setVerificationCode(e.target.value)}
                 placeholder='인증번호를 입력하세요.'
+                disabled={isVerificationConfirmed}
               />
-              <button type="button">확인</button>
+              <button type="button" onClick={handleVerifyCode} disabled={isVerificationConfirmed}>
+                확인
+              </button>
             </div>
           )}
+          <span>{verificationMessage}</span>
         </div>
       </div>
 
