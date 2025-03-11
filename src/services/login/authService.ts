@@ -85,5 +85,37 @@ export const authService = {
       });
       
       return response.data;
-    }
+    },
+    // sms 인증번호 전송
+    smsSend: async (credentials: { userHp: string; }) => {
+      const token = localStorage.getItem('token');
+      // console.log(credentials);
+      const response = await axios({
+        method: 'post',
+        url: `${baseUrl}/api/auth/sms/send`,
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'Authorization': token ? `Bearer ${token}` : ''
+        },
+        data: credentials
+      });
+      
+      return response.data;
+    },
+    // sms 인증번호 확인
+    smsCheck: async (credentials: { code: string; userHp: string; }) => {
+      const token = localStorage.getItem('token');
+      // console.log(credentials);
+      const response = await axios({
+        method: 'post',
+        url: `${baseUrl}/api/auth/sms/verify`,
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'Authorization': token ? `Bearer ${token}` : ''
+        },
+        data: credentials
+      });
+      
+      return response.data;
+    },
 };

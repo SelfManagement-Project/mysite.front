@@ -1,6 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { authService } from '@/services/login/authService';
-import { loginRequest, loginSuccess, loginFailure, signUpRequest, signUpSuccess, signUpFailure, forgotIdRequest, forgotIdSuccess, forgotIdFailure, forgotPwRequest, forgotPwSuccess, forgotPwFailure } from '@/redux/reducers/login/authReducer';
+import {
+  loginRequest, loginSuccess, loginFailure, signUpRequest, signUpSuccess, signUpFailure, forgotIdRequest,
+  forgotIdSuccess, forgotIdFailure, forgotPwRequest, forgotPwSuccess, forgotPwFailure, smsSendRequest, smsSendSuccess, smsSendFailure,
+  smsCheckRequest, smsCheckSuccess, smsCheckFailure
+} from '@/redux/reducers/login/authReducer';
 
 // login
 export const login = createAsyncThunk(
@@ -88,6 +92,38 @@ export const checkId = createAsyncThunk(
     } catch (error: any) {
       const message = error.response?.data?.message || '비밀번호호 찾기 실패';
       dispatch(forgotPwFailure(message));
+      throw error;
+    }
+  },
+);
+
+export const smsSend = createAsyncThunk(
+  'auth/sms/send',
+  async ({ userHp }: { userHp: string; }, { dispatch }) => {
+    try {
+      dispatch(smsSendRequest());
+      const response = await authService.smsSend({ userHp });
+      dispatch(smsSendSuccess());
+      return response;
+    } catch (error: any) {
+      const message = error.response?.data?.message || '아이디 찾기 실패';
+      dispatch(smsSendFailure(message));
+      throw error;
+    }
+  },
+);
+
+export const smsCheck = createAsyncThunk(
+  'auth/sms/check',
+  async ({ code, userHp }: { code: string; userHp: string; }, { dispatch }) => {
+    try {
+      dispatch(smsCheckRequest());
+      const response = await authService.smsCheck({ code, userHp });
+      dispatch(smsCheckSuccess());
+      return response;
+    } catch (error: any) {
+      const message = error.response?.data?.message || '아이디 찾기 실패';
+      dispatch(smsCheckFailure(message));
       throw error;
     }
   },

@@ -27,6 +27,7 @@ const LoginForm = () => {
 
     return (
         <div className="login-form-container">
+            <h1>Login</h1>
             {error && <div className="error-message">{error}</div>}
             <form onSubmit={handleSubmit}>
                 <div className="input-group">

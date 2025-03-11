@@ -73,9 +73,38 @@ const authSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         },
-        
+        // sms 인증번호 전송
+        smsSendRequest: (state) => {
+            state.isLoading = true;
+            state.error = null;
+        },
+        smsSendSuccess: (state) => {
+            state.isLoading = false;
+            state.error = null;
+        },
+        smsSendFailure: (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
+        // sms 인증번호 확인
+        smsCheckRequest: (state) => {
+            state.isLoading = true;
+            state.error = null;
+        },
+        smsCheckSuccess: (state) => {
+            state.isLoading = false;
+            state.error = null;
+        },
+        smsCheckFailure: (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
+
     }
 });
 
-export const { loginRequest, loginSuccess, loginFailure, signUpRequest, signUpSuccess, signUpFailure, logout, forgotIdRequest, forgotIdSuccess, forgotIdFailure, forgotPwRequest, forgotPwSuccess, forgotPwFailure } = authSlice.actions;
+export const { loginRequest, loginSuccess, loginFailure, signUpRequest, signUpSuccess, signUpFailure, logout,
+    forgotIdRequest, forgotIdSuccess, forgotIdFailure, forgotPwRequest, forgotPwSuccess, forgotPwFailure,
+    smsSendRequest, smsSendSuccess, smsSendFailure, smsCheckRequest, smsCheckSuccess, smsCheckFailure
+} = authSlice.actions;
 export default authSlice.reducer;
