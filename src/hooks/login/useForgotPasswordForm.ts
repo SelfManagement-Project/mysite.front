@@ -1,4 +1,4 @@
-import { forgotPw, smsSend, smsCheck } from '@/redux/actions/login/authActions';
+import { forgotPw, smsSend, smsCheck, emailSend, emailCheck } from '@/redux/actions/login/authActions';
 import { useAppDispatch } from '@/redux/hooks';
 import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 // import { useNavigate } from 'react-router-dom';
@@ -60,19 +60,21 @@ export const useForgotPasswordForm = () => {
 
   // 이메일 인증번호 요청 함수
   const handleRequestEmailVerification = async (e: React.FormEvent) => {
+    console.log('이메일 인증번호 요청:', email);
     e.preventDefault();
     if (!verificationEmail) {
       alert('이메일을 입력해주세요.');
       return;
     }
-    
+
     try {
-      // 여기에 이메일 인증번호 전송 API 호출 (verificationEmail 사용)
-      // const response = await dispatch(emailSend({ email: verificationEmail }));
-      
+      // 여기에 이메일 인증번호 전송 API 호출
+      const response = await dispatch(emailSend({ email: verificationEmail }));
+
       setShowEmailVerificationCode(true);
       setEmailVerificationMessage('확인버튼을 눌러주세요.');
       setIsEmailVerificationConfirmed(false);
+      
     } catch (error) {
       console.error('이메일 인증번호 발송 오류:', error);
       setEmailVerificationMessage('인증번호 발송에 실패했습니다.');
@@ -82,17 +84,23 @@ export const useForgotPasswordForm = () => {
   // 이메일 인증번호 확인 함수
   const handleVerifyEmailCode = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
+    console.log('이메일 인증번호 확인 요청:', emailVerificationCode);
+
+
+
+
     try {
-      // 여기에 이메일 인증번호 확인 API 호출 (verificationEmail 사용)
-      // const response = await dispatch(emailCheck({ 
-      //   code: emailVerificationCode, 
-      //   email: verificationEmail 
-      // }));
-      
-      // 임시로 성공 처리
-      setEmailVerificationMessage('인증되었습니다.');
-      setIsEmailVerificationConfirmed(true);
+      // 여기에 이메일 인증번호 확인 API 호출
+      const response = await dispatch(emailCheck({ code: emailVerificationCode, email: verificationEmail }));
+
+      if (response.payload.result === 'success') {
+        setEmailVerificationMessage('인증되었습니다.');
+        setIsEmailVerificationConfirmed(true);
+      } else {
+        setEmailVerificationMessage('인증번호가 일치하지 않습니다.');
+        setIsEmailVerificationConfirmed(false);
+      }
     } catch (error) {
       console.error('이메일 인증번호 확인 오류:', error);
       setEmailVerificationMessage('인증번호가 일치하지 않습니다.');
