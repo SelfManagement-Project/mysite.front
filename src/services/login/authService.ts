@@ -118,4 +118,36 @@ export const authService = {
       
       return response.data;
     },
+    // email 인증번호 전송
+    emailSend: async (credentials: { email: string; }) => {
+      const token = localStorage.getItem('token');
+      console.log(credentials);
+      const response = await axios({
+        method: 'post',
+        url: `${baseUrl}/api/auth/email/send`,
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'Authorization': token ? `Bearer ${token}` : ''
+        },
+        data: credentials
+      });
+      
+      return response.data;
+    },
+    // email 인증번호 확인
+    emailCheck: async (credentials: { code: string; email: string; }) => {
+      const token = localStorage.getItem('token');
+      // console.log(credentials);
+      const response = await axios({
+        method: 'post',
+        url: `${baseUrl}/api/auth/email/verify`,
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'Authorization': token ? `Bearer ${token}` : ''
+        },
+        data: credentials
+      });
+      
+      return response.data;
+    },
 };

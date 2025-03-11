@@ -3,7 +3,8 @@ import { authService } from '@/services/login/authService';
 import {
   loginRequest, loginSuccess, loginFailure, signUpRequest, signUpSuccess, signUpFailure, forgotIdRequest,
   forgotIdSuccess, forgotIdFailure, forgotPwRequest, forgotPwSuccess, forgotPwFailure, smsSendRequest, smsSendSuccess, smsSendFailure,
-  smsCheckRequest, smsCheckSuccess, smsCheckFailure
+  smsCheckRequest, smsCheckSuccess, smsCheckFailure,
+  emailSendRequest, emailSendSuccess, emailSendFailure, emailCheckRequest, emailCheckSuccess, emailCheckFailure
 } from '@/redux/reducers/login/authReducer';
 
 // login
@@ -124,6 +125,38 @@ export const smsCheck = createAsyncThunk(
     } catch (error: any) {
       const message = error.response?.data?.message || '아이디 찾기 실패';
       dispatch(smsCheckFailure(message));
+      throw error;
+    }
+  },
+);
+
+export const emailSend = createAsyncThunk(
+  'auth/email/send',
+  async ({ email }: { email: string; }, { dispatch }) => {
+    try {
+      dispatch(emailSendRequest());
+      const response = await authService.emailSend({ email });
+      dispatch(emailSendSuccess());
+      return response;
+    } catch (error: any) {
+      const message = error.response?.data?.message || '아이디 찾기 실패';
+      dispatch(emailSendFailure(message));
+      throw error;
+    }
+  },
+);
+
+export const emailCheck = createAsyncThunk(
+  'auth/email/check',
+  async ({ code, email }: { code: string; email: string; }, { dispatch }) => {
+    try {
+      dispatch(emailCheckRequest());
+      const response = await authService.emailCheck({ code, email });
+      dispatch(emailCheckSuccess());
+      return response;
+    } catch (error: any) {
+      const message = error.response?.data?.message || '아이디 찾기 실패';
+      dispatch(emailCheckFailure(message));
       throw error;
     }
   },

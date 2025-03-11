@@ -1,4 +1,4 @@
-import { forgotId, smsSend, smsCheck } from '@/redux/actions/login/authActions';
+import { forgotId, smsSend, smsCheck, emailSend, emailCheck } from '@/redux/actions/login/authActions';
 import { useAppDispatch } from '@/redux/hooks';
 import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 
@@ -134,11 +134,12 @@ export const useForgotIdForm = () => {
 
     try {
       // 여기에 이메일 인증번호 전송 API 호출
-      // const response = await dispatch(emailSend({ email }));
+      const response = await dispatch(emailSend({ email }));
 
       setShowEmailVerificationCode(true);
       setEmailVerificationMessage('확인버튼을 눌러주세요.');
       setIsEmailVerificationConfirmed(false);
+      
     } catch (error) {
       console.error('이메일 인증번호 발송 오류:', error);
       setEmailVerificationMessage('인증번호 발송에 실패했습니다.');
@@ -151,13 +152,20 @@ export const useForgotIdForm = () => {
 
     console.log('이메일 인증번호 확인 요청:', emailVerificationCode);
 
+
+
+
     try {
       // 여기에 이메일 인증번호 확인 API 호출
-      // const response = await dispatch(emailCheck({ code: emailVerificationCode, email }));
+      const response = await dispatch(emailCheck({ code: emailVerificationCode, email }));
 
-      // 임시로 성공 처리
-      setEmailVerificationMessage('인증되었습니다.');
-      setIsEmailVerificationConfirmed(true);
+      if (response.payload.result === 'success') {
+        setEmailVerificationMessage('인증되었습니다.');
+        setIsEmailVerificationConfirmed(true);
+      } else {
+        setEmailVerificationMessage('인증번호가 일치하지 않습니다.');
+        setIsEmailVerificationConfirmed(false);
+      }
     } catch (error) {
       console.error('이메일 인증번호 확인 오류:', error);
       setEmailVerificationMessage('인증번호가 일치하지 않습니다.');
