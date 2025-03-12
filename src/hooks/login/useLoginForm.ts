@@ -29,6 +29,43 @@ export const useLoginForm = () => {
         }
     };
 
+
+
+    const handleKakaoLogin = () => {
+        console.log('카카오 로그인');
+        
+        // 카카오 인증 서버로 리다이렉트하기 위한 파라미터 설정
+        const CLIENT_ID = "037b4750462926ddfa5052315f6e6872"; // 카카오 개발자 사이트에서 발급받은 REST API 키
+        const REDIRECT_URI = "http://localhost:5173/oauth/kakao/callback"; // 프론트엔드 리다이렉트 URI (포트번호는 실제 환경에 맞게 수정)
+        
+        // 필요한 권한 범위 설정 (이메일, 프로필 정보 등)
+        const SCOPE = "profile_nickname,account_email";
+        
+        // 인증 코드를 받기 위한 URL 생성
+        const kakaoAuthURL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=${SCOPE}`;
+        
+        // 카카오 로그인 페이지로 이동
+        window.location.href = kakaoAuthURL;
+    };
+
+    const handleGoogleLogin = () => {
+        console.log('구글 로그인');
+
+
+
+
+    };
+
+    
+
+    const handleNaverLogin = () => {
+        console.log('네이버 로그인');
+
+
+
+
+    };
+
     useEffect(() => {
         if (isAuthenticated) {
             navigate('/dashboard');
@@ -50,6 +87,9 @@ export const useLoginForm = () => {
         isLoading,
         error,
         rememberEmail,
-        setRememberEmail
+        setRememberEmail,
+        handleGoogleLogin,
+        handleKakaoLogin,
+        handleNaverLogin
     };
 };

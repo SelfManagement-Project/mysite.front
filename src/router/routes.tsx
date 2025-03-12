@@ -8,6 +8,7 @@ import BlankLayout from "@/components/common/layout/BlankLayout";
 import NotFound from "@/components/error/NotFound";
 import SearchComponent from "@/components/common/SearchComponent";
 import ProtectedRoute from "@/router/ProtectedRoute";
+import KakaoCallback from "@/components/login/KakaoCallback";
 
 export const routes: RouteObject[] = [
   {
@@ -17,6 +18,10 @@ export const routes: RouteObject[] = [
   {
     path: "/login",
     element: <BlankLayout><LoginPage /></BlankLayout>,
+  },
+  {
+    path: "/oauth/kakao/callback", 
+    element: <BlankLayout><KakaoCallback /></BlankLayout>
   },
   {
     path: "/total_search",

@@ -30,6 +30,30 @@ export const login = createAsyncThunk(
   }
 );
 
+// authActions.ts에 추가
+export const kakaoLogin = createAsyncThunk(
+  'auth/kakaoLogin',
+  async ({ code }: { code: string }, { dispatch }) => {
+    try {
+      dispatch(loginRequest());
+      // 백엔드로 인증 코드 전송
+      const response = await authService.kakaoLogin({ code });
+
+      // 로그인 성공 시 localStorage에 저장
+      localStorage.setItem('user', JSON.stringify(response));
+      localStorage.setItem('token', response.apiData.token);
+
+      dispatch(loginSuccess(response));
+      return response;
+    } catch (error: any) {
+      const message = error.response?.data?.message || '카카오 로그인 실패';
+      dispatch(loginFailure(message));
+      throw error;
+    }
+  }
+);
+
+
 export const signUp = createAsyncThunk(
   'auth/signUp',
   async ({ email, password, name, userHp, userAddress, residentNum }: { email: string; password: string; name: string; userHp: string; userAddress: string; residentNum: string; }, { dispatch }) => {

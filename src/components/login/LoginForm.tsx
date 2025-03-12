@@ -22,7 +22,10 @@ const LoginForm = () => {
         isLoading,
         error,
         rememberEmail,  // 추가
-        setRememberEmail
+        setRememberEmail,
+        handleGoogleLogin,
+        handleKakaoLogin,
+        handleNaverLogin
     } = useLoginForm();
 
     return (
@@ -68,9 +71,9 @@ const LoginForm = () => {
                 >
                     {isLoading ? '로그인 중...' : '로그인'}
                 </button>
-                <button type="button" className="google-login-button">구글 로그인</button>
-                <button type="button" className="kakao-login-button">카카오 로그인</button>
-                <button type="button" className="naver-login-button">네이버 로그인</button>
+                <button type="button" className="google-login-button" onClick={handleGoogleLogin}>구글 로그인</button>
+                <button type="button" className="kakao-login-button" onClick={handleKakaoLogin}>카카오 로그인</button>
+                <button type="button" className="naver-login-button" onClick={handleNaverLogin}>네이버 로그인</button>
             </form>
 
             <div className="login-footer">
