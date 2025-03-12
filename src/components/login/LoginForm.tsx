@@ -108,7 +108,7 @@ const LoginForm = () => {
                 onClose={() => setIsForgotPasswordModalOpen(false)}
                 title="비밀번호 찾기"
             >
-                <ForgotPasswordForm />
+                <ForgotPasswordForm onClose={() => setIsForgotPasswordModalOpen(false)} />
             </Modal>
 
             <Modal

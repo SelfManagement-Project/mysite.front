@@ -1,9 +1,9 @@
 import { forgotPw, smsSend, smsCheck, emailSend, emailCheck } from '@/redux/actions/login/authActions';
 import { useAppDispatch } from '@/redux/hooks';
 import { useEffect, useState, Dispatch, SetStateAction } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-export const useForgotPasswordForm = () => {
+export const useForgotPasswordForm = (onClose?: () => void) => {
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [userHp, setUserHp] = useState('');
@@ -12,7 +12,7 @@ export const useForgotPasswordForm = () => {
   // 휴대폰 인증 UI 표시 여부를 위한 상태 추가
   const [showPhoneVerification, setShowPhoneVerification] = useState(false);
   const [showEmailVerification, setShowEmailVerification] = useState(false);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // 추가된 상태 (인증 관련)
   const [verificationMessage, setVerificationMessage] = useState('인증받기를 눌러주세요.');
@@ -30,6 +30,15 @@ export const useForgotPasswordForm = () => {
   const [phonePrefix, setPhonePrefix] = useState('010');
   const [phoneMiddle, setPhoneMiddle] = useState('');
   const [phoneLast, setPhoneLast] = useState('');
+
+  // 비밀번호 재설정 폼 표시 여부
+  const [showResetForm, setShowResetForm] = useState(false);
+  
+  // 비밀번호 재설정 폼 데이터
+  const [passwordData, setPasswordData] = useState({
+    password: '',
+    passwordConfirm: ''
+  });
 
   const handleNumberInput = (
     value: string,
@@ -127,6 +136,15 @@ export const useForgotPasswordForm = () => {
     }
   };
 
+  // 비밀번호 재설정 폼 입력 처리
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setPasswordData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // 휴대폰 또는 이메일 인증 중 하나가 완료되었는지 확인
@@ -134,18 +152,38 @@ export const useForgotPasswordForm = () => {
       alert('휴대폰 또는 이메일 인증을 완료해주세요.');
       return;
     }
-    // navigate('/login/reset-password');
+    setShowResetForm(true);
 
+  };
+
+  // 비밀번호 재설정 폼 제출 처리
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (passwordData.password !== passwordData.passwordConfirm) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+    // console.log(passwordData.password, passwordData.passwordConfirm);
     try {
-      const response = await dispatch(forgotPw({ email, userHp }));
+      const response = await dispatch(forgotPw({ 
+        email, 
+        userHp,
+        password: passwordData.password 
+      }));
+      
       if (response.payload.result === 'success') {
-        alert('비밀번호 찾기 성공');
+        if (onClose) {
+          onClose(); // 먼저 모달 닫기
+        }
+        alert('비밀번호가 성공적으로 변경되었습니다.');
+        navigate('/login');
       } else {
         alert('오류가 발생했습니다.');
       }
     } catch (error) {
-      console.error('비밀번호 찾기 요청 실패:', error);
-      alert('비밀번호 찾기에 실패했습니다. 다시 시도해주세요.');
+      console.error('비밀번호 변경 요청 실패:', error);
+      alert('비밀번호 변경에 실패했습니다. 다시 시도해주세요.');
     }
   };
 
@@ -201,6 +239,10 @@ export const useForgotPasswordForm = () => {
     handleVerifyEmailCode,
     isEmailVerificationConfirmed,
     verificationEmail,
-    setVerificationEmail
+    setVerificationEmail,
+    showResetForm,
+    passwordData,
+    handlePasswordChange,
+    handleResetPassword
   };
 };

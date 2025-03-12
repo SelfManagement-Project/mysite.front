@@ -55,11 +55,11 @@ export const authService = {
       return response.data;
     },
     // 비밀번호호 찾기
-    forgotPw: async (credentials: { email: string; userHp: string; }) => {
+    forgotPw: async (credentials: { email: string; userHp: string; password: string; }) => {
       const token = localStorage.getItem('token');
       // console.log(credentials);
       const response = await axios({
-        method: 'post',
+        method: 'put',
         url: `${baseUrl}/api/auth/forgot_pw`,
         headers: {
           'Content-Type': 'application/json; charset=utf-8',

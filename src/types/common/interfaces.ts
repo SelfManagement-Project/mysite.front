@@ -16,6 +16,10 @@ export interface ModalProps {
   children: React.ReactNode;
 }
 
+export interface ForgotPasswordFormProps {
+  onClose?: () => void;
+}
+
 export interface AiModalProps {
   isOpen: boolean;
   onClose: () => void;

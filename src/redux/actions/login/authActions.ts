@@ -66,10 +66,10 @@ export const forgotId = createAsyncThunk(
 
 export const forgotPw = createAsyncThunk(
   'auth/forgotPw',
-  async ({ email, userHp }: { email: string; userHp: string; }, { dispatch }) => {
+  async ({ email, userHp, password }: { email: string; userHp: string; password: string }, { dispatch }) => {
     try {
       dispatch(forgotPwRequest());
-      const response = await authService.forgotPw({ email, userHp });
+      const response = await authService.forgotPw({ email, userHp, password });
       dispatch(forgotPwSuccess());
       // console.log(response);
       return response;
