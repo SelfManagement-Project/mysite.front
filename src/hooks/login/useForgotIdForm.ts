@@ -2,7 +2,7 @@ import { forgotId, smsSend, smsCheck, emailSend, emailCheck } from '@/redux/acti
 import { useAppDispatch } from '@/redux/hooks';
 import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 
-export const useForgotIdForm = () => {
+export const useForgotIdForm = (onClose?: () => void) => {
   const dispatch = useAppDispatch();
   const [username, setUsername] = useState('');
   const [userHp, setUserHp] = useState('');
@@ -88,16 +88,26 @@ export const useForgotIdForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isVerificationConfirmed) {
+    console.log('tets:::::', userHp);
+    if (!(isVerificationConfirmed || isEmailVerificationConfirmed)) {
       alert('휴대폰 인증을 완료해주세요.');
       return;
     }
 
     try {
       const response = await dispatch(forgotId({ username, userHp }));
-      console.log(response);
+      const emailList = response.payload.apiData;
       if (response.payload.result === 'success') {
-        alert(response.payload.apiData + '입니다.');
+        if (onClose) {
+          onClose(); // 먼저 모달 닫기
+        }
+        let message = '찾은 이메일 계정:\n';
+        for (let i = 0; i < emailList.length; i++) {
+          message += (i + 1) + '. ' + emailList[i].userEmail + '\n';
+        }
+        alert(message);
+        // alert(response.payload.apiData + '입니다.');
+        
       } else {
         alert(`오류`);
       }
@@ -134,12 +144,12 @@ export const useForgotIdForm = () => {
 
     try {
       // 여기에 이메일 인증번호 전송 API 호출
-      const response = await dispatch(emailSend({ email }));
+      await dispatch(emailSend({ email }));
 
       setShowEmailVerificationCode(true);
       setEmailVerificationMessage('확인버튼을 눌러주세요.');
       setIsEmailVerificationConfirmed(false);
-      
+
     } catch (error) {
       console.error('이메일 인증번호 발송 오류:', error);
       setEmailVerificationMessage('인증번호 발송에 실패했습니다.');

@@ -116,7 +116,7 @@ const LoginForm = () => {
                 onClose={() => setIsForgotIdModalOpen(false)}
                 title="아이디 찾기"
             >
-                <ForgotIdForm />
+                <ForgotIdForm onClose={() => setIsForgotIdModalOpen(false)} />
             </Modal>
         </div>
     );

@@ -78,7 +78,7 @@ export const useForgotPasswordForm = (onClose?: () => void) => {
 
     try {
       // 여기에 이메일 인증번호 전송 API 호출
-      const response = await dispatch(emailSend({ email: verificationEmail }));
+      await dispatch(emailSend({ email: verificationEmail }));
 
       setShowEmailVerificationCode(true);
       setEmailVerificationMessage('확인버튼을 눌러주세요.');

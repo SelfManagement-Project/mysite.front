@@ -1,7 +1,8 @@
 import { useForgotIdForm } from '@/hooks/login/useForgotIdForm';
 import "@/assets/styles/components/login/ForgotIdForm.scss";
+import { ForgotIdFormProps } from "@/types/common/interfaces"; // 파일 경로에 맞게 수정
 
-const ForgotIdForm = () => {
+const ForgotIdForm = ({ onClose }: ForgotIdFormProps) => {
   const {
     username,
     setUsername,
@@ -41,7 +42,7 @@ const ForgotIdForm = () => {
 
 
 
-  } = useForgotIdForm();
+  } = useForgotIdForm(onClose);
 
   return (
     <form className="forgot-id-form" onSubmit={handleSubmit}>
@@ -54,6 +55,60 @@ const ForgotIdForm = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
           placeholder="이름을 입력하세요"
           required
+        />
+      </div>
+      <div className="phone-input-container">
+        <label>핸드폰</label>
+        {/* 첫 번째 행: 국가 코드와 휴대폰 앞자리 */}
+        <div className="phone-first-row">
+          <select
+            value={countryCode}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setCountryCode(e.target.value)}
+            className="country-code"
+          >
+            <option value="+44">+44 (영국)</option>
+            <option value="+82">+82 (대한민국)</option>
+            <option value="+1">+1 (미국/캐나다)</option>
+            <option value="+81">+81 (일본)</option>
+            <option value="+86">+86 (중국)</option>
+          </select>
+
+          <select
+            value={phonePrefix}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setPhonePrefix(e.target.value)}
+            className="phone-prefix"
+          >
+            <option value="010">010</option>
+            <option value="011">011</option>
+            <option value="016">016</option>
+            <option value="017">017</option>
+            <option value="018">018</option>
+            <option value="019">019</option>
+          </select>
+        </div>
+
+        <input
+          type="text"
+          value={phoneMiddle}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            handleNumberInput(e.target.value, setPhoneMiddle, 4)
+          }
+          placeholder="중간 번호"
+          maxLength={4}
+          required
+          className="phone-middle"
+        />
+
+        <input
+          type="text"
+          value={phoneLast}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            handleNumberInput(e.target.value, setPhoneLast, 4)
+          }
+          placeholder="마지막 번호"
+          maxLength={4}
+          required
+          className="phone-last"
         />
       </div>
 
@@ -124,60 +179,7 @@ const ForgotIdForm = () => {
       {/* 휴대폰 인증 UI - 조건부 렌더링 적용 */}
       {showPhoneVerification && (
         <div className="input-group phone-group">
-          <label>휴대폰 번호</label>
-          <div className="phone-input-container">
-            {/* 첫 번째 행: 국가 코드와 휴대폰 앞자리 */}
-            <div className="phone-first-row">
-              <select
-                value={countryCode}
-                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setCountryCode(e.target.value)}
-                className="country-code"
-              >
-                <option value="+44">+44 (영국)</option>
-                <option value="+82">+82 (대한민국)</option>
-                <option value="+1">+1 (미국/캐나다)</option>
-                <option value="+81">+81 (일본)</option>
-                <option value="+86">+86 (중국)</option>
-              </select>
 
-              <select
-                value={phonePrefix}
-                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setPhonePrefix(e.target.value)}
-                className="phone-prefix"
-              >
-                <option value="010">010</option>
-                <option value="011">011</option>
-                <option value="016">016</option>
-                <option value="017">017</option>
-                <option value="018">018</option>
-                <option value="019">019</option>
-              </select>
-            </div>
-
-            <input
-              type="text"
-              value={phoneMiddle}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleNumberInput(e.target.value, setPhoneMiddle, 4)
-              }
-              placeholder="중간 번호"
-              maxLength={4}
-              required
-              className="phone-middle"
-            />
-
-            <input
-              type="text"
-              value={phoneLast}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleNumberInput(e.target.value, setPhoneLast, 4)
-              }
-              placeholder="마지막 번호"
-              maxLength={4}
-              required
-              className="phone-last"
-            />
-          </div>
 
           <div className="verification-section">
             <button

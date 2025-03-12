@@ -19,6 +19,9 @@ export interface ModalProps {
 export interface ForgotPasswordFormProps {
   onClose?: () => void;
 }
+export interface ForgotIdFormProps {
+  onClose?: () => void;
+}
 
 export interface AiModalProps {
   isOpen: boolean;

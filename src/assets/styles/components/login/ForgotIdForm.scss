@@ -2,40 +2,120 @@
   width: 100%;
   max-width: 420px;
   margin: auto;
-  background-color: #ffffff;
   padding: 2rem;
-  border-radius: 12px;
+  background-color: #fff;
+  border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1.5rem;
+  font-family: 'Noto Sans KR', sans-serif;
 
   .input-group {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 
-
     label {
       font-weight: 600;
-      color: #555;
-      text-align: center;
+      color: #333;
+      font-size: 0.95rem;
     }
 
     input,
     select {
-      padding: 0.7rem 1rem;
-      background-color: #f7f8fb;
-      color: #444;
-      border-radius: 8px;
-      border: 1px solid #ddd;
+      padding: 0.8rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #fafafa;
+      font-size: 1rem;
+      transition: all 0.2s;
       text-align: center;
-      transition: border 0.2s, box-shadow 0.2s;
+      color: black;
 
       &:focus {
         border-color: #4a90e2;
-        box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.3);
+        background: #fff;
+        box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
         outline: none;
+      }
+    }
+  }
+
+  .phone-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-bottom: 1rem;
+  
+    .phone-first-row {
+      display: flex;
+      gap: 0.5rem;
+  
+      select {
+        flex: 1;
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        background-size: 1em;
+        padding-right: 2.5rem;
+        
+        &:hover {
+          border-color: #4a90e2;
+        }
+      }
+    }
+  
+    input, select {
+      padding: 0.9rem 1rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      background-color: #f7f7f7;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      color: black;
+      
+      &:focus {
+        border-color: #4a90e2;
+        background-color: #fff;
+        box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+        outline: none;
+      }
+      
+      &::placeholder {
+        color: #aaa;
+        font-size: 0.9rem;
+      }
+    }
+  
+    .phone-middle,
+    .phone-last {
+      width: 100%;
+      letter-spacing: 0.5px;
+      font-weight: 500;
+    }
+  }
+
+  .verification-button-group {
+    display: flex;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+
+    button {
+      flex: 1;
+      padding: 0.8rem;
+      border-radius: 10px;
+      background-color: #4a90e2;
+      color: white;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #357abd;
       }
     }
   }
@@ -44,46 +124,37 @@
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
-
-    .phone-input-container {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-
-      .phone-first-row {
-        display: flex;
-        gap: 0.5rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+    
+    label {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+    
+    .email-input-container {
+      margin-bottom: 0.5rem;
+      
+      .email-input {
         width: 100%;
-
-        .country-code,
-        .phone-prefix {
-          flex: 1;
-        }
-      }
-
-      .phone-middle,
-      .phone-last {
-        flex: 1;
-      }
-
-      p {
-        margin: 0 0.3rem;
-        font-weight: bold;
-        color: #999;
+        color: black;
       }
     }
 
     .verification-section {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.6rem;
 
-      .sms-check-button {
+      button {
         width: 100%;
         padding: 0.8rem;
         background-color: #4a90e2;
         color: white;
-        border-radius: 8px;
+        border-radius: 10px;
         border: none;
         cursor: pointer;
         transition: background-color 0.2s;
@@ -91,50 +162,64 @@
         &:hover {
           background-color: #357abd;
         }
+
+        &:disabled {
+          background-color: #ccc;
+          cursor: not-allowed;
+        }
       }
 
       div {
         display: flex;
         gap: 0.5rem;
-
-        .sms-check-input {
-          flex: 1;
-          padding: 0.7rem;
-          border-radius: 8px;
-          border: 1px solid #ddd;
-          background-color: #f7f8fb;
-          text-align: center;
-
-          &:focus {
-            border-color: #4a90e2;
-            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.3);
-            outline: none;
-          }
+        
+        input {
+          flex: 2;
         }
-
+        
         button {
-          padding: 0.7rem 1rem;
-          background-color: #4a90e2;
-          color: white;
-          border-radius: 8px;
-          border: none;
-          cursor: pointer;
-          transition: background-color 0.2s;
-
-          &:hover {
-            background-color: #357abd;
-          }
+          flex: 1;
         }
+      }
+
+      input {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background: #fafafa;
+        text-align: center;
+
+        &:focus {
+          border-color: #4a90e2;
+          box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+          outline: none;
+        }
+
+        &:disabled {
+          background: #eee;
+          color: #aaa;
+        }
+      }
+
+      span {
+        font-size: 0.85rem;
+        color: #666;
+        text-align: center;
+        padding: 0.3rem;
+        font-weight: 500;
       }
     }
   }
 
   .submit-button {
-    padding: 0.9rem;
+    margin-top: 1rem;
+    padding: 1rem;
     background-color: #4a90e2;
     color: white;
-    font-weight: 600;
-    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.05rem;
+    border-radius: 12px;
     border: none;
     cursor: pointer;
     transition: background-color 0.2s, transform 0.1s;
@@ -149,38 +234,73 @@
   }
 }
 
-.verification-button-group {
-  display: flex;
-  justify-content: center;
-  // flex-direction: column;
-  .phone-verification-button,
-  .email-verification-button {
-    padding: 0.7rem 1rem;
-    background-color: #4a90e2;
-    color: white;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s;
+// 이메일 인증 입력창
+.email-check-input, .sms-check-input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #fafafa;
+  text-align: center;
 
-    &:hover {
-      background-color: #357abd;
-    }
+  &:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+    outline: none;
+  }
+
+  &:disabled {
+    background: #eee;
+    color: #aaa;
   }
 }
 
-
-.email-check-button {
+// 이메일 인증 버튼
+.email-check-button, .sms-check-button {
   width: 100%;
   padding: 0.8rem;
   background-color: #4a90e2;
   color: white;
-  border-radius: 8px;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
   transition: background-color 0.2s;
 
   &:hover {
     background-color: #357abd;
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+// 반응형
+@media (max-width: 480px) {
+  .forgot-id-form {
+    padding: 1.5rem;
+    gap: 1rem;
+
+    .verification-button-group {
+      flex-direction: column;
+    }
+
+    .phone-input-container .phone-first-row {
+      flex-direction: column;
+    }
+
+    .phone-middle,
+    .phone-last {
+      width: 100%;
+    }
+    
+    .phone-group .verification-section div {
+      flex-direction: column;
+      
+      input, button {
+        width: 100%;
+      }
+    }
   }
 }
