@@ -254,3 +254,19 @@
         transform: translateY(0px);
     }
  }
+
+
+ @keyframes blinkCursor {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.message-text.typing::after {
+    content: '|';
+    animation: typingCursor 0.8s infinite alternate;
+}
+
+@keyframes typingCursor {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}

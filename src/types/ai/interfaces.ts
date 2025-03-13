@@ -1,5 +1,5 @@
 export interface ChatMessage {
-    type: 'user' | 'ai';
+    type: 'user' | 'ai' | 'error';  // 'error' 추가
     content: string;
 }
 

@@ -1,18 +1,17 @@
-// components/ai/AiPage.tsx
-import "@/assets/styles/components/ai/AiPage.scss";
+import '@/assets/styles/components/ai/AiPage.scss';
 import { useAiPage } from '@/hooks/ai/useAiPage';
 
 const AiPage = () => {
     const {
         message,
-        isLoading,
-        messagesEndRef,
         chatMessages,
+        isLoading,
         handleSendMessage,
         handleMessageChange,
         handleKeyPress,
         canSendMessage,
-        handleNewChat
+        handleNewChat,
+        messagesEndRef
     } = useAiPage();
 
     return (
@@ -23,23 +22,7 @@ const AiPage = () => {
                     새 대화하기
                 </button>
 
-                <div className="chat-history">
-                    <h3>최근 대화 기록</h3>
-                    <ul>
-                        <li>• 일정 관리점</li>
-                        <li>• 운동 자동화</li>
-                        <li>• 다이어트 도움말</li>
-                    </ul>
-                </div>
-
-                <div className="suggested-topics">
-                    <h3>추천 질문</h3>
-                    <ul>
-                        <li>• 지출 패턴 분석</li>
-                        <li>• 운동 루틴 추천</li>
-                        <li>• 식단 조언</li>
-                    </ul>
-                </div>
+                {/* 생략된 코드: 히스토리 등 */}
             </div>
 
             <div className="chat-main">
@@ -50,7 +33,7 @@ const AiPage = () => {
                         <div key={index} className={`message-group ${msg.type}`}>
                             <div className="message-content">
                                 <div className="message-header">
-                                    {msg.type === 'user' ? '사용자 질문' : 'AI 응답'}
+                                    {msg.type === 'user' ? '사용자 질문' : (msg.type === 'ai' ? 'AI 응답' : '오류')}
                                 </div>
                                 <div className="message-text">{msg.content}</div>
                             </div>
@@ -71,17 +54,18 @@ const AiPage = () => {
                 <div className="chat-input-container">
                     <input
                         type="text"
-                        placeholder="Input(채팅입력창)"
+                        placeholder="메시지를 입력하세요..."
                         value={message}
                         onChange={handleMessageChange}
                         onKeyPress={handleKeyPress}
-                        disabled={!canSendMessage} 
+                        disabled={!canSendMessage}
                     />
                     <div className="input-buttons">
                         <button className="function-btn">파일첨부</button>
                         <button className="function-btn">음성입력</button>
-                        <button 
-                            onClick={handleSendMessage} 
+                        <button
+                            className="send-btn"
+                            onClick={handleSendMessage}
                             disabled={!canSendMessage || !message.trim()}
                         >
                             보내기

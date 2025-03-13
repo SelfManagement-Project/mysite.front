@@ -1,97 +1,112 @@
-// hooks/ai/useAiPage.ts
-import { useState, useEffect, useRef } from 'react';
-import { sendMessage } from '@/redux/actions/ai/aiActions';
-import { useAppDispatch } from '@/redux/hooks';
-import { ChatMessage } from '@/types/ai/interfaces';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { store } from '@/redux/store';
+import { ChatMessage } from '@/types/ai/interfaces';
 
-const userID = store.getState().auth.user?.apiData.userId;
 
-export const useAiPage = () => {
-    const dispatch = useAppDispatch();
+
+
+export const useAiPage = (chatId?: number) => {
     const [message, setMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [chatMessages, setChatMessages] = useState<any[]>([]);
+    const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
+    const [canSendMessage, setCanSendMessage] = useState(false);
+    const ws = useRef<WebSocket | null>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
-    const [canSendMessage, setCanSendMessage] = useState(true); // 메시지 전송 가능 여부
-    const [chatId, setChatId] = useState<number | undefined>(undefined);
-
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    };
+    
+    const typingInterval = useRef<NodeJS.Timeout | null>(null);
+    const [isTyping, setIsTyping] = useState(false); // 타이핑 애니메이션 전용
+    const baseWsUrl = store.getState().url.PythonbaseUrl.replace('http', 'ws'); // WS 주소로 변경
+    const userID = store.getState().auth.user?.apiData.userId;
+    
+    useEffect(() => {
+        const chat_id = chatId ?? Date.now();
+        const wsUrl = `${baseWsUrl}/api/chat/ws/chat/${userID}/${chat_id}`;
+        ws.current = new WebSocket(wsUrl);
+    
+        ws.current.onopen = () => {
+            setCanSendMessage(true);
+        };
+    
+        ws.current.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            const aiContent = data.error || data.response;
+        
+            if (typingInterval.current) clearInterval(typingInterval.current);
+        
+            setIsLoading(false); // AI 답변 완료
+            setIsTyping(true); // 타이핑 애니메이션 시작
+        
+            setChatMessages((prev) => [...prev, { type: 'ai', content: '' }]);
+        
+            let charIndex = 0;
+            typingInterval.current = setInterval(() => {
+                setChatMessages((prev) => {
+                    const updatedMessages = [...prev];
+                    const lastIndex = updatedMessages.length - 1;
+                    updatedMessages[lastIndex].content = aiContent.slice(0, charIndex);
+                    return updatedMessages;
+                });
+                charIndex += 1;
+        
+                if (charIndex > aiContent.length) {
+                    if (typingInterval.current) clearInterval(typingInterval.current);
+                    setIsTyping(false); // 타이핑 끝났을 때
+                }
+            }, 20);
+        };
+        
+    
+        ws.current.onclose = () => {
+            setCanSendMessage(false);
+        };
+    
+        return () => {
+            if (typingInterval.current) clearInterval(typingInterval.current);
+            ws.current?.close();
+        };
+    }, [userID, chatId]);
+    
 
     const handleMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setMessage(e.target.value);
     };
 
-    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            handleSendMessage();
-        }
-    };
-
-    const handleSendMessage = async () => {
-        if (!message.trim() || !canSendMessage || isLoading) return;
-
-        try {
-            setCanSendMessage(false);
-            setIsLoading(true);
-
-            const userMessage: ChatMessage = {
-                type: 'user',
-                content: message
-            };
-            setChatMessages(prev => [...prev, userMessage]);
-
-
-            const user_id = userID; // 로그인된 사용자 ID
-            console.log('user_id::::',user_id);
-            if (user_id) {
-                const response = await dispatch(sendMessage({ message, user_id: user_id as number, chat_id: chatId ?? undefined })).unwrap();
-
-                const aiMessage: ChatMessage = {
-                    type: 'ai',
-                    content: response.response
-                };
-                setChatMessages(prev => [...prev, aiMessage]);
-            } else {
-                // 사용자가 로그인하지 않은 경우 처리
-                setChatMessages(prev => [...prev, { type: 'ai', content: '로그인이 필요한 서비스입니다.' }]);
-            }
-        } catch (error) {
-            setChatMessages(prev => [...prev, { type: 'ai', content: '죄송합니다. 메시지 처리 중 오류가 발생했습니다.' }]);
-            console.error('Error sending message:', error);
-        } finally {
-            setIsLoading(false);
-            setMessage('');
-            setCanSendMessage(true);
-        }
-    };
-
-    // 🔹 "새 대화하기" 버튼 기능
-    const handleNewChat = () => {
-        setChatMessages([]); // 기존 메시지 초기화
+    const handleSendMessage = useCallback(() => {
+        if (!message.trim() || !canSendMessage || isLoading || isTyping || !ws.current) return;
+    
+        const userMessage: ChatMessage = { type: 'user', content: message };
+        setChatMessages(prev => [...prev, userMessage]);
+        setIsLoading(true); // AI 응답 기다리는 동안 true
         setMessage('');
-        setChatId(Date.now()); // 새로운 채팅 ID 생성 (임시)
+    
+        ws.current.send(JSON.stringify({ message }));
+    }, [message, canSendMessage, isLoading, isTyping]);
+
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') handleSendMessage();
+    };
+
+    const handleNewChat = () => {
+        setChatMessages([]);
+        setMessage('');
+        if (ws.current) {
+            ws.current.close();
+        }
     };
 
     useEffect(() => {
-        scrollToBottom();
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [chatMessages]);
 
     return {
         message,
-        setMessage,
-        isLoading,
-        setIsLoading,
-        messagesEndRef,
-        scrollToBottom,
         chatMessages,
-        setChatMessages,
-        handleSendMessage,
+        isLoading,
         handleMessageChange,
+        handleSendMessage,
         handleKeyPress,
+        handleNewChat,
+        messagesEndRef,
         canSendMessage,
-        handleNewChat
     };
 };
