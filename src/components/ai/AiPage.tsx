@@ -22,7 +22,23 @@ const AiPage = () => {
                     새 대화하기
                 </button>
 
-                {/* 생략된 코드: 히스토리 등 */}
+                <div className="chat-history">
+                    <h3>최근 대화 기록</h3>
+                    <ul>
+                        <li>• 일정 관리점</li>
+                        <li>• 운동 자동화</li>
+                        <li>• 다이어트 도움말</li>
+                    </ul>
+                </div>
+
+                <div className="suggested-topics">
+                    <h3>추천 질문</h3>
+                    <ul>
+                        <li>• 지출 패턴 분석</li>
+                        <li>• 운동 루틴 추천</li>
+                        <li>• 식단 조언</li>
+                    </ul>
+                </div>
             </div>
 
             <div className="chat-main">
