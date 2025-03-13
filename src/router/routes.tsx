@@ -9,6 +9,8 @@ import NotFound from "@/components/error/NotFound";
 import SearchComponent from "@/components/common/SearchComponent";
 import ProtectedRoute from "@/router/ProtectedRoute";
 import KakaoCallback from "@/components/login/KakaoCallback";
+import NaverCallback from "@/components/login/NaverCallback";
+import GoogleCallback from "@/components/login/GoogleCallback";
 
 export const routes: RouteObject[] = [
   {
@@ -22,6 +24,14 @@ export const routes: RouteObject[] = [
   {
     path: "/oauth/kakao/callback", 
     element: <BlankLayout><KakaoCallback /></BlankLayout>
+  },
+  {
+    path: "/oauth/naver/callback",
+    element: <BlankLayout><NaverCallback /></BlankLayout>
+  },
+  {
+    path: "/oauth/google/callback",
+    element: <BlankLayout><GoogleCallback /></BlankLayout>
   },
   {
     path: "/total_search",

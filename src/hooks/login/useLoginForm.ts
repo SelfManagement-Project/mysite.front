@@ -50,20 +50,49 @@ export const useLoginForm = () => {
 
     const handleGoogleLogin = () => {
         console.log('구글 로그인');
-
-
-
-
+        
+        // 구글 인증 서버로 리다이렉트하기 위한 파라미터 설정
+        const CLIENT_ID = "1035458597855-agjemb473p5h7o4kvodl4lkjv5jhi9cf.apps.googleusercontent.com"; // Google Cloud Console에서 발급받은 클라이언트 ID
+        const REDIRECT_URI = "http://localhost:5173/oauth/google/callback";
+        
+        // 필요한 권한 범위 설정
+        const SCOPE = "email profile";
+        
+        // 인증 코드를 받기 위한 URL 생성
+        const googleAuthURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=${SCOPE}`;
+        
+        // 구글 로그인 페이지로 이동
+        window.location.href = googleAuthURL;
     };
 
     
 
     const handleNaverLogin = () => {
         console.log('네이버 로그인');
-
-
-
-
+        
+        // 네이버 인증 서버로 리다이렉트하기 위한 파라미터 설정
+        const CLIENT_ID = "GNL1ZsPzNKSBVTKrzrn3"; // 네이버 개발자 센터에서 발급받은 클라이언트 ID
+        const REDIRECT_URI = "http://localhost:5173/oauth/naver/callback";
+        const STATE = generateRandomString(10); // CSRF 방지를 위한 랜덤 문자열
+        
+        // 상태값 저장 (CSRF 공격 방지용)
+        localStorage.setItem('naverLoginState', STATE);
+        
+        // 인증 코드를 받기 위한 URL 생성
+        const naverAuthURL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&state=${STATE}`;
+        
+        // 네이버 로그인 페이지로 이동
+        window.location.href = naverAuthURL;
+    };
+    
+    // 랜덤 문자열 생성 함수
+    const generateRandomString = (length: number) => {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return result;
     };
 
     useEffect(() => {

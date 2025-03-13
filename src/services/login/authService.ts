@@ -42,6 +42,43 @@ export const authService = {
     return response.data;
   },
 
+  // authService.ts에 추가
+  naverLogin: async (credentials: { code: string; state: string }) => {
+    const response = await axios({
+      method: 'post',
+      url: `${baseUrl}/api/auth/naver-callback`,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+      },
+      data: credentials
+    });
+
+    // 받은 토큰 저장
+    if (response.headers.authorization) {
+      localStorage.setItem('token', response.headers.authorization.split(' ')[1]);
+    }
+
+    return response.data;
+  },
+
+  // authService.ts에 추가
+  googleLogin: async (credentials: { code: string }) => {
+    const response = await axios({
+      method: 'post',
+      url: `${baseUrl}/api/auth/google-callback`,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+      },
+      data: credentials
+    });
+
+    // 받은 토큰 저장
+    if (response.headers.authorization) {
+      localStorage.setItem('token', response.headers.authorization.split(' ')[1]);
+    }
+
+    return response.data;
+  },
 
   signUp: async (credentials: { email: string; password: string, name: string, userHp: string; userAddress: string; residentNum: string; }) => {
     const token = localStorage.getItem('token');

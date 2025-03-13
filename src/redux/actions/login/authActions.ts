@@ -53,6 +53,51 @@ export const kakaoLogin = createAsyncThunk(
   }
 );
 
+// authActions.ts에 추가
+export const naverLogin = createAsyncThunk(
+  'auth/naverLogin',
+  async ({ code, state }: { code: string; state: string }, { dispatch }) => {
+    try {
+      dispatch(loginRequest());
+      // 백엔드로 인증 코드 전송
+      const response = await authService.naverLogin({ code, state });
+
+      // 로그인 성공 시 localStorage에 저장
+      localStorage.setItem('user', JSON.stringify(response));
+      localStorage.setItem('token', response.apiData.token);
+
+      dispatch(loginSuccess(response));
+      return response;
+    } catch (error: any) {
+      const message = error.response?.data?.message || '네이버 로그인 실패';
+      dispatch(loginFailure(message));
+      throw error;
+    }
+  }
+);
+
+export const googleLogin = createAsyncThunk(
+  'auth/googleLogin',
+  async ({ code }: { code: string }, { dispatch }) => {
+    try {
+      dispatch(loginRequest());
+      // 백엔드로 인증 코드 전송
+      const response = await authService.googleLogin({ code });
+
+      // 로그인 성공 시 localStorage에 저장
+      localStorage.setItem('user', JSON.stringify(response));
+      localStorage.setItem('token', response.apiData.token);
+
+      dispatch(loginSuccess(response));
+      return response;
+    } catch (error: any) {
+      const message = error.response?.data?.message || '구글 로그인 실패';
+      dispatch(loginFailure(message));
+      throw error;
+    }
+  }
+);
+
 
 export const signUp = createAsyncThunk(
   'auth/signUp',
