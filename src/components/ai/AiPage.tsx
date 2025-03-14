@@ -13,7 +13,8 @@ const AiPage = () => {
         canSendMessage,
         handleNewChat,
         messagesEndRef,
-        recentChats  // 추가된 부분
+        recentChats,  // 추가된 부분
+        handleFetchChatHistory
     } = useAiPage();
 
     return (
@@ -29,7 +30,11 @@ const AiPage = () => {
                     <ul>
                         {recentChats && recentChats.length > 0 ? (
                             recentChats.map((chat: RecentChat, index: number) => (
-                                <li key={chat.chat_id || `chat-${index}`} className="chat-history-item">
+                                <li
+                                    key={chat.chatId || `chat-${index}`}
+                                    className="chat-history-item"
+                                    onClick={() => handleFetchChatHistory(chat.chatId)} // 추가됨
+                                >
                                     • {chat.message && chat.message.length > 12
                                         ? chat.message.substring(0, 12) + '...'
                                         : chat.message || '메시지 없음'}
@@ -64,6 +69,7 @@ const AiPage = () => {
                                 <div className="message-text">{msg.content}</div>
                             </div>
                         </div>
+                        
                     ))}
                     {isLoading && (
                         <div className="loading-message">

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { store } from '@/redux/store';
 import { ChatMessage, RecentChat } from '@/types/ai/interfaces';
 import { useAppDispatch } from '@/redux/hooks';
-import { chatListRecent } from '@/redux/actions/ai/aiActions';
+import { chatListRecent, fetchChatHistory } from '@/redux/actions/ai/aiActions';
 
 export const useAiPage = (chatId?: number) => {
     const dispatch = useAppDispatch();
@@ -27,12 +27,53 @@ export const useAiPage = (chatId?: number) => {
         }
     };
 
-    useEffect(() => {   
+
+
+    useEffect(() => {
         handleChatListRecent();
     }, []);
 
+
+
+    // 💡 chatId 변경 시 대화 기록 불러오기 추가
+    useEffect(() => {
+        if (chatId) {
+            handleFetchChatHistory(chatId);
+        }
+    }, [chatId]);
+
+    const handleFetchChatHistory = async (chatId: number) => {
+        console.log(chatId);
+        setIsLoading(true);
+        try {
+            const response = await dispatch(fetchChatHistory(chatId));
+            
+            if (response.payload && response.payload.apiData) {
+                const historyData = responseToChatMessages(response.payload.apiData);
+                setChatMessages(historyData);
+            }
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const responseToChatMessages = (data: any[]): ChatMessage[] => {
+        return data.map(item => ({
+            type: item.messageType === 'user' ? 'user' : 'ai',
+            content: item.content
+        }));
+    };
+
+
+
+
+
+
     useEffect(() => {
         const chat_id = chatId ?? Date.now();
+        console.log('chat_id:', chat_id);
         const wsUrl = `${baseWsUrl}/api/chat/ws/chat/${userID}/${chat_id}`;
         ws.current = new WebSocket(wsUrl);
 
@@ -64,7 +105,7 @@ export const useAiPage = (chatId?: number) => {
                 if (charIndex > aiContent.length) {
                     if (typingInterval.current) clearInterval(typingInterval.current);
                     setIsTyping(false); // 타이핑 끝났을 때
-                    
+
                     // 방법 3: 타이핑 효과가 끝난 후 대화 목록 갱신
                     // 약간의 지연을 주어 서버에 데이터가 완전히 저장될 시간을 확보
                     setTimeout(() => {
@@ -90,7 +131,7 @@ export const useAiPage = (chatId?: number) => {
 
     const handleSendMessage = useCallback(() => {
         if (!message.trim() || !canSendMessage || isLoading || isTyping || !ws.current) return;
-
+        console.log('testestste',chatId);
         const userMessage: ChatMessage = { type: 'user', content: message };
         setChatMessages(prev => [...prev, userMessage]);
         setIsLoading(true); // AI 응답 기다리는 동안 true
@@ -147,7 +188,7 @@ export const useAiPage = (chatId?: number) => {
                 if (charIndex > aiContent.length) {
                     if (typingInterval.current) clearInterval(typingInterval.current);
                     setIsTyping(false);
-                    
+
                     // 방법 3: 타이핑 효과가 끝난 후 대화 목록 갱신
                     // 약간의 지연을 주어 서버에 데이터가 완전히 저장될 시간을 확보
                     setTimeout(() => {
@@ -161,7 +202,7 @@ export const useAiPage = (chatId?: number) => {
             setCanSendMessage(false);
         };
     };
-    
+
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [chatMessages]);
@@ -177,5 +218,6 @@ export const useAiPage = (chatId?: number) => {
         messagesEndRef,
         canSendMessage,
         recentChats,
+        handleFetchChatHistory,
     };
 };

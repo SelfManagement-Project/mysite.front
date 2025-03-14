@@ -24,6 +24,19 @@ const chatSlice = createSlice({
         chatListRecentFailure: (state, action: PayloadAction<string>) => {
             state.isLoading = false;
             state.error = action.payload;
+        },
+        chatHistoryRequest: (state) => {
+            state.isLoading = true;
+            state.error = null;
+        },
+        chatHistorySuccess: (state, action: PayloadAction<ChatMessage>) => {
+            state.isLoading = false;
+            state.messages = [...state.messages, action.payload];
+            state.error = null;
+        },
+        chatHistoryFailure: (state, action: PayloadAction<string>) => {
+            state.isLoading = false;
+            state.error = action.payload;
         }
     }
 });
@@ -31,7 +44,10 @@ const chatSlice = createSlice({
 export const {
     chatListRecentRequest,
     chatListRecentSuccess,
-    chatListRecentFailure
+    chatListRecentFailure,
+    chatHistoryRequest,
+    chatHistorySuccess,
+    chatHistoryFailure
 } = chatSlice.actions;
 
 export default chatSlice.reducer;

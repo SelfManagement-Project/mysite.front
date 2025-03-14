@@ -17,6 +17,16 @@ export const chatService = {
             }
             // data
         });
+        console.log('response::::',response);
         return response.data;
-    }
+    },
+    getChatHistory: async (chatId: number) => {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`${baseUrl}/api/ai/chat/history/${chatId}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+        return response.data;
+    },
 };

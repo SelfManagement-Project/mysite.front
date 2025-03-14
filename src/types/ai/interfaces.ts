@@ -20,7 +20,7 @@ export interface SendMessageRequest {
 }
 
 export interface RecentChat {
-    chat_id: number;
+    chatId: number;
     message: string;
     response: string;
     created_at: string;
