@@ -1,22 +1,22 @@
-// // services/chatService.ts
-// import axios from '@/services/api/instance';
-// import { SendMessageRequest } from '@/types/ai/interfaces';
-// import { store } from '@/redux/store';
+// services/chatService.ts
+import axios from '@/services/api/instance';
+import { store } from '@/redux/store';
 
-// const baseUrl = store.getState().url.PythonbaseUrl;
+const baseUrl = store.getState().url.SpringbaseUrl;
 
-// export const chatService = {
-//     sendMessage: async (data: SendMessageRequest) => {
-//         console.log('data::::',data);
-//         const response = await axios({
-//             method: 'post',
-//             url: `${baseUrl}/api/chat/send`,
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 'Authorization': `Bearer ${localStorage.getItem('token')}`
-//             },
-//             data
-//         });
-//         return response.data;
-//     }
-// };
+export const chatService = {
+    chatListRecent: async () => {
+        // console.log('data::::',data);
+        const token = localStorage.getItem('token');
+        const response = await axios({
+            method: 'get',
+            url: `${baseUrl}/api/ai/chat/list/recent`,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+            // data
+        });
+        return response.data;
+    }
+};

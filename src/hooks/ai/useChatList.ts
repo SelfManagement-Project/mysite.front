@@ -10,13 +10,13 @@ export const useChatList = () => {
     const token = localStorage.getItem('token');
 
     useEffect(() => {
-        fetchChatHistories();
+        fetchChatList();
     }, [token]);
 
     // 채팅 기록 불러오기
-    const fetchChatHistories = async (searchText = '') => {
+    const fetchChatList = async (searchText = '') => {
         if (!token) return;
-        const data = await chatListService.fetchChatHistories(token, searchText);
+        const data = await chatListService.fetchChatList(token, searchText);
 
         // console.log('data:::::',data);
 
@@ -27,7 +27,7 @@ export const useChatList = () => {
     // 검색어 변경 핸들러
     const handleSearch = (searchText: string) => {
         setSearchTerm(searchText);
-        fetchChatHistories(searchText);
+        fetchChatList(searchText);
     };
 
     
@@ -37,6 +37,6 @@ export const useChatList = () => {
         totalChats,
         searchTerm,
         handleSearch,
-        fetchChatHistories
+        fetchChatList
     };
 };

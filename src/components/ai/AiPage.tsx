@@ -1,5 +1,6 @@
 import '@/assets/styles/components/ai/AiPage.scss';
 import { useAiPage } from '@/hooks/ai/useAiPage';
+import { RecentChat } from '@/types/ai/interfaces';
 
 const AiPage = () => {
     const {
@@ -11,7 +12,8 @@ const AiPage = () => {
         handleKeyPress,
         canSendMessage,
         handleNewChat,
-        messagesEndRef
+        messagesEndRef,
+        recentChats  // 추가된 부분
     } = useAiPage();
 
     return (
@@ -25,9 +27,17 @@ const AiPage = () => {
                 <div className="chat-history">
                     <h3>최근 대화 기록</h3>
                     <ul>
-                        <li>• 일정 관리점</li>
-                        <li>• 운동 자동화</li>
-                        <li>• 다이어트 도움말</li>
+                        {recentChats && recentChats.length > 0 ? (
+                            recentChats.map((chat: RecentChat, index: number) => (
+                                <li key={chat.chat_id || `chat-${index}`} className="chat-history-item">
+                                    • {chat.message && chat.message.length > 12
+                                        ? chat.message.substring(0, 12) + '...'
+                                        : chat.message || '메시지 없음'}
+                                </li>
+                            ))
+                        ) : (
+                            <li key="no-chats">• 최근 대화 기록이 없습니다</li>
+                        )}
                     </ul>
                 </div>
 

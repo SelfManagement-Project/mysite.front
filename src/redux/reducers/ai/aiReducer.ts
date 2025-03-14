@@ -12,16 +12,16 @@ const chatSlice = createSlice({
     name: 'chat',
     initialState,
     reducers: {
-        sendMessageRequest: (state) => {
+        chatListRecentRequest: (state) => {
             state.isLoading = true;
             state.error = null;
         },
-        sendMessageSuccess: (state, action: PayloadAction<ChatMessage>) => {
+        chatListRecentSuccess: (state, action: PayloadAction<ChatMessage>) => {
             state.isLoading = false;
             state.messages = [...state.messages, action.payload];
             state.error = null;
         },
-        sendMessageFailure: (state, action: PayloadAction<string>) => {
+        chatListRecentFailure: (state, action: PayloadAction<string>) => {
             state.isLoading = false;
             state.error = action.payload;
         }
@@ -29,9 +29,9 @@ const chatSlice = createSlice({
 });
 
 export const {
-    sendMessageRequest,
-    sendMessageSuccess,
-    sendMessageFailure
+    chatListRecentRequest,
+    chatListRecentSuccess,
+    chatListRecentFailure
 } = chatSlice.actions;
 
 export default chatSlice.reducer;

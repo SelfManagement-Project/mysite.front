@@ -19,6 +19,14 @@ export interface SendMessageRequest {
     user_id: number;
 }
 
+export interface RecentChat {
+    chat_id: number;
+    message: string;
+    response: string;
+    created_at: string;
+    // 필요한 다른 필드들 추가
+}
+
 export interface ChatListProps {
     onSelectChat: (chatId: number) => void;  // 채팅 선택시 호출될 콜백 함수
 }

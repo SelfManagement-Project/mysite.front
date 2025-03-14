@@ -6,9 +6,9 @@ const baseUrl = store.getState().url.SpringbaseUrl;
 
 export const chatListService = {
     // 채팅 기록 조회
-    fetchChatHistories: async (token: string, searchText = '') => {
+    fetchChatList: async (token: string, searchText = '') => {
         try {
-            const response = await axios.get(`${baseUrl}/api/ai/chat_history/list`, {
+            const response = await axios.get(`${baseUrl}/api/ai/chat/list/total`, {
                 headers: { 'Authorization': `Bearer ${token}` },
                 params: { search: searchText }
             });
