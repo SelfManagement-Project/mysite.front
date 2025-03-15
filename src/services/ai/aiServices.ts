@@ -17,7 +17,7 @@ export const chatService = {
             }
             // data
         });
-        console.log('response::::',response);
+        // console.log('response::::',response);
         return response.data;
     },
     getChatHistory: async (chatId: number) => {
