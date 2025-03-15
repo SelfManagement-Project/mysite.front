@@ -1,7 +1,6 @@
 import '@/assets/styles/components/ai/AiPage.scss';
 import { useAiPage } from '@/hooks/ai/useAiPage';
 import { RecentChat, AiPageProps } from '@/types/ai/interfaces';
-import { useEffect } from 'react';
 
 const AiPage = ({ selectedChatId }: AiPageProps) => {
     const {
@@ -18,13 +17,7 @@ const AiPage = ({ selectedChatId }: AiPageProps) => {
         handleFetchChatHistory
     } = useAiPage(selectedChatId);
 
-    // selectedChatId가 변경될 때 해당 채팅 내용 로드
-    // useEffect(() => {
-    //     if (selectedChatId) {
-    //         handleFetchChatHistory(selectedChatId);
-    //     }
-    // }, [selectedChatId]);
-    // console.log(selectedChatId);
+
     return (
         <div className="chatbot-container">
             <div className="sidebar">
