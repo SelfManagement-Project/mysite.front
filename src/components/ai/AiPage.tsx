@@ -1,8 +1,9 @@
 import '@/assets/styles/components/ai/AiPage.scss';
 import { useAiPage } from '@/hooks/ai/useAiPage';
-import { RecentChat } from '@/types/ai/interfaces';
+import { RecentChat, AiPageProps } from '@/types/ai/interfaces';
+import { useEffect } from 'react';
 
-const AiPage = () => {
+const AiPage = ({ selectedChatId }: AiPageProps) => {
     const {
         message,
         chatMessages,
@@ -13,10 +14,17 @@ const AiPage = () => {
         canSendMessage,
         handleNewChat,
         messagesEndRef,
-        recentChats,  // 추가된 부분
+        recentChats,
         handleFetchChatHistory
-    } = useAiPage();
+    } = useAiPage(selectedChatId);
 
+    // selectedChatId가 변경될 때 해당 채팅 내용 로드
+    // useEffect(() => {
+    //     if (selectedChatId) {
+    //         handleFetchChatHistory(selectedChatId);
+    //     }
+    // }, [selectedChatId]);
+    // console.log(selectedChatId);
     return (
         <div className="chatbot-container">
             <div className="sidebar">
@@ -69,7 +77,7 @@ const AiPage = () => {
                                 <div className="message-text">{msg.content}</div>
                             </div>
                         </div>
-                        
+
                     ))}
                     {isLoading && (
                         <div className="loading-message">

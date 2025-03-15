@@ -4,7 +4,7 @@ import { ChatMessage, RecentChat } from '@/types/ai/interfaces';
 import { useAppDispatch } from '@/redux/hooks';
 import { chatListRecent, fetchChatHistory } from '@/redux/actions/ai/aiActions';
 
-export const useAiPage = (chatId?: number) => {
+export const useAiPage = (chatId?: number | null) => {
     const dispatch = useAppDispatch();
     const [message, setMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +27,7 @@ export const useAiPage = (chatId?: number) => {
         }
     };
 
-
+    
 
     useEffect(() => {
         handleChatListRecent();
@@ -42,73 +42,73 @@ export const useAiPage = (chatId?: number) => {
         }
     }, [chatId]);
 
-    const handleFetchChatHistory = async (chatId: number) => {
-        console.log(chatId);
-        setIsLoading(true);
+const handleFetchChatHistory = async (chatId: number) => {
+    // console.log(chatId);
+    setIsLoading(true);
+    
+    // 기존 WebSocket 연결 닫기
+    if (ws.current) {
+        ws.current.close();
+    }
+    
+    try {
+        const response = await dispatch(fetchChatHistory(chatId));
         
-        // 기존 WebSocket 연결 닫기
-        if (ws.current) {
-            ws.current.close();
-        }
-        
-        try {
-            const response = await dispatch(fetchChatHistory(chatId));
+        if (response.payload && response.payload.apiData) {
+            const historyData = responseToChatMessages(response.payload.apiData);
+            setChatMessages(historyData);
             
-            if (response.payload && response.payload.apiData) {
-                const historyData = responseToChatMessages(response.payload.apiData);
-                setChatMessages(historyData);
+            // 선택한 채팅 ID로 새 WebSocket 연결 생성
+            const wsUrl = `${baseWsUrl}/api/chat/ws/chat/${userID}/${chatId}`;
+            ws.current = new WebSocket(wsUrl);
+            
+            // WebSocket 이벤트 핸들러 설정
+            ws.current.onopen = () => {
+                setCanSendMessage(true);
+            };
+            
+            ws.current.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                const aiContent = data.error || data.response;
                 
-                // 선택한 채팅 ID로 새 WebSocket 연결 생성
-                const wsUrl = `${baseWsUrl}/api/chat/ws/chat/${userID}/${chatId}`;
-                ws.current = new WebSocket(wsUrl);
+                if (typingInterval.current) clearInterval(typingInterval.current);
                 
-                // WebSocket 이벤트 핸들러 설정
-                ws.current.onopen = () => {
-                    setCanSendMessage(true);
-                };
+                setIsLoading(false);
+                setIsTyping(true);
                 
-                ws.current.onmessage = (event) => {
-                    const data = JSON.parse(event.data);
-                    const aiContent = data.error || data.response;
+                setChatMessages((prev) => [...prev, { type: 'ai', content: '' }]);
+                
+                let charIndex = 0;
+                typingInterval.current = setInterval(() => {
+                    setChatMessages((prev) => {
+                        const updatedMessages = [...prev];
+                        const lastIndex = updatedMessages.length - 1;
+                        updatedMessages[lastIndex].content = aiContent.slice(0, charIndex);
+                        return updatedMessages;
+                    });
+                    charIndex += 1;
                     
-                    if (typingInterval.current) clearInterval(typingInterval.current);
-                    
-                    setIsLoading(false);
-                    setIsTyping(true);
-                    
-                    setChatMessages((prev) => [...prev, { type: 'ai', content: '' }]);
-                    
-                    let charIndex = 0;
-                    typingInterval.current = setInterval(() => {
-                        setChatMessages((prev) => {
-                            const updatedMessages = [...prev];
-                            const lastIndex = updatedMessages.length - 1;
-                            updatedMessages[lastIndex].content = aiContent.slice(0, charIndex);
-                            return updatedMessages;
-                        });
-                        charIndex += 1;
+                    if (charIndex > aiContent.length) {
+                        if (typingInterval.current) clearInterval(typingInterval.current);
+                        setIsTyping(false);
                         
-                        if (charIndex > aiContent.length) {
-                            if (typingInterval.current) clearInterval(typingInterval.current);
-                            setIsTyping(false);
-                            
-                            setTimeout(() => {
-                                handleChatListRecent();
-                            }, 500);
-                        }
-                    }, 20);
-                };
-                
-                ws.current.onclose = () => {
-                    setCanSendMessage(false);
-                };
-            }
-        } catch (e) {
-            console.error(e);
-        } finally {
-            setIsLoading(false);
+                        setTimeout(() => {
+                            handleChatListRecent();
+                        }, 500);
+                    }
+                }, 20);
+            };
+            
+            ws.current.onclose = () => {
+                setCanSendMessage(false);
+            };
         }
-    };
+    } catch (e) {
+        console.error(e);
+    } finally {
+        setIsLoading(false);
+    }
+};
 
     const responseToChatMessages = (data: any[]): ChatMessage[] => {
         return data.map(item => ({
@@ -124,7 +124,7 @@ export const useAiPage = (chatId?: number) => {
 
     useEffect(() => {
         const chat_id = chatId ?? Date.now();
-        console.log('chat_id:', chat_id);
+        // console.log('chat_id:', chat_id);
         const wsUrl = `${baseWsUrl}/api/chat/ws/chat/${userID}/${chat_id}`;
         ws.current = new WebSocket(wsUrl);
 
@@ -182,7 +182,7 @@ export const useAiPage = (chatId?: number) => {
 
     const handleSendMessage = useCallback(() => {
         if (!message.trim() || !canSendMessage || isLoading || isTyping || !ws.current) return;
-        console.log('testestste',chatId);
+        // console.log('testestste',chatId);
         const userMessage: ChatMessage = { type: 'user', content: message };
         setChatMessages(prev => [...prev, userMessage]);
         setIsLoading(true); // AI 응답 기다리는 동안 true

@@ -27,6 +27,10 @@ export interface RecentChat {
     // 필요한 다른 필드들 추가
 }
 
+export interface AiPageProps {
+    selectedChatId?: number | null;
+  }
+
 export interface ChatListProps {
     onSelectChat: (chatId: number) => void;  // 채팅 선택시 호출될 콜백 함수
 }
