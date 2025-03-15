@@ -1,33 +1,36 @@
 // hooks/chat/useChatHistory.ts
 import { useState, useEffect } from 'react';
 import { ChatList } from '@/types/components';
-import { chatListService } from '@/services/ai/chatListService';
+import { useAppDispatch } from '@/redux/hooks';
+import { fetchChatList } from '@/redux/actions/ai/aiActions';
 
 export const useChatList = () => {
+    const dispatch = useAppDispatch();
     const [chatList, setChatList] = useState<ChatList[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [totalChats, setTotalChats] = useState(0);
     const token = localStorage.getItem('token');
 
     useEffect(() => {
-        fetchChatList();
+        handleFetchChatList();
     }, [token]);
 
+
     // 채팅 기록 불러오기
-    const fetchChatList = async (searchText = '') => {
+    const handleFetchChatList = async (searchText = '') => {
         if (!token) return;
-        const data = await chatListService.fetchChatList(token, searchText);
+        const data = await dispatch(fetchChatList({ searchText }));
 
-        // console.log('data:::::',data);
+        // console.log('data:::::',data.payload.apiData);
 
-        setChatList(data);
-        setTotalChats(data.length);
+        setChatList(data.payload.apiData);
+        setTotalChats(data.payload.apiData.length);
     };
 
     // 검색어 변경 핸들러
     const handleSearch = (searchText: string) => {
         setSearchTerm(searchText);
-        fetchChatList(searchText);
+        handleFetchChatList(searchText);
     };
 
     
@@ -37,6 +40,6 @@ export const useChatList = () => {
         totalChats,
         searchTerm,
         handleSearch,
-        fetchChatList
+        handleFetchChatList
     };
 };

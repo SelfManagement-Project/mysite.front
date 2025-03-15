@@ -10,5 +10,13 @@ export const habitService = {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         return response.data;
+    },
+    
+    updateHabitProgress: async (token: string, habitId: number) => {
+        const response = await axios.put(`${baseUrl}/api/schedule/habits/${habitId}/progress`, {}, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        return response.data;
     }
 };
+

@@ -9,6 +9,7 @@ import {
     chatHistorySuccess,
     chatHistoryFailure
 } from '@/redux/reducers/ai/aiReducer';
+import { chatListService } from '@/services/ai/chatListService';
 
 export const chatListRecent = createAsyncThunk(
     'chat/chatListRecent',
@@ -32,6 +33,22 @@ export const fetchChatHistory = createAsyncThunk(
         try {
             dispatch(chatHistoryRequest());
             const response = await chatService.getChatHistory(chatId);
+            dispatch(chatHistorySuccess(response));
+            return response;
+        } catch (error: any) {
+            const message = error.response?.data?.message || '대화 기록을 불러오는데 실패했습니다.';
+            dispatch(chatHistoryFailure(message));
+            throw error;
+        }
+    }
+);
+
+export const fetchChatList = createAsyncThunk(
+    'chat/fetchChatList',
+    async ({ searchText }: { searchText: string }, { dispatch }) => {
+        try {
+            dispatch(chatHistoryRequest());
+            const response = await chatListService.fetchChatList(searchText);
             dispatch(chatHistorySuccess(response));
             return response;
         } catch (error: any) {

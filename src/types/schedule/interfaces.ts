@@ -75,4 +75,11 @@ export interface CalendarModalProps {
     onClose: () => void;
     title?: string;
     children: React.ReactNode;
-  }
+}
+
+
+export interface HabitState {
+    habits: Habit[];
+    isLoading: boolean;
+    error: string | null;
+}
