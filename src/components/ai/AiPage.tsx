@@ -93,8 +93,8 @@ const AiPage = () => {
                         disabled={!canSendMessage}
                     />
                     <div className="input-buttons">
-                        <button className="function-btn">파일첨부</button>
-                        <button className="function-btn">음성입력</button>
+                        {/* <button className="function-btn">파일첨부</button>
+                        <button className="function-btn">음성입력</button> */}
                         <button
                             className="send-btn"
                             onClick={handleSendMessage}

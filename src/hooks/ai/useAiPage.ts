@@ -45,12 +45,63 @@ export const useAiPage = (chatId?: number) => {
     const handleFetchChatHistory = async (chatId: number) => {
         console.log(chatId);
         setIsLoading(true);
+        
+        // 기존 WebSocket 연결 닫기
+        if (ws.current) {
+            ws.current.close();
+        }
+        
         try {
             const response = await dispatch(fetchChatHistory(chatId));
             
             if (response.payload && response.payload.apiData) {
                 const historyData = responseToChatMessages(response.payload.apiData);
                 setChatMessages(historyData);
+                
+                // 선택한 채팅 ID로 새 WebSocket 연결 생성
+                const wsUrl = `${baseWsUrl}/api/chat/ws/chat/${userID}/${chatId}`;
+                ws.current = new WebSocket(wsUrl);
+                
+                // WebSocket 이벤트 핸들러 설정
+                ws.current.onopen = () => {
+                    setCanSendMessage(true);
+                };
+                
+                ws.current.onmessage = (event) => {
+                    const data = JSON.parse(event.data);
+                    const aiContent = data.error || data.response;
+                    
+                    if (typingInterval.current) clearInterval(typingInterval.current);
+                    
+                    setIsLoading(false);
+                    setIsTyping(true);
+                    
+                    setChatMessages((prev) => [...prev, { type: 'ai', content: '' }]);
+                    
+                    let charIndex = 0;
+                    typingInterval.current = setInterval(() => {
+                        setChatMessages((prev) => {
+                            const updatedMessages = [...prev];
+                            const lastIndex = updatedMessages.length - 1;
+                            updatedMessages[lastIndex].content = aiContent.slice(0, charIndex);
+                            return updatedMessages;
+                        });
+                        charIndex += 1;
+                        
+                        if (charIndex > aiContent.length) {
+                            if (typingInterval.current) clearInterval(typingInterval.current);
+                            setIsTyping(false);
+                            
+                            setTimeout(() => {
+                                handleChatListRecent();
+                            }, 500);
+                        }
+                    }, 20);
+                };
+                
+                ws.current.onclose = () => {
+                    setCanSendMessage(false);
+                };
             }
         } catch (e) {
             console.error(e);
