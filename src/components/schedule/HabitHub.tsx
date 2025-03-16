@@ -7,6 +7,8 @@ import Modal from '../common/Modal';
 import HabitInsert from './modal/HabitInsert';
 import WeeklyMonthlyReport from './modal/WeeklyMonthlyReport';
 import GoalSetting from './modal/GoalSetting';
+import DateRangePicker from './DateRangePicker';
+import HabitItem from './HabitItem';
 
 const HabitHub = () => {
   const navigate = useNavigate();
@@ -18,22 +20,82 @@ const HabitHub = () => {
   }, [navigate]);
 
   const {
-    habits, isLoading, error, isHabitInsertModalOpen, setIsHabitInsertModalOpen, isWeeklyMonthlyModalOpen, setIsWeeklyMonthlyModalOpen, isGoalSettingModalOpen, setGoalSettingModalOpen
+    habits,
+    isLoading,
+    error,
+    isHabitInsertModalOpen,
+    setIsHabitInsertModalOpen,
+    isWeeklyMonthlyModalOpen,
+    setIsWeeklyMonthlyModalOpen,
+    isGoalSettingModalOpen,
+    setGoalSettingModalOpen,
+    showDatePicker,
+    setShowDatePicker,
+    activeRange,
+    handleDateRangeApply,
+    resetDateFilter,
+    todayHabits,
+    fetchTodayHabitsInfo
   } = useHabit();
+
+
+
+
+
+
+
+
 
   return (
     <div className="goal-report">
       <div className="header">
         <h2 className="title">습관 관리</h2>
         <div className="buttons">
-          <button className="btn">기간선택</button>
+          <button className="btn" onClick={() => setShowDatePicker(true)}>
+            {activeRange
+              ? `${activeRange.start} ~ ${activeRange.end}`
+              : '기간선택'}
+          </button>
+          {activeRange && (
+            <button className="btn btn-reset" onClick={resetDateFilter}>
+              초기화
+            </button>
+          )}
           <button className="btn" onClick={() => setIsHabitInsertModalOpen(true)}>추가하기</button>
         </div>
       </div>
 
+      {showDatePicker && (
+        <DateRangePicker
+          onApply={handleDateRangeApply}
+          onCancel={() => setShowDatePicker(false)}
+        />
+      )}
+
       <div className="chart-container" style={{ height: '300px' }}>
         <h3>습관</h3>
         {isLoading ? <p>로딩 중...</p> : error ? <p>{error}</p> : <HabitHubBar data={habits} />}
+      </div>
+
+      <div className="today-habits">
+        <h3>오늘의 습관</h3>
+        {isLoading ? (
+          <p>로딩 중...</p>
+        ) : (
+          <div className="habits-list">
+            {todayHabits.length === 0 ? (
+              <p className="empty-message">등록된 습관이 없습니다. 새 습관을 추가해보세요!</p>
+            ) : (
+              todayHabits.map(habit => (
+                <HabitItem
+                  key={habit.habitId}
+                  habit={habit}
+                  onStatusChange={fetchTodayHabitsInfo}
+                />
+              ))
+            )}
+          </div>
+        )}
       </div>
 
       <div className="report-buttons">
@@ -46,7 +108,7 @@ const HabitHub = () => {
         onClose={() => setIsHabitInsertModalOpen(false)}
         title="습관 추가"
       >
-        <HabitInsert />
+        <HabitInsert onClose={() => setIsHabitInsertModalOpen(false)} />
       </Modal>
 
       <Modal
@@ -54,7 +116,10 @@ const HabitHub = () => {
         onClose={() => setIsWeeklyMonthlyModalOpen(false)}
         title="주간/월간 레포트"
       >
-        <WeeklyMonthlyReport />
+        <WeeklyMonthlyReport
+          data={habits}
+          onClose={() => setIsWeeklyMonthlyModalOpen(false)}
+        />
       </Modal>
 
       <Modal
@@ -62,7 +127,7 @@ const HabitHub = () => {
         onClose={() => setGoalSettingModalOpen(false)}
         title="주간/월간 레포트"
       >
-        <GoalSetting />
+        <GoalSetting onClose={() => setGoalSettingModalOpen(false)} />
       </Modal>
     </div>
   );

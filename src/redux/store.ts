@@ -3,13 +3,15 @@ import authReducer from './reducers/login/authReducer';
 import urlReducer from './reducers/urlSlice';
 import chatReducer from './reducers/ai/aiReducer';
 import searchReducer from './reducers/common/searchReducer';
+import healthReducer from './reducers/health/healthReducer';
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     url: urlReducer,
     chat: chatReducer,
-    search: searchReducer
+    search: searchReducer,
+    health: healthReducer,
   },
   middleware: (getDefaultMiddleware) => 
     getDefaultMiddleware().concat([])

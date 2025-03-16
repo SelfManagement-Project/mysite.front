@@ -68,6 +68,15 @@ export interface Habit {
     name: string;
     completed: number;  // 진행률 (%)
     remaining: number;   // 미진행률 (%)
+    description?: string;
+    frequency?: string;
+    goalCount?: number;
+    isCompleted?: boolean;
+    logDate?: string;
+}
+// HabitItemInfo 인터페이스를 Habit과 통합하거나 Habit을 확장
+export interface HabitItemInfo extends Habit {
+    // 추가 필드가 있다면 여기에 추가
 }
 
 export interface CalendarModalProps {
@@ -82,4 +91,30 @@ export interface HabitState {
     habits: Habit[];
     isLoading: boolean;
     error: string | null;
+}
+
+export interface HabitGoal {
+    habitId: number;
+    name: string;
+    completed: number;
+    remaining: number;
+    frequency?: string;  // 습관 빈도(매일, 주 3회 등)
+    description?: string;
+}
+
+export interface DateRange {
+    start: Date | null;
+    end: Date | null;
+}
+
+export interface HabitItemInfo {
+    habitId: number;
+    name: string;
+    completed: number;
+    remaining: number;
+    description?: string;
+    frequency?: string;
+    goalCount?: number;
+    isCompleted?: boolean;
+    logDate?: string;
 }

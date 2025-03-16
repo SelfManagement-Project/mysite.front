@@ -1,41 +1,33 @@
+// components/schedule/modal/HabitInsert.tsx
 import { useHabitInsert } from '@/hooks/schedule/modal/useHabitInsert';
+import "@/assets/styles/components/schedule/modal/HabitInsert.scss";
 
-const HabitInsert = () => {
+interface HabitInsertProps {
+  onClose: () => void;
+}
+
+const HabitInsert = ({ onClose }: HabitInsertProps) => {
   const {
     newHabit,
-    setNewHabit
-
+    setNewHabit,
+    handleSubmit,
+    isSubmitting,
+    error
   } = useHabitInsert();
-
-
-
 
   // 습관 추가 핸들러
   const handleAddHabit = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      // API 호출 로직 구현 필요
-      console.log("습관 추가:", newHabit);
-
-      // 성공 시 목록 갱신
-      // await HandlerfetchHabitsAction();
-      // setIsAddModalOpen(false);
-
-      // 입력 폼 초기화
-      setNewHabit({
-        name: '',
-        description: '',
-        frequency: '매일'
-      });
-    } catch (error) {
-      console.error('습관 추가 실패:', error);
+    const success = await handleSubmit();
+    if (success) {
+      onClose(); // 성공하면 모달 닫기
     }
   };
-
 
   return (
     <form onSubmit={handleAddHabit}>
       <h2>새 습관 추가</h2>
+      {error && <p className="error-message">{error}</p>}
       <div className="form-group">
         <label>습관 이름</label>
         <input
@@ -65,7 +57,12 @@ const HabitInsert = () => {
         </select>
       </div>
       <div className="modal-buttons">
-        <button type="submit" className="btn btn-primary">추가</button>
+        <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+          {isSubmitting ? '추가 중...' : '추가'}
+        </button>
+        <button type="button" className="btn btn-secondary" onClick={onClose}>
+          취소
+        </button>
       </div>
     </form>
   );

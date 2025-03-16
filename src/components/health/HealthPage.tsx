@@ -101,7 +101,6 @@ const HealthPage = () => {
           <button>체중 변화 보기</button>
           <button>주별 운동시설 찾기</button>
           <button>식단 추천받기</button>
-          <button>AI 건강 상담</button>
         </div>
       </div>
     </div>
