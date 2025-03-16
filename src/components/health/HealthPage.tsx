@@ -2,10 +2,36 @@ import "@/assets/styles/components/health/HealthPage.scss";
 import { useHealth } from "@/hooks/health/useHealth";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Modal from "../common/Modal";
+import DateSelectionModal from "./modal/DateSelectionModal";
 
 // 인터페이스 import
 
 const HealthPage = () => {
+  const {
+    exerciseData,
+    dietData,
+    sleepData,
+    healthMetrics,
+    loading,
+    isDateSelectionModalOpen, setIsDateSelectionModalOpen,
+    isExerciseTrackingModalOpen, setIsExerciseTrackingModalOpen,
+    isAddExerciseModalOpen, setIsAddExerciseModalOpen,
+    isMealLogModalOpen, setIsMealLogModalOpen,
+    isAddMealModalOpen, setIsAddMealModalOpen,
+    isSleepTrackingModalOpen, setIsSleepTrackingModalOpen,
+    isSleepDetailModalOpen, setIsSleepDetailModalOpen,
+    isWeightGraphModalOpen, setIsWeightGraphModalOpen,
+    isAddWeightInfoModalOpen, setIsAddWeightInfoModalOpen,
+    isExerciseAchievementModalOpen, setIsExerciseAchievementModalOpen,
+    isCalorieBalanceModalOpen, setIsCalorieBalanceModalOpen,
+    isSleepPatternModalOpen, setIsSleepPatternModalOpen,
+    isWeightChangeModalOpen, setIsWeightChangeModalOpen,
+    isNearbyGymsModalOpen, setIsNearbyGymsModalOpen,
+    isDietRecommendationModalOpen, setIsDietRecommendationModalOpen,
+  } = useHealth();
+
+
   const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -13,13 +39,10 @@ const HealthPage = () => {
       navigate("/login");
     }
   }, [navigate]);
-  const {
-      exerciseData,
-        dietData,
-        sleepData,
-        healthMetrics,
-        loading
-    } = useHealth();
+
+
+
+
 
   if (loading) return <div>로딩 중...</div>;
 
@@ -27,14 +50,15 @@ const HealthPage = () => {
     <div className="health-dashboard">
       <div className="header">
         <h2>종합 건강 관리</h2>
-        <button className="settings-btn">날짜 선택</button>
+        <button className="settings-btn" onClick={() => setIsDateSelectionModalOpen(true)}>날짜 선택</button>
       </div>
 
       {/* 운동 데이터 */}
       <div className="main-metrics">
         <div className="metric-card">
           <h3>운동 트래킹</h3>
-          <button className="track-btn">운동 현황 보기</button>
+          <button className="track-btn" onClick={() => setIsExerciseTrackingModalOpen(true)}>운동 현황 보기</button>
+
           <ul className="exercise-list">
             {exerciseData.length > 0 ? (
               exerciseData.map((exercise) => (
@@ -46,13 +70,14 @@ const HealthPage = () => {
               <li>운동 데이터 없음</li>
             )}
           </ul>
-          <button className="add-btn">운동 추가</button>
+
+          <button className="add-btn" onClick={() => setIsAddExerciseModalOpen(true)}>운동 추가</button>
         </div>
 
         {/* 식단 데이터 */}
         <div className="metric-card">
           <h3>식단 관리</h3>
-          <button className="track-btn">오늘의 식사 기록</button>
+          <button className="track-btn" onClick={() => setIsMealLogModalOpen(true)}>오늘의 식사 기록</button>
           <ul className="diet-list">
             {dietData.length > 0 ? (
               dietData.map((meal) => (
@@ -64,19 +89,21 @@ const HealthPage = () => {
               <li>식단 데이터 없음</li>
             )}
           </ul>
-          <button className="add-btn">식사 추가</button>
+
+          <button className="add-btn" onClick={() => setIsAddMealModalOpen(true)}>식사 추가</button>
         </div>
 
         {/* 수면 데이터 */}
         <div className="metric-card">
           <h3>수면 관리</h3>
-          <button className="track-btn">수면 시간/품질 보기</button>
+          <button className="track-btn" onClick={() => setIsSleepTrackingModalOpen(true)}>수면 시간/품질 보기</button>
           <ul className="sleep-list">
             <li>취침: {sleepData?.sleep_start ?? "정보 없음"}</li>
             <li>기상: {sleepData?.sleep_end ?? "정보 없음"}</li>
             <li>수면 품질: {sleepData?.sleep_quality ?? 0}%</li>
           </ul>
-          <button className="add-btn">수면 데이터 상세</button>
+
+          <button className="add-btn" onClick={() => setIsSleepDetailModalOpen(true)}>수면 데이터 상세</button>
         </div>
       </div>
 
@@ -88,21 +115,142 @@ const HealthPage = () => {
           <span>목표: {healthMetrics?.target_weight ?? "정보 없음"}kg</span>
           <span>BMI: {healthMetrics?.bmi ?? "정보 없음"}</span>
         </div>
-        <button>체중 그래프 보기</button>
+        <button onClick={() => setIsWeightGraphModalOpen(true)}>체중 그래프 보기</button>
+        <button onClick={() => setIsAddWeightInfoModalOpen(true)}>체중 정보 추가</button>
       </div>
 
       {/* 분석 및 AI 추천 */}
       <div className="analysis-tools">
         <h3>주간 분석 리포트</h3>
         <div className="tool-buttons">
-          <button>운동 달성률 보기</button>
-          <button>칼로리/섭취 소모 보기</button>
-          <button>수면 패턴 보기</button>
-          <button>체중 변화 보기</button>
-          <button>주별 운동시설 찾기</button>
-          <button>식단 추천받기</button>
+          <button onClick={() => setIsExerciseAchievementModalOpen(true)}>운동 달성률 보기</button>
+          <button onClick={() => setIsCalorieBalanceModalOpen(true)}>칼로리/섭취 소모 보기</button>
+          <button onClick={() => setIsSleepPatternModalOpen(true)}>수면 패턴 보기</button>
+          <button onClick={() => setIsWeightChangeModalOpen(true)}>체중 변화 보기</button>
+          <button onClick={() => setIsNearbyGymsModalOpen(true)}>주별 운동시설 찾기</button>
+          <button onClick={() => setIsDietRecommendationModalOpen(true)}>식단 추천받기</button>
         </div>
       </div>
+      <Modal
+        isOpen={isDateSelectionModalOpen}
+        onClose={() => setIsDateSelectionModalOpen(false)}
+        title="날짜 선택"
+      >
+        <DateSelectionModal onClose={() => setIsDateSelectionModalOpen(false)} />
+      </Modal>
+
+      <Modal
+        isOpen={isExerciseTrackingModalOpen}
+        onClose={() => setIsExerciseTrackingModalOpen(false)}
+        title="운동 현황"
+      >
+        <DateSelectionModal onClose={() => setIsExerciseTrackingModalOpen(false)} />
+      </Modal>
+
+      <Modal
+        isOpen={isAddExerciseModalOpen}
+        onClose={() => setIsAddExerciseModalOpen(false)}
+        title="운동 추가"
+      >
+        <DateSelectionModal onClose={() => setIsAddExerciseModalOpen(false)} />
+      </Modal>
+
+      <Modal
+        isOpen={isMealLogModalOpen}
+        onClose={() => setIsMealLogModalOpen(false)}
+        title="오늘의 식사 기록"
+      >
+        <DateSelectionModal onClose={() => setIsMealLogModalOpen(false)} />
+      </Modal>
+
+      <Modal
+        isOpen={isAddMealModalOpen}
+        onClose={() => setIsAddMealModalOpen(false)}
+        title="식사 추가"
+      >
+        <DateSelectionModal onClose={() => setIsAddMealModalOpen(false)} />
+      </Modal>
+
+
+      <Modal
+        isOpen={isSleepTrackingModalOpen}
+        onClose={() => setIsSleepTrackingModalOpen(false)}
+        title="수면 시간/품질 보기용"
+      >
+        <DateSelectionModal onClose={() => setIsSleepTrackingModalOpen(false)} />
+      </Modal>
+      <Modal
+        isOpen={isSleepDetailModalOpen}
+        onClose={() => setIsSleepDetailModalOpen(false)}
+        title="수면 데이터 상세용"
+      >
+        <DateSelectionModal onClose={() => setIsSleepDetailModalOpen(false)} />
+      </Modal>
+
+
+      <Modal
+        isOpen={isWeightGraphModalOpen}
+        onClose={() => setIsWeightGraphModalOpen(false)}
+        title="체중 그래프 보기용"
+      >
+        <DateSelectionModal onClose={() => setIsWeightGraphModalOpen(false)} />
+      </Modal>
+      <Modal
+        isOpen={isAddWeightInfoModalOpen}
+        onClose={() => setIsAddWeightInfoModalOpen(false)}
+        title="체중 정보 추가"
+      >
+        <DateSelectionModal onClose={() => setIsAddWeightInfoModalOpen(false)} />
+      </Modal>
+      <Modal
+        isOpen={isExerciseAchievementModalOpen}
+        onClose={() => setIsExerciseAchievementModalOpen(false)}
+        title="운동 달성률 보기용"
+      >
+        <DateSelectionModal onClose={() => setIsExerciseAchievementModalOpen(false)} />
+      </Modal>
+
+      <Modal
+        isOpen={isCalorieBalanceModalOpen}
+        onClose={() => setIsCalorieBalanceModalOpen(false)}
+        title="칼로리/섭취 보기용"
+      >
+        <DateSelectionModal onClose={() => setIsCalorieBalanceModalOpen(false)} />
+      </Modal>
+
+      <Modal
+        isOpen={isSleepPatternModalOpen}
+        onClose={() => setIsSleepPatternModalOpen(false)}
+        title="수면패턴 보기용"
+      >
+        <DateSelectionModal onClose={() => setIsSleepPatternModalOpen(false)} />
+      </Modal>
+
+      <Modal
+        isOpen={isWeightChangeModalOpen}
+        onClose={() => setIsWeightChangeModalOpen(false)}
+        title="체중 변화 보기용"
+      >
+        <DateSelectionModal onClose={() => setIsWeightChangeModalOpen(false)} />
+      </Modal>
+
+      <Modal
+        isOpen={isNearbyGymsModalOpen}
+        onClose={() => setIsNearbyGymsModalOpen(false)}
+        title="주변 운동 시설 찾기용"
+      >
+        <DateSelectionModal onClose={() => setIsNearbyGymsModalOpen(false)} />
+      </Modal>
+      <Modal
+        isOpen={isDietRecommendationModalOpen}
+        onClose={() => setIsDietRecommendationModalOpen(false)}
+        title="식단 추천 받기"
+      >
+        <DateSelectionModal onClose={() => setIsDietRecommendationModalOpen(false)} />
+      </Modal>
+
+
+
     </div>
   );
 };
