@@ -41,3 +41,9 @@ export interface ProgressChartProps {
     label: string;
     color?: string;
 }
+
+
+export interface DateSelectionModalProps {
+    onClose: () => void;
+    onSelectDate?: (date: Date) => void;
+  }

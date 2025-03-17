@@ -3,6 +3,22 @@ import { Transaction, CategoryBudget, BudgetStatus, SavingsStatus } from '@/type
 import { financeService } from '@/services/finance/financeService';
 
 export const useFinance = () => {
+    const [isDateSelectionModalOpen, setIsDateSelectionModalOpen] = useState(false);
+    const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+    const [isAddTransactionModalOpen, setIsAddTransactionModalOpen] = useState(false);
+    const [isBudgetSettingModalOpen, setIsBudgetSettingModalOpen] = useState(false);
+
+
+    const [isSavingsGoalModalOpen, setIsSavingsGoalModalOpen] = useState(false);
+    const [isTransactionDetailModalOpen, setIsTransactionDetailModalOpen] = useState(false);
+    const [isCategoryManagementModalOpen, setIsCategoryManagementModalOpen] = useState(false);
+    const [isTransactionListModalOpen, setIsTransactionListModalOpen] = useState(false);
+
+
+    
+    
+    
+
     const token = localStorage.getItem('token');
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [categoryBudgets, setCategoryBudgets] = useState<CategoryBudget[]>([
@@ -22,7 +38,7 @@ export const useFinance = () => {
     });
     const [savingsStatus, setSavingsStatus] = useState<SavingsStatus>();
     const [loading, setLoading] = useState(true);
-    
+
 
     useEffect(() => {
         fetchData();
@@ -30,7 +46,7 @@ export const useFinance = () => {
 
     const fetchData = async () => {
         try {
-            
+
             const [transactionsRes, categoryRes, budgetRes, savingsRes] = await Promise.all([
                 financeService.transactionsRes(token!),
                 financeService.categoryRes(token!),
@@ -80,6 +96,14 @@ export const useFinance = () => {
         categoryBudgets,
         budgetStatus,
         savingsStatus,
-        loading
+        loading,
+        isDateSelectionModalOpen, setIsDateSelectionModalOpen,
+        isSettingsModalOpen, setIsSettingsModalOpen,
+        isAddTransactionModalOpen, setIsAddTransactionModalOpen,
+        isBudgetSettingModalOpen, setIsBudgetSettingModalOpen,
+        isSavingsGoalModalOpen, setIsSavingsGoalModalOpen,
+        isTransactionDetailModalOpen, setIsTransactionDetailModalOpen,
+        isCategoryManagementModalOpen, setIsCategoryManagementModalOpen,
+        isTransactionListModalOpen, setIsTransactionListModalOpen,
     };
 };

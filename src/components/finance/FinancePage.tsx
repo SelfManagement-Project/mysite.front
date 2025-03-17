@@ -6,6 +6,15 @@ import ProgressChart from '@/components/finance/ProgressChart';
 import { useFinance } from '@/hooks/finance/useFinance';
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Modal from "../common/Modal";
+import DateSelection from "@/components/finance/modal/DateSelection";
+import Settings from "./modal/Settings";
+import AddTransaction from "./modal/AddTransaction";
+import BudgetSetting from "./modal/BudgetSetting";
+import SavingsGoal from "./modal/SavingsGoal";
+import TransactionDetail from "./modal/TransactionDetail";
+import CategoryManagement from "./modal/CategoryManagement";
+import TransactionList from "./modal/TransactionList";
 
 const FinancePage = () => {
   const navigate = useNavigate();
@@ -20,7 +29,18 @@ const FinancePage = () => {
     categoryBudgets,
     budgetStatus,
     savingsStatus,
-    loading
+    loading,
+    isDateSelectionModalOpen, setIsDateSelectionModalOpen,
+    isAddTransactionModalOpen, setIsAddTransactionModalOpen,
+    isSettingsModalOpen, setIsSettingsModalOpen,
+    isBudgetSettingModalOpen, setIsBudgetSettingModalOpen,
+
+
+    isSavingsGoalModalOpen, setIsSavingsGoalModalOpen,
+    isTransactionDetailModalOpen, setIsTransactionDetailModalOpen,
+    isCategoryManagementModalOpen, setIsCategoryManagementModalOpen,
+    isTransactionListModalOpen, setIsTransactionListModalOpen,
+
   } = useFinance();
 
   if (loading) return <div>로딩 중...</div>;
@@ -30,8 +50,8 @@ const FinancePage = () => {
       <div className="header">
         <h2>재무 관리</h2>
         <div className="header-buttons">
-          <button>기간 선택</button>
-          <button>설정</button>
+          <button onClick={() => setIsDateSelectionModalOpen(true)}>기간 선택</button>
+          <button onClick={() => setIsSettingsModalOpen(true)}>설정</button>
         </div>
       </div>
 
@@ -115,7 +135,7 @@ const FinancePage = () => {
       <div className="transactions-section">
         <div className="header-row">
           <h3>최근 거래 내역</h3>
-          <button>거래 내역 더보기</button>
+          <button onClick={() => setIsTransactionListModalOpen(true)}>거래 내역 더보기</button>
         </div>
         <table>
           <thead>
@@ -149,14 +169,100 @@ const FinancePage = () => {
           </tbody>
         </table>
       </div>
-
       <div className="action-buttons">
-        <button onClick={() => {/* 거래 추가 모달 열기 */ }}>거래 추가</button>
-        <button onClick={() => {/* 예산 설정 모달 열기 */ }}>예산 설정</button>
-        <button onClick={() => {/* 저축 목표 설정 모달 열기 */ }}>저축 목표 설정</button>
-        <button onClick={() => {/* 리포트 페이지로 이동 */ }}>리포트 보기</button>
-        <button onClick={() => {/* 지출 분석 페이지로 이동 */ }}>지출분석</button>
+        <button onClick={() => setIsAddTransactionModalOpen(true)}>거래 추가</button>
+        <button onClick={() => setIsBudgetSettingModalOpen(true)}>예산 설정</button>
+
+        <button onClick={() => setIsSavingsGoalModalOpen(true)}>저축 목표 설정</button>
+
+        <button >리포트 보기</button>
+        <button >지출분석</button>
+        <button onClick={() => setIsTransactionDetailModalOpen(true)}>거래상세</button>
+        <button onClick={() => setIsCategoryManagementModalOpen(true)}>지출출카테고리관리</button>
       </div>
+
+      <Modal
+        isOpen={isDateSelectionModalOpen}
+        onClose={() => setIsDateSelectionModalOpen(false)}
+        title="기간 선택"
+      >
+        <DateSelection onClose={() => setIsDateSelectionModalOpen(false)} />
+      </Modal>
+
+      <Modal
+        isOpen={isSettingsModalOpen}
+        onClose={() => setIsSettingsModalOpen(false)}
+        title="설정"
+      >
+        <Settings onClose={() => setIsSettingsModalOpen(false)} />
+      </Modal>
+
+      <Modal
+        isOpen={isAddTransactionModalOpen}
+        onClose={() => setIsAddTransactionModalOpen(false)}
+        title="거래 추가"
+      >
+        <AddTransaction onClose={() => setIsAddTransactionModalOpen(false)} />
+      </Modal>
+
+      <Modal
+        isOpen={isBudgetSettingModalOpen}
+        onClose={() => setIsBudgetSettingModalOpen(false)}
+        title="예산 설정"
+      >
+        <BudgetSetting onClose={() => setIsBudgetSettingModalOpen(false)} />
+      </Modal>
+
+      <Modal
+        isOpen={isSavingsGoalModalOpen}
+        onClose={() => setIsSavingsGoalModalOpen(false)}
+        title="저축목표 설정"
+      >
+        <SavingsGoal onClose={() => setIsSavingsGoalModalOpen(false)} />
+      </Modal>
+      <Modal
+        isOpen={isTransactionDetailModalOpen}
+        onClose={() => setIsTransactionDetailModalOpen(false)}
+        title="거래 상세"
+      >
+        <TransactionDetail
+          onClose={() => setIsTransactionDetailModalOpen(false)}
+          transactionId="123" // 실제 transactionId를 전달해야 합니다
+        />
+      </Modal>
+      <Modal
+        isOpen={isCategoryManagementModalOpen}
+        onClose={() => setIsCategoryManagementModalOpen(false)}
+        title="카테고리 관리"
+      >
+        <CategoryManagement onClose={() => setIsCategoryManagementModalOpen(false)} />
+      </Modal>
+
+
+
+
+      <Modal
+        isOpen={isTransactionListModalOpen}
+        onClose={() => setIsTransactionListModalOpen(false)}
+        title="거래 내역 더보기기"
+      >
+        <TransactionList onClose={() => setIsTransactionListModalOpen(false)} />
+      </Modal>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
   );
 };
