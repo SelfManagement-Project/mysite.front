@@ -49,3 +49,8 @@ export interface HealthState {
   isLoading: boolean;
   error: string | null;
 }
+
+export interface DateSelectionModalProps {
+  onClose: () => void;
+  onSelectDate?: (date: Date) => void;
+}

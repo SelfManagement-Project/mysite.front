@@ -3,7 +3,21 @@ import { useHealth } from "@/hooks/health/useHealth";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "../common/Modal";
-import DateSelectionModal from "./modal/DateSelectionModal";
+import DateSelection from "./modal/DateSelection";
+import ExerciseTracking from "./modal/ExerciseTracking";
+import AddExercise from "./modal/AddExercise";
+import MealLog from "./modal/MealLog";
+import AddMeal from "./modal/AddMeal";
+import SleepTracking from "./modal/SleepTracking";
+import WeightGraph from "./modal/WeightGraph";
+import SleepDetail from "./modal/SleepDetail";
+import AddWeightInfo from "./modal/AddWeightInfo";
+import ExerciseAchievement from "./modal/ExerciseAchievement";
+import CalorieBalance from "./modal/CalorieBalance";
+import SleepPattern from "./modal/SleepPattern";
+import WeightChange from "./modal/WeightChange";
+import NearbyGyms from "./modal/NearbyGyms";
+import DietRecommendation from "./modal/DietRecommendation";
 
 // 인터페이스 import
 
@@ -136,7 +150,7 @@ const HealthPage = () => {
         onClose={() => setIsDateSelectionModalOpen(false)}
         title="날짜 선택"
       >
-        <DateSelectionModal onClose={() => setIsDateSelectionModalOpen(false)} />
+        <DateSelection onClose={() => setIsDateSelectionModalOpen(false)} />
       </Modal>
 
       <Modal
@@ -144,7 +158,7 @@ const HealthPage = () => {
         onClose={() => setIsExerciseTrackingModalOpen(false)}
         title="운동 현황"
       >
-        <DateSelectionModal onClose={() => setIsExerciseTrackingModalOpen(false)} />
+        <ExerciseTracking onClose={() => setIsExerciseTrackingModalOpen(false)} />
       </Modal>
 
       <Modal
@@ -152,7 +166,7 @@ const HealthPage = () => {
         onClose={() => setIsAddExerciseModalOpen(false)}
         title="운동 추가"
       >
-        <DateSelectionModal onClose={() => setIsAddExerciseModalOpen(false)} />
+        <AddExercise onClose={() => setIsAddExerciseModalOpen(false)} />
       </Modal>
 
       <Modal
@@ -160,7 +174,7 @@ const HealthPage = () => {
         onClose={() => setIsMealLogModalOpen(false)}
         title="오늘의 식사 기록"
       >
-        <DateSelectionModal onClose={() => setIsMealLogModalOpen(false)} />
+        <MealLog onClose={() => setIsMealLogModalOpen(false)} />
       </Modal>
 
       <Modal
@@ -168,7 +182,7 @@ const HealthPage = () => {
         onClose={() => setIsAddMealModalOpen(false)}
         title="식사 추가"
       >
-        <DateSelectionModal onClose={() => setIsAddMealModalOpen(false)} />
+        <AddMeal onClose={() => setIsAddMealModalOpen(false)} />
       </Modal>
 
 
@@ -177,14 +191,14 @@ const HealthPage = () => {
         onClose={() => setIsSleepTrackingModalOpen(false)}
         title="수면 시간/품질 보기용"
       >
-        <DateSelectionModal onClose={() => setIsSleepTrackingModalOpen(false)} />
+        <SleepTracking onClose={() => setIsSleepTrackingModalOpen(false)} />
       </Modal>
       <Modal
         isOpen={isSleepDetailModalOpen}
         onClose={() => setIsSleepDetailModalOpen(false)}
         title="수면 데이터 상세용"
       >
-        <DateSelectionModal onClose={() => setIsSleepDetailModalOpen(false)} />
+        <SleepDetail onClose={() => setIsSleepDetailModalOpen(false)} />
       </Modal>
 
 
@@ -193,21 +207,21 @@ const HealthPage = () => {
         onClose={() => setIsWeightGraphModalOpen(false)}
         title="체중 그래프 보기용"
       >
-        <DateSelectionModal onClose={() => setIsWeightGraphModalOpen(false)} />
+        <WeightGraph onClose={() => setIsWeightGraphModalOpen(false)} />
       </Modal>
       <Modal
         isOpen={isAddWeightInfoModalOpen}
         onClose={() => setIsAddWeightInfoModalOpen(false)}
         title="체중 정보 추가"
       >
-        <DateSelectionModal onClose={() => setIsAddWeightInfoModalOpen(false)} />
+        <AddWeightInfo onClose={() => setIsAddWeightInfoModalOpen(false)} />
       </Modal>
       <Modal
         isOpen={isExerciseAchievementModalOpen}
         onClose={() => setIsExerciseAchievementModalOpen(false)}
         title="운동 달성률 보기용"
       >
-        <DateSelectionModal onClose={() => setIsExerciseAchievementModalOpen(false)} />
+        <ExerciseAchievement onClose={() => setIsExerciseAchievementModalOpen(false)} />
       </Modal>
 
       <Modal
@@ -215,7 +229,7 @@ const HealthPage = () => {
         onClose={() => setIsCalorieBalanceModalOpen(false)}
         title="칼로리/섭취 보기용"
       >
-        <DateSelectionModal onClose={() => setIsCalorieBalanceModalOpen(false)} />
+        <CalorieBalance onClose={() => setIsCalorieBalanceModalOpen(false)} />
       </Modal>
 
       <Modal
@@ -223,7 +237,7 @@ const HealthPage = () => {
         onClose={() => setIsSleepPatternModalOpen(false)}
         title="수면패턴 보기용"
       >
-        <DateSelectionModal onClose={() => setIsSleepPatternModalOpen(false)} />
+        <SleepPattern onClose={() => setIsSleepPatternModalOpen(false)} />
       </Modal>
 
       <Modal
@@ -231,7 +245,7 @@ const HealthPage = () => {
         onClose={() => setIsWeightChangeModalOpen(false)}
         title="체중 변화 보기용"
       >
-        <DateSelectionModal onClose={() => setIsWeightChangeModalOpen(false)} />
+        <WeightChange onClose={() => setIsWeightChangeModalOpen(false)} />
       </Modal>
 
       <Modal
@@ -239,14 +253,14 @@ const HealthPage = () => {
         onClose={() => setIsNearbyGymsModalOpen(false)}
         title="주변 운동 시설 찾기용"
       >
-        <DateSelectionModal onClose={() => setIsNearbyGymsModalOpen(false)} />
+        <NearbyGyms onClose={() => setIsNearbyGymsModalOpen(false)} />
       </Modal>
       <Modal
         isOpen={isDietRecommendationModalOpen}
         onClose={() => setIsDietRecommendationModalOpen(false)}
         title="식단 추천 받기"
       >
-        <DateSelectionModal onClose={() => setIsDietRecommendationModalOpen(false)} />
+        <DietRecommendation onClose={() => setIsDietRecommendationModalOpen(false)} />
       </Modal>
 
 
