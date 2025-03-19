@@ -11,6 +11,7 @@ import ProtectedRoute from "@/router/ProtectedRoute";
 import KakaoCallback from "@/components/login/KakaoCallback";
 import NaverCallback from "@/components/login/NaverCallback";
 import GoogleCallback from "@/components/login/GoogleCallback";
+import TransactionList from "@/components/finance/TransactionList";
 
 export const routes: RouteObject[] = [
   {
@@ -46,6 +47,14 @@ export const routes: RouteObject[] = [
     element: (
       <ProtectedRoute>
         <DefaultLayout><DashboardPage /></DefaultLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/finance/transactionlist",
+    element: (
+      <ProtectedRoute>
+        <DefaultLayout><TransactionList /></DefaultLayout>
       </ProtectedRoute>
     ),
   },

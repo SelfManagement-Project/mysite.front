@@ -4,7 +4,7 @@ import IncomeExpenseChart from '@/components/finance/IncomeExpenseChart';
 import CategoryChart from '@/components/finance/CategoryChart';
 import ProgressChart from '@/components/finance/ProgressChart';
 import { useFinance } from '@/hooks/finance/useFinance';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Modal from "../common/Modal";
 import DateSelection from "@/components/finance/modal/DateSelection";
@@ -14,7 +14,7 @@ import BudgetSetting from "./modal/BudgetSetting";
 import SavingsGoal from "./modal/SavingsGoal";
 import TransactionDetail from "./modal/TransactionDetail";
 import CategoryManagement from "./modal/CategoryManagement";
-import TransactionList from "./modal/TransactionList";
+// import TransactionList from "./modal/TransactionList";
 
 const FinancePage = () => {
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ const FinancePage = () => {
     isSavingsGoalModalOpen, setIsSavingsGoalModalOpen,
     isTransactionDetailModalOpen, setIsTransactionDetailModalOpen,
     isCategoryManagementModalOpen, setIsCategoryManagementModalOpen,
-    isTransactionListModalOpen, setIsTransactionListModalOpen,
+    // isTransactionListModalOpen, setIsTransactionListModalOpen,
 
   } = useFinance();
 
@@ -135,7 +135,8 @@ const FinancePage = () => {
       <div className="transactions-section">
         <div className="header-row">
           <h3>최근 거래 내역</h3>
-          <button onClick={() => setIsTransactionListModalOpen(true)}>거래 내역 더보기</button>
+          {/* <button onClick={() => setIsTransactionListModalOpen(true)}>거래 내역 더보기</button> */}
+          <Link to='/finance/transactionlist'>거래 내역 더보기</Link>
         </div>
         <table>
           <thead>
@@ -150,7 +151,7 @@ const FinancePage = () => {
           <tbody>
             {Array.isArray(transactions) && transactions.length > 0 ? (
               transactions.map((transaction, index) => (
-                <tr key={index}>
+                <tr key={index} onClick={() => setIsTransactionDetailModalOpen(true)}>
                   <td>{new Date(transaction.date).toLocaleDateString()}</td>
                   <td>{transaction.is_income ? '수입' : '지출'}</td>
                   <td>{transaction.category}</td>
@@ -177,7 +178,7 @@ const FinancePage = () => {
 
         <button >리포트 보기</button>
         <button >지출분석</button>
-        <button onClick={() => setIsTransactionDetailModalOpen(true)}>거래상세</button>
+        {/* <button onClick={() => setIsTransactionDetailModalOpen(true)}>거래상세</button> */}
         <button onClick={() => setIsCategoryManagementModalOpen(true)}>지출출카테고리관리</button>
       </div>
 
@@ -241,14 +242,14 @@ const FinancePage = () => {
 
 
 
-      <Modal
+      {/* <Modal
         isOpen={isTransactionListModalOpen}
         onClose={() => setIsTransactionListModalOpen(false)}
         title="거래 내역 더보기기"
       >
         <TransactionList onClose={() => setIsTransactionListModalOpen(false)} />
       </Modal>
-
+ */}
 
 
 

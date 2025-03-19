@@ -12,7 +12,7 @@ export const useFinance = () => {
     const [isSavingsGoalModalOpen, setIsSavingsGoalModalOpen] = useState(false);
     const [isTransactionDetailModalOpen, setIsTransactionDetailModalOpen] = useState(false);
     const [isCategoryManagementModalOpen, setIsCategoryManagementModalOpen] = useState(false);
-    const [isTransactionListModalOpen, setIsTransactionListModalOpen] = useState(false);
+    // const [isTransactionListModalOpen, setIsTransactionListModalOpen] = useState(false);
 
 
     
@@ -104,6 +104,6 @@ export const useFinance = () => {
         isSavingsGoalModalOpen, setIsSavingsGoalModalOpen,
         isTransactionDetailModalOpen, setIsTransactionDetailModalOpen,
         isCategoryManagementModalOpen, setIsCategoryManagementModalOpen,
-        isTransactionListModalOpen, setIsTransactionListModalOpen,
+        // isTransactionListModalOpen, setIsTransactionListModalOpen,
     };
 };
