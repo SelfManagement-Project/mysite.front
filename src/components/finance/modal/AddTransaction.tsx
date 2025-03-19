@@ -1,5 +1,7 @@
 // AddTransaction.tsx
 import { useAddTransaction } from "@/hooks/finance/modal/useAddTransaction";
+import '@/assets/styles/components/finance/modal/AddTransaction.scss';
+
 
 const AddTransaction = ({ onClose }: { onClose: () => void }) => {
  const {
@@ -104,7 +106,6 @@ const AddTransaction = ({ onClose }: { onClose: () => void }) => {
        </div>
 
        <div className="modal-actions">
-         <button type="button" className="cancel-btn" onClick={onClose}>취소</button>
          <button 
            type="submit" 
            className="submit-btn" 
@@ -112,6 +113,7 @@ const AddTransaction = ({ onClose }: { onClose: () => void }) => {
          >
            {loading ? '저장 중...' : '저장'}
          </button>
+         <button type="button" className="cancel-btn" onClick={onClose}>취소</button>
        </div>
      </form>
    </div>

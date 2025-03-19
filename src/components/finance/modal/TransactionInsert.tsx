@@ -13,7 +13,6 @@ const TransactionInsert = ({ onClose, transactionId }: { onClose: () => void, tr
     saveChanges,
 
  } = useTransactionInsert(transactionId);
-console.log('testestestet:::::', transactionId);
  if (loading) return <div className="loading">거래 정보를 불러오는 중...</div>;
  if (error) return <div className="error">{error}</div>;
  if (!transaction) return <div className="not-found">거래 정보를 찾을 수 없습니다.</div>;

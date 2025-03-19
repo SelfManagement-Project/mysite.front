@@ -1,0 +1,155 @@
+// TransactionDetail.scss
+.transaction-detail-modal {
+    display: inline-block;
+    width: 100%;
+    max-width: 500px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    font-family: 'Pretendard', sans-serif; // Korean-friendly font
+  
+    .loading, .error, .not-found {
+      text-align: center;
+      padding: 20px;
+      color: #666;
+    }
+  
+    .transaction-info, .edit-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+  
+    .info-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      
+      .info-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        .label {
+          font-weight: 600;
+          color: #555;
+          margin-right: 10px;
+        }
+  
+        .value {
+          text-align: right;
+          
+          &.income {
+            color: #4CAF50;
+          }
+  
+          &.expense {
+            color: #F44336;
+          }
+        }
+      }
+    }
+  
+    .edit-form {
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+  
+        label {
+          font-weight: 600;
+          color: #333;
+        }
+  
+        input, select {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid #ddd;
+          border-radius: 6px;
+          font-size: 16px;
+        }
+  
+        .input-group {
+          display: flex;
+          align-items: center;
+  
+          input {
+            flex-grow: 1;
+            margin-right: 8px;
+          }
+  
+          .currency {
+            color: #666;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+  
+    .modal-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      gap: 10px;
+  
+      button {
+        flex-grow: 1;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+  
+        &.edit-btn {
+          background-color: #2196F3;
+          color: white;
+  
+          &:hover {
+            background-color: #1976D2;
+          }
+        }
+  
+        &.delete-btn {
+          background-color: #F44336;
+          color: white;
+  
+          &:hover {
+            background-color: #D32F2F;
+          }
+        }
+  
+        &.save-btn {
+          background-color: #4CAF50;
+          color: white;
+  
+          &:hover {
+            background-color: #388E3C;
+          }
+        }
+  
+        &.cancel-btn {
+          background-color: #E0E0E0;
+          color: #333;
+  
+          &:hover {
+            background-color: #D5D5D5;
+          }
+        }
+      }
+    }
+  }
+  
+  // Responsive adjustments
+  @media (max-width: 480px) {
+    .transaction-detail-modal {
+      width: 95%;
+      padding: 16px;
+  
+      .modal-actions button {
+        padding: 10px;
+        font-size: 14px;
+      }
+    }
+  }

@@ -1,31 +1,92 @@
 @use '@/assets/styles/base/variables' as *;
 @use '@/assets/styles/base/mixins' as *;
 
-.footer {
- width: 100%;
- background-color: $background-color;
- border-top: 1px solid $secondary-color;
- padding: $spacing-md 0;
- position: fixed;  // 하단 고정
- bottom: 0;       // 하단에 위치
+footer {
+  width: 100%;
+  background-color: white;
+  padding: 40px 0;
+  border-top: 1px solid #E0E0E0;
 
- &-container {
-   @include flex(center, center);  // 중앙 정렬
-  //  max-width: $desktop;
-   height: 100px;
-   margin: 0 auto;
-   padding: 0 $spacing-lg;
-   color: $text-color;
-   font-size: $font-size-md;
-   background-color: #dddddd;
- }
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 
- @include responsive(mobile) {
-   padding: $spacing-sm 0;
-   
-   &-container {
-     padding: 0 $spacing-md;
-     font-size: $font-size-sm;
-   }
- }
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+
+      .footer-links {
+        display: inline-block;
+        gap: 80px;
+
+        .footer-section {
+          display: flex;
+          align-content: center;
+          margin-bottom: 20px;
+
+          h4 {
+            text-align: left;
+            width: 100px;
+            font-weight: 600;
+            color: #333;
+            font-size: 16px;
+            margin-right: 0px;
+          }
+
+          ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+
+            li {
+              color: #666;
+              cursor: pointer;
+              position: relative;
+
+              &:not(:last-child)::after {
+                content: '|';
+                position: absolute;
+                right: -10px;
+                color: #ddd;
+              }
+            }
+          }
+        }
+      }
+
+      .footer-contact {
+        text-align: right;
+        color: #666;
+
+        p {
+          margin-bottom: 20px;
+          text-align: left;
+        }
+
+        .social-links {
+          display: flex;
+          justify-content: left;
+          gap: 15px;
+          margin-top: 15px;
+
+          a {
+            color: #666;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #E0E0E0;
+      color: #999;
+      font-size: 14px;
+    }
+  }
 }

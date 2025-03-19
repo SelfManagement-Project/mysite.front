@@ -26,3 +26,6 @@ npm install dompurify
 npm install -D @types/node
 npm install -D @vitejs/plugin-react
 npm install react-native-web
+
+
+npm install swiper

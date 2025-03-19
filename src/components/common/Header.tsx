@@ -1,4 +1,3 @@
-import React from "react";
 import { HeaderProps } from "@/types/common/interfaces";
 import { Link, useNavigate } from 'react-router-dom';
 import { useHeader } from '@/hooks/common/useHeader';
@@ -15,7 +14,8 @@ import EditProfileForm from "@/components/login/EditProfileForm";
 import { useChatList } from '@/hooks/ai/useChatList';
 import { useSearch } from "@/hooks/common/useSearch";
 
-const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
+const Header = ({ onMenuClick, showNav = true }: HeaderProps) => {
+  
   const navigate = useNavigate();
   const { query, setQuery, handleSearch } = useSearch();
   const handleSearchSubmit = async () => {
@@ -24,11 +24,11 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showNav = true }) => {
   };
 
   const {
-    fetchChatHistories  // useAiPage에서 새로 추가할 함수
+    handleFetchChatList  // useAiPage에서 새로 추가할 함수
   } = useChatList();
 
   const handleChatSelect = async () => {
-    await fetchChatHistories();
+    await handleFetchChatList();
     // 필요한 경우 채팅 탭으로 다시 전환
   };
 
