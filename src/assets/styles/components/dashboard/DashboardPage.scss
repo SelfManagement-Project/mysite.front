@@ -1,0 +1,118 @@
+// DashboardPage.scss
+
+.dashboard-page {
+    
+    overflow-y: auto;
+    max-height: 720px;
+    .dashboard-content {
+    margin: 0 auto;
+    padding: 30px;
+    max-width: 1600px;
+    // min-height: 100vh;
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f8f9fa;
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+
+            h1 {
+                font-size: 32px;
+                font-weight: 700;
+                color: #343a40;
+                margin: 0;
+            }
+        }
+
+        .dashboard-iframe-container {
+            width: 100%;
+            height: calc(100vh - 200px);
+            min-height: 600px;
+            background-color: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            margin-bottom: 30px;
+
+            iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+        }
+
+        .dashboard-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+
+            .metric-card {
+                background-color: #fff;
+                border-radius: 12px;
+                padding: 20px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+                .metric-title {
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: #495057;
+                    margin-bottom: 10px;
+                }
+
+                .metric-value {
+                    font-size: 28px;
+                    font-weight: 700;
+                    color: #343a40;
+                }
+
+                .metric-change {
+                    font-size: 14px;
+                    margin-top: 5px;
+
+                    &.positive {
+                        color: #40c057;
+                    }
+
+                    &.negative {
+                        color: #fa5252;
+                    }
+                }
+            }
+        }
+
+        .dashboard-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-bottom: 30px;
+
+            button {
+                padding: 10px 20px;
+                background-color: #4263eb;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.2s;
+
+                &:hover {
+                    background-color: #3b5bdb;
+                    transform: translateY(-2px);
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                }
+
+                // &.secondary {
+                //     background-color: #dee2e6;
+                //     color: #495057;
+
+                //     &:hover {
+                //         background-color: #ced4da;
+                //     }
+                // }
+            }
+        }
+    }
+}

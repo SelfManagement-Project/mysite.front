@@ -6,6 +6,7 @@ import Footer from "../common/Footer";
 import Modal from "../common/Modal";
 import TransactionDetail from "./modal/TransactionDetail";
 import AddTransaction from "./modal/AddTransaction";
+import TransactionInsert from "./modal/TransactionInsert";
 
 const TransactionList = () => {
   const {
@@ -25,7 +26,12 @@ const TransactionList = () => {
     goBack,
     isTransactionDetailModalOpen,
     setIsTransactionDetailModalOpen,
-    isAddTransactionModalOpen, setIsAddTransactionModalOpen,
+    isAddTransactionModalOpen,
+    setIsAddTransactionModalOpen,
+    isTransactionInsertModalOpen,
+    setIsTransactionInsertModalOpen,
+    isTransactionsId,
+    handletransactionId
   } = useTransactionList();
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -157,7 +163,7 @@ const TransactionList = () => {
                           {transaction.amount?.toLocaleString() ?? 0}원
                         </td>
                         <td onClick={() => setIsTransactionDetailModalOpen(true)}>{transaction.description}</td>
-                        <td><button className="transaction-info-update">수정</button> / <button className="transaction-info-delete">삭제</button></td>
+                        <td><button onClick={() => handletransactionId(transaction.id)} className="transaction-info-update">수정</button> / <button className="transaction-info-delete">삭제</button></td>
                       </tr>
                     ))
                   ) : (
@@ -214,6 +220,17 @@ const TransactionList = () => {
         title="거래 추가"
       >
         <AddTransaction onClose={() => setIsAddTransactionModalOpen(false)} />
+      </Modal>
+
+      <Modal
+        isOpen={isTransactionInsertModalOpen}
+        onClose={() => setIsTransactionInsertModalOpen(false)}
+        title="거래 수정"
+      >
+        <TransactionInsert
+          onClose={() => setIsTransactionInsertModalOpen(false)}
+          transactionId={isTransactionsId} // 실제 transactionId를 전달해야 합니다
+        />
       </Modal>
 
 

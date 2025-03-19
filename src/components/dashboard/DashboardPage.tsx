@@ -1,10 +1,11 @@
 import Footer from "@/components/common/Footer";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import '@/assets/styles/components/dashboard/DashboardPage.scss';
 
 const DashboardPage = () => {
-
   const navigate = useNavigate();
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -13,15 +14,24 @@ const DashboardPage = () => {
   }, [navigate]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
-      <iframe
-        src="http://localhost:3000/goto/lJbVFApHR?orgId=1"
-        width="100%"
-        height="600px"
-        frameBorder="0"
-        allowFullScreen
-      ></iframe>
+    <div className="dashboard-page">
+      <div className="dashboard-content">
+        <div className="dashboard-header">
+          <h1>대시보드</h1>
+          <div className="dashboard-actions">
+            {/* <button className="secondary">새로고침</button>
+            <button>설정</button> */}
+          </div>
+        </div>
+
+        <div className="dashboard-iframe-container">
+          <iframe
+            src="http://localhost:3000/goto/lJbVFApHR?orgId=1"
+            frameBorder="0"
+            allowFullScreen
+          ></iframe>
+        </div>
+      </div>
       <Footer />
     </div>
   );

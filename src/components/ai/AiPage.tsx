@@ -75,9 +75,9 @@ const AiPage = ({ selectedChatId }: AiPageProps) => {
                     {isLoading && (
                         <div className="loading-message">
                             <div className="typing-indicator">
-                                <span>.</span>
-                                <span>.</span>
-                                <span>.</span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
                             </div>
                         </div>
                     )}

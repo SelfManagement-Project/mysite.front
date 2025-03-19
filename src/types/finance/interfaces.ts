@@ -42,8 +42,34 @@ export interface ProgressChartProps {
     color?: string;
 }
 
+export interface TransactionList {
+    id: string;
+    amount: number;
+    category: string;
+    description: string;
+    date: string;
+    is_income: boolean;
+    created_at: string;
+}
+
+export interface FilterOptions {
+    type: string;
+    category: string;
+    search: string;
+}
+
+export interface DateRange {
+    startDate: string;
+    endDate: string;
+}
+
+export interface SortOptions {
+    field: string;
+    direction: string;
+}
+
 
 export interface DateSelectionModalProps {
     onClose: () => void;
     onSelectDate?: (date: Date) => void;
-  }
+}
