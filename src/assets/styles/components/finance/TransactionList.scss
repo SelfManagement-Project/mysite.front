@@ -180,7 +180,11 @@
                         display: flex;
                         align-items: center;
                         gap: 10px;
-
+                        
+                        input[type="date"]::-webkit-calendar-picker-indicator {
+                            filter: invert(50%) sepia(80%) saturate(1500%) hue-rotate(210deg) brightness(90%) contrast(100%);
+                            cursor: pointer;
+                        }
                         input {
                             flex: 1;
                             padding: 10px 12px;
