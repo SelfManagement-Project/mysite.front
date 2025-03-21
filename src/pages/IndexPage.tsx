@@ -10,6 +10,9 @@ import mainIllustration3 from '@/assets/images/OneFlowLogo.webp'; // 다른 이�
 import '@/assets/styles/pages/index.scss';
 import 'swiper/swiper-bundle.css'; // 또는 'swiper/swiper-bundle.min.css'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendar, faHeartbeat, faChartLine } from '@fortawesome/free-solid-svg-icons';
+
 const IndexPage = () => {
   const navigate = useNavigate();
 
@@ -32,31 +35,31 @@ const IndexPage = () => {
             <div className="gradient-text">OneFlow</div>
             <h1>일상을 스마트하게 최적화</h1>
             <p>
-              AI 기반 통합 라이프스타일 플랫폼으로 
+              AI 기반 통합 라이프스타일 플랫폼으로
               당신의 일정, 건강, 재무를 혁신적으로 관리하세요
             </p>
             <div className="feature-highlights">
               {[
-                { icon: 'calendar', text: '지능형 일정 관리' },
-                { icon: 'health', text: '건강 인사이트' },
-                { icon: 'finance', text: '스마트 재무 분석' }
+                { icon: faCalendar, text: '지능형 일정 관리', path: '/dashboard' },
+                { icon: faHeartbeat, text: '건강 인사이트' },
+                { icon: faChartLine, text: '스마트 재무 분석' }
               ].map((feature, index) => (
                 <div key={index} className="feature">
                   <div className="feature-icon">
-                    <i className={`icon-${feature.icon}`}></i>
+                    <FontAwesomeIcon icon={feature.icon} />
                   </div>
                   <span>{feature.text}</span>
                 </div>
               ))}
             </div>
             <div className="cta-section">
-              <button 
+              <button
                 className="service-btn primary-btn"
                 onClick={handleServiceClick}
               >
                 서비스 시작하기
               </button>
-              <button 
+              <button
                 className="service-btn secondary-btn"
                 onClick={() => navigate('#')}
               >
@@ -73,9 +76,9 @@ const IndexPage = () => {
               spaceBetween={30}
               pagination={{ clickable: true }}
               mousewheel={true}
-              autoplay={{ 
-                delay: 2000, 
-                disableOnInteraction: false 
+              autoplay={{
+                delay: 2000,
+                disableOnInteraction: false
               }}
               effect="creative"
               creativeEffect={{

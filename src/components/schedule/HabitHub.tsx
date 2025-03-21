@@ -72,7 +72,7 @@ const HabitHub = () => {
         />
       )}
 
-      <div className="chart-container" style={{ height: '300px' }}>
+      <div className="chart-container">
         <h3>습관</h3>
         {isLoading ? <p>로딩 중...</p> : error ? <p>{error}</p> : <HabitHubBar data={habits} />}
       </div>

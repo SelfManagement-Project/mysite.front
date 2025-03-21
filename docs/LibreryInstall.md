@@ -29,3 +29,4 @@ npm install react-native-web
 
 
 npm install swiper
+npm install @fortawesome/react-fontawesome @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons
