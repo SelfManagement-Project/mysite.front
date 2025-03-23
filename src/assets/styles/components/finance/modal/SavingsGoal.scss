@@ -1,0 +1,441 @@
+// assets/styles/components/finance/modal/SavingsGoal.scss
+.savings-goal-modal {
+    padding: 24px;
+    font-family: 'Noto Sans KR', sans-serif;
+    max-width: 550px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+    h2 {
+      margin-top: 0;
+      margin-bottom: 24px;
+      font-size: 20px;
+      font-weight: 600;
+      color: #2d3748;
+      text-align: center;
+    }
+    
+    h3 {
+      margin-top: 0;
+      margin-bottom: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #4a5568;
+    }
+    
+    .existing-goals {
+      margin-bottom: 24px;
+      
+      .goals-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        max-height: 250px;
+        overflow-y: auto;
+        padding-right: 8px;
+        
+        &::-webkit-scrollbar {
+          width: 6px;
+        }
+        
+        &::-webkit-scrollbar-track {
+          background: #f1f1f1;
+          border-radius: 10px;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+          background: #cbd5e0;
+          border-radius: 10px;
+          
+          &:hover {
+            background: #a0aec0;
+          }
+        }
+        
+        .goal-item {
+          background-color: #f7fafc;
+          border: 1px solid #e2e8f0;
+          border-radius: 10px;
+          padding: 16px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+          }
+          
+          &.selected {
+            border-color: #4299e1;
+            background-color: #ebf8ff;
+          }
+          
+          .goal-name {
+            font-weight: 600;
+            font-size: 16px;
+            color: #2d3748;
+            margin-bottom: 8px;
+          }
+          
+          .goal-amount {
+            font-size: 14px;
+            color: #4a5568;
+            margin-bottom: 12px;
+          }
+          
+          .goal-progress {
+            position: relative;
+            height: 10px;
+            background-color: #edf2f7;
+            border-radius: 5px;
+            overflow: hidden;
+            
+            .progress-bar {
+              height: 100%;
+              background-color: #4299e1;
+              border-radius: 5px;
+              transition: width 0.5s ease;
+            }
+            
+            .progress-text {
+              position: absolute;
+              right: 0;
+              top: -18px;
+              font-size: 12px;
+              font-weight: 500;
+              color: #4299e1;
+            }
+          }
+        }
+      }
+    }
+    
+    .goal-form {
+      margin-bottom: 24px;
+      background-color: #f7fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 20px;
+      
+      .form-group {
+        margin-bottom: 16px;
+        
+        label {
+          display: block;
+          font-weight: 600;
+          color: #4a5568;
+          font-size: 14px;
+          margin-bottom: 8px;
+        }
+        
+        input {
+          width: 100%;
+          padding: 12px 14px;
+          border: 1px solid #e2e8f0;
+          border-radius: 8px;
+          font-size: 15px;
+          color: #2d3748;
+          background-color: #fff;
+          transition: all 0.3s ease;
+          
+          &:focus {
+            outline: none;
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+          }
+          
+          &::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            opacity: 0.6;
+            
+            &:hover {
+              opacity: 1;
+            }
+          }
+        }
+        
+        .input-group {
+          position: relative;
+          
+          input {
+            padding-right: 40px;
+          }
+          
+          .currency {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #718096;
+            font-weight: 500;
+            pointer-events: none;
+          }
+        }
+      }
+      
+      .goal-summary {
+        background-color: #ebf8ff;
+        border: 1px solid #bee3f8;
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin-top: 16px;
+        
+        p {
+          margin: 0;
+          font-size: 14px;
+          color: #2b6cb0;
+          line-height: 1.5;
+          
+          strong {
+            font-weight: 700;
+            color: #2c5282;
+          }
+        }
+      }
+    }
+    
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      
+      button {
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .delete-btn {
+        margin-right: auto;
+        background-color: #f56565;
+        color: white;
+        
+        &:hover {
+          background-color: #e53e3e;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(245, 101, 101, 0.2);
+        }
+        
+        &:active {
+          transform: translateY(0);
+        }
+      }
+      
+      .cancel-btn {
+        background-color: #e2e8f0;
+        color: #4a5568;
+        
+        &:hover {
+          background-color: #cbd5e0;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        &:active {
+          transform: translateY(0);
+        }
+      }
+      
+      .save-btn {
+        background-color: #48bb78;
+        color: white;
+        
+        &:hover:not(:disabled) {
+          background-color: #38a169;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(72, 187, 120, 0.2);
+        }
+        
+        &:active:not(:disabled) {
+          transform: translateY(0);
+        }
+        
+        &:disabled {
+          background-color: #a0aec0;
+          cursor: not-allowed;
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+  
+  // 다크 모드 지원
+  .dark .savings-goal-modal {
+    background-color: #2d3748;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    
+    h2 {
+      color: #e2e8f0;
+    }
+    
+    h3 {
+      color: #e2e8f0;
+    }
+    
+    .existing-goals {
+      .goals-list {
+        &::-webkit-scrollbar-track {
+          background: #2d3748;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+          background: #4a5568;
+          
+          &:hover {
+            background: #718096;
+          }
+        }
+        
+        .goal-item {
+          background-color: #1a202c;
+          border-color: #4a5568;
+          
+          &:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          }
+          
+          &.selected {
+            border-color: #63b3ed;
+            background-color: rgba(66, 153, 225, 0.15);
+          }
+          
+          .goal-name {
+            color: #e2e8f0;
+          }
+          
+          .goal-amount {
+            color: #a0aec0;
+          }
+          
+          .goal-progress {
+            background-color: #4a5568;
+            
+            .progress-text {
+              color: #63b3ed;
+            }
+          }
+        }
+      }
+    }
+    
+    .goal-form {
+      background-color: #1a202c;
+      border-color: #4a5568;
+      
+      .form-group {
+        label {
+          color: #e2e8f0;
+        }
+        
+        input {
+          background-color: #2d3748;
+          border-color: #4a5568;
+          color: #e2e8f0;
+          
+          &:focus {
+            border-color: #63b3ed;
+          }
+          
+          &::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+          }
+        }
+        
+        .input-group {
+          .currency {
+            color: #a0aec0;
+          }
+        }
+      }
+      
+      .goal-summary {
+        background-color: rgba(66, 153, 225, 0.15);
+        border-color: rgba(66, 153, 225, 0.3);
+        
+        p {
+          color: #90cdf4;
+          
+          strong {
+            color: #63b3ed;
+          }
+        }
+      }
+    }
+    
+    .modal-actions {
+      .delete-btn {
+        background-color: #e53e3e;
+        
+        &:hover {
+          background-color: #c53030;
+          box-shadow: 0 4px 8px rgba(229, 62, 62, 0.3);
+        }
+      }
+      
+      .cancel-btn {
+        background-color: #4a5568;
+        color: #e2e8f0;
+        
+        &:hover {
+          background-color: #2d3748;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+      }
+      
+      .save-btn {
+        background-color: #38a169;
+        
+        &:hover:not(:disabled) {
+          background-color: #2f855a;
+          box-shadow: 0 4px 8px rgba(56, 161, 105, 0.3);
+        }
+        
+        &:disabled {
+          background-color: #718096;
+        }
+      }
+    }
+  }
+  
+  // Responsive adjustments
+  @media (max-width: 480px) {
+    .savings-goal-modal {
+      width: 95%;
+      padding: 16px;
+      
+      .existing-goals {
+        .goals-list {
+          max-height: 200px;
+        }
+      }
+      
+      .goal-form {
+        padding: 16px;
+      }
+      
+      .modal-actions {
+        flex-wrap: wrap;
+        
+        .delete-btn {
+          flex: 0 0 100%;
+          margin-bottom: 8px;
+          margin-right: 0;
+        }
+        
+        .cancel-btn, .save-btn {
+          flex: 1;
+        }
+        
+        button {
+          padding: 10px;
+          font-size: 14px;
+        }
+      }
+    }
+  }

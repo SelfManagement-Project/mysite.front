@@ -8,8 +8,10 @@ import { Provider } from 'react-redux';
 import { store } from '@/redux/store';
 import { useAppDispatch } from '@/redux/hooks';
 import { loginSuccess } from '@/redux/reducers/login/authReducer';
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
-const App = () => {
+// Redux 기능이 필요한 내부 컴포넌트로 분리
+const AppContent = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -24,15 +26,17 @@ const App = () => {
       <Router />
     </div>
   );
-};
+}
 
 export default function AppWithRouter() {
   return (
     <BrowserRouter>
       <Provider store={store}>
-        <TabProvider>
-          <App />
-        </TabProvider>
+        <ThemeProvider>
+          <TabProvider>
+            <AppContent />
+          </TabProvider>
+        </ThemeProvider>
       </Provider>
     </BrowserRouter>
   );

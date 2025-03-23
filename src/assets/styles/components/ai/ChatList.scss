@@ -1,6 +1,6 @@
 // styles/components/ai/ChatList.scss - 개선 버전
 .chat-history-container {
-    background: linear-gradient(to bottom, #f1f9ff, #e6f3ff);
+    background: linear-gradient(to bottom, #dff1ff, #5cadfa);
     color: white;
     padding: 10px;
     border-radius: 12px;
@@ -123,6 +123,7 @@
                 font-weight: 500;
                 display: -webkit-box;
                 -webkit-line-clamp: 1;
+                line-clamp: 1;
                 -webkit-box-orient: vertical;
                 overflow: hidden;
                 text-overflow: ellipsis;

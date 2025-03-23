@@ -1,5 +1,6 @@
 // AddExercise.tsx
 import { useAddExercise } from "@/hooks/health/modal/useAddExercise";
+import "@/assets/styles/components/health/modal/AddExercise.scss";
 
 const AddExercise = ({ onClose }: { onClose: () => void }) => {
   const {

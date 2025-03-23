@@ -1,0 +1,426 @@
+// assets/styles/components/health/modal/DietRecommendation.scss
+.diet-recommendation-modal {
+    padding: 24px;
+    font-family: 'Noto Sans KR', sans-serif;
+    max-width: 700px;
+    margin: 0 auto;
+    
+    .diet-preferences-section {
+      background-color: #f7fafc;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 24px;
+      border: 1px solid #e2e8f0;
+      
+      h3 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #2d3748;
+      }
+      
+      .form-group {
+        margin-bottom: 16px;
+        
+        label {
+          display: block;
+          margin-bottom: 8px;
+          font-weight: 500;
+          color: #4a5568;
+          font-size: 14px;
+        }
+        
+        select, input[type="number"] {
+          padding: 10px 14px;
+          border: 1px solid #e2e8f0;
+          border-radius: 8px;
+          font-size: 14px;
+          color: #2d3748;
+          background-color: #fff;
+          transition: all 0.3s ease;
+          width: 100%;
+          
+          &:focus {
+            outline: none;
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+          }
+        }
+        
+        select {
+          cursor: pointer;
+          appearance: none;
+          background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+          background-repeat: no-repeat;
+          background-position: right 10px center;
+          background-size: 16px;
+          padding-right: 40px;
+        }
+        
+        .unit {
+          font-size: 14px;
+          color: #718096;
+          margin-left: 8px;
+        }
+        
+        .checkbox-group {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+          gap: 10px;
+          
+          .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            
+            input[type="checkbox"] {
+              cursor: pointer;
+              width: 16px;
+              height: 16px;
+              
+              &:checked {
+                accent-color: #4299e1;
+              }
+            }
+            
+            label {
+              margin-bottom: 0;
+              cursor: pointer;
+              font-weight: normal;
+            }
+          }
+        }
+      }
+      
+      .generate-btn {
+        padding: 12px 24px;
+        background-color: #4299e1;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        margin-top: 12px;
+        
+        &:hover:not(:disabled) {
+          background-color: #3182ce;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(66, 153, 225, 0.2);
+        }
+        
+        &:active:not(:disabled) {
+          transform: translateY(0);
+        }
+        
+        &:disabled {
+          background-color: #a0aec0;
+          cursor: not-allowed;
+          opacity: 0.7;
+        }
+      }
+    }
+    
+    .recommendations-section {
+      margin-bottom: 24px;
+      
+      h3 {
+        margin-bottom: 16px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #2d3748;
+      }
+      
+      .meal-plan {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        
+        .day-plan {
+          background-color: #fff;
+          border-radius: 10px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+          overflow: hidden;
+          border: 1px solid #e2e8f0;
+          
+          h4 {
+            margin: 0;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #2d3748;
+            background-color: #f7fafc;
+            border-bottom: 1px solid #e2e8f0;
+          }
+          
+          .meal {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            
+            &:last-child {
+              border-bottom: none;
+            }
+            
+            .meal-header {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 10px;
+              
+              h5 {
+                margin: 0;
+                font-size: 15px;
+                font-weight: 600;
+                color: #4a5568;
+              }
+              
+              .meal-calories {
+                font-size: 14px;
+                font-weight: 600;
+                color: #4299e1;
+              }
+            }
+            
+            .meal-items {
+              padding-left: 24px;
+              margin: 0;
+              
+              li {
+                margin-bottom: 8px;
+                font-size: 14px;
+                color: #4a5568;
+                
+                &:last-child {
+                  margin-bottom: 0;
+                }
+                
+                .nutrients {
+                  display: block;
+                  font-size: 12px;
+                  color: #718096;
+                  margin-top: 2px;
+                  margin-left: 10px;
+                }
+              }
+            }
+          }
+          
+          .day-summary {
+            padding: 12px 15px;
+            background-color: #f7fafc;
+            border-top: 1px solid #e2e8f0;
+            font-size: 14px;
+            color: #4a5568;
+            text-align: right;
+            
+            strong {
+              color: #2d3748;
+            }
+          }
+        }
+      }
+      
+      .recommendation-notes {
+        background-color: #ebf8ff;
+        border-radius: 10px;
+        padding: 16px;
+        margin-top: 20px;
+        border: 1px solid #bee3f8;
+        
+        h4 {
+          margin-top: 0;
+          margin-bottom: 10px;
+          font-size: 16px;
+          font-weight: 600;
+          color: #2c5282;
+        }
+        
+        ul {
+          margin: 0;
+          padding-left: 20px;
+          
+          li {
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #2c5282;
+            
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+    }
+    
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      
+      .close-btn {
+        padding: 12px 24px;
+        background-color: #e2e8f0;
+        color: #4a5568;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          background-color: #cbd5e0;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        &:active {
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+  
+  // 다크 모드 지원
+  .dark .diet-recommendation-modal {
+    .diet-preferences-section {
+      background-color: #2d3748;
+      border-color: #4a5568;
+      
+      h3 {
+        color: #e2e8f0;
+      }
+      
+      .form-group {
+        label {
+          color: #e2e8f0;
+        }
+        
+        select, input[type="number"] {
+          background-color: #1a202c;
+          border-color: #4a5568;
+          color: #e2e8f0;
+          
+          &:focus {
+            border-color: #63b3ed;
+          }
+        }
+        
+        select {
+          background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e2e8f0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        }
+        
+        .unit {
+          color: #a0aec0;
+        }
+        
+        .checkbox-group {
+          .checkbox-item {
+            input[type="checkbox"] {
+              &:checked {
+                accent-color: #4299e1;
+              }
+            }
+            
+            label {
+              color: #e2e8f0;
+            }
+          }
+        }
+      }
+      
+      .generate-btn {
+        background-color: #4299e1;
+        
+        &:hover:not(:disabled) {
+          background-color: #3182ce;
+        }
+        
+        &:disabled {
+          background-color: #718096;
+        }
+      }
+    }
+    
+    .recommendations-section {
+      h3 {
+        color: #e2e8f0;
+      }
+      
+      .meal-plan {
+        .day-plan {
+          background-color: #2d3748;
+          border-color: #4a5568;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+          
+          h4 {
+            color: #e2e8f0;
+            background-color: #1a202c;
+            border-color: #4a5568;
+          }
+          
+          .meal {
+            border-color: #4a5568;
+            
+            .meal-header {
+              h5 {
+                color: #e2e8f0;
+              }
+              
+              .meal-calories {
+                color: #63b3ed;
+              }
+            }
+            
+            .meal-items {
+              li {
+                color: #e2e8f0;
+                
+                .nutrients {
+                  color: #a0aec0;
+                }
+              }
+            }
+          }
+          
+          .day-summary {
+            background-color: #1a202c;
+            border-color: #4a5568;
+            color: #e2e8f0;
+            
+            strong {
+              color: #90cdf4;
+            }
+          }
+        }
+      }
+      
+      .recommendation-notes {
+        background-color: rgba(66, 153, 225, 0.1);
+        border-color: rgba(66, 153, 225, 0.3);
+        
+        h4 {
+          color: #90cdf4;
+        }
+        
+        ul {
+          li {
+            color: #e2e8f0;
+          }
+        }
+      }
+    }
+    
+    .modal-actions {
+      .close-btn {
+        background-color: #4a5568;
+        color: #e2e8f0;
+        
+        &:hover {
+          background-color: #2d3748;
+        }
+      }
+    }
+  }

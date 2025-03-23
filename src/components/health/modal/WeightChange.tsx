@@ -1,5 +1,6 @@
 // WeightChange.tsx
 import { useWeightChange } from "@/hooks/health/modal/useWeightChange";
+import "@/assets/styles/components/health/modal/WeightChange.scss";
 import { Line } from 'react-chartjs-2';
 import { 
  Chart as ChartJS, 

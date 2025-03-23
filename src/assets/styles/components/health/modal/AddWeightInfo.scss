@@ -1,0 +1,241 @@
+// assets/styles/components/health/modal/AddWeightInfo.scss
+.add-weight-info-modal {
+    padding: 24px;
+    font-family: 'Noto Sans KR', sans-serif;
+    max-width: 500px;
+    margin: 0 auto;
+    
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      
+      label {
+        font-weight: 500;
+        color: #4a5568;
+        font-size: 14px;
+      }
+      
+      input {
+        padding: 12px 14px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 14px;
+        color: #2d3748;
+        background-color: #fff;
+        transition: all 0.3s ease;
+        
+        &:focus {
+          outline: none;
+          border-color: #4299e1;
+          box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+        }
+      }
+      
+      input[type="number"] {
+        -moz-appearance: textfield;
+        appearance: textfield;
+        
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+      }
+      
+      input[type="date"] {
+        &::-webkit-calendar-picker-indicator {
+          cursor: pointer;
+          opacity: 0.6;
+          transition: opacity 0.2s;
+          
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+    }
+    
+    .bmi-display {
+      background-color: #f7fafc;
+      border-radius: 10px;
+      padding: 16px;
+      margin-top: 10px;
+      border: 1px solid #e2e8f0;
+      
+      .bmi-value {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        
+        span:first-child {
+          font-weight: 600;
+          font-size: 16px;
+          color: #4a5568;
+        }
+        
+        span:last-child {
+          font-size: 20px;
+          font-weight: 700;
+        }
+      }
+      
+      .bmi-category {
+        text-align: center;
+        
+        span {
+          display: inline-block;
+          padding: 6px 12px;
+          border-radius: 20px;
+          font-weight: 600;
+          font-size: 14px;
+        }
+      }
+      
+      .underweight {
+        color: #3182ce;
+      }
+      
+      .normal {
+        color: #38a169;
+      }
+      
+      .overweight {
+        color: #d69e2e;
+      }
+      
+      .obese {
+        color: #dd6b20;
+      }
+      
+      .severely-obese {
+        color: #e53e3e;
+      }
+    }
+    
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 10px;
+      
+      button {
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        
+        &.cancel-btn {
+          background-color: #f7fafc;
+          color: #4a5568;
+          border: 1px solid #e2e8f0;
+          
+          &:hover {
+            background-color: #edf2f7;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+          }
+          
+          &:active {
+            transform: translateY(0);
+            box-shadow: none;
+          }
+        }
+        
+        &.submit-btn {
+          background: linear-gradient(to right, #4299e1, #63b3ed);
+          color: white;
+          border: none;
+          box-shadow: 0 4px 10px rgba(66, 153, 225, 0.2);
+          
+          &:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(66, 153, 225, 0.3);
+          }
+          
+          &:active:not(:disabled) {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(66, 153, 225, 0.2);
+          }
+          
+          &:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            background: linear-gradient(to right, #a0aec0, #cbd5e0);
+          }
+        }
+      }
+    }
+  }
+  
+  // 다크 모드 지원
+  .dark .add-weight-info-modal {
+    .form-group {
+      label {
+        color: #e2e8f0;
+      }
+      
+      input {
+        background-color: #2d3748;
+        border-color: #4a5568;
+        color: #e2e8f0;
+        
+        &:focus {
+          border-color: #63b3ed;
+          box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.15);
+        }
+      }
+    }
+    
+    .bmi-display {
+      background-color: #2d3748;
+      border-color: #4a5568;
+      
+      .bmi-value {
+        span:first-child {
+          color: #e2e8f0;
+        }
+      }
+      
+      .underweight {
+        color: #63b3ed;
+      }
+      
+      .normal {
+        color: #68d391;
+      }
+      
+      .overweight {
+        color: #fbd38d;
+      }
+      
+      .obese {
+        color: #f6ad55;
+      }
+      
+      .severely-obese {
+        color: #fc8181;
+      }
+    }
+    
+    .modal-actions {
+      .cancel-btn {
+        background-color: #2d3748;
+        color: #e2e8f0;
+        border-color: #4a5568;
+        
+        &:hover {
+          background-color: #1a202c;
+        }
+      }
+    }
+  }

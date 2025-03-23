@@ -3,7 +3,8 @@
 
 footer {
   width: 100%;
-  background-color: white;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark-color, #2c5ae9) 100%);
+  box-shadow: 0 4px 15px var(--shadow-color);
   padding: 40px 0;
   border-top: 1px solid #E0E0E0;
 
@@ -85,7 +86,7 @@ footer {
       margin-top: 40px;
       padding-top: 20px;
       border-top: 1px solid #E0E0E0;
-      color: #999;
+      color: black;
       font-size: 14px;
     }
   }

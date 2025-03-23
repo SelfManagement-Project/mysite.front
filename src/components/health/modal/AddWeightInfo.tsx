@@ -1,5 +1,6 @@
 // AddWeightInfo.tsx
 import { useAddWeightInfo } from "@/hooks/health/modal/useAddWeightInfo";
+import "@/assets/styles/components/health/modal/AddWeightInfo.scss";
 
 const AddWeightInfo = ({ onClose }: { onClose: () => void }) => {
   const {

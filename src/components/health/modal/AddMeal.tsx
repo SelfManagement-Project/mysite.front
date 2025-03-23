@@ -1,5 +1,6 @@
 // AddMeal.tsx
 import { useAddMeal } from "@/hooks/health/modal/useAddMeal";
+import "@/assets/styles/components/health/modal/AddMeal.scss";
 
 const AddMeal = ({ onClose }: { onClose: () => void }) => {
   const {

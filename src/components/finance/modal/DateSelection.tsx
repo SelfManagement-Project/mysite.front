@@ -1,7 +1,7 @@
 // DateSelectionModal.tsx
 import { useDateSelection } from "@/hooks/finance/modal/useDateSelection";
 import { DateSelectionModalProps } from '@/types/finance/interfaces';
-
+import '@/assets/styles/components/finance/modal/DateSelection.scss';
 
 const DateSelection = ({ onClose, onSelectDate }: DateSelectionModalProps) => {
   const {

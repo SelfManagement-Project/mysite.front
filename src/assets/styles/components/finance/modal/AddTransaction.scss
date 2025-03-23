@@ -1,4 +1,4 @@
-// AddTransaction.scss
+// assets/styles/components/finance/modal/AddTransaction.scss
 .add-transaction-modal {
     display: inline-block;
     width: 100%;
@@ -7,139 +7,292 @@
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 24px;
-    font-family: 'Pretendard', sans-serif;
-
+    font-family: 'Noto Sans KR', 'Pretendard', sans-serif;
+  
     h2 {
-        text-align: center;
-        margin-bottom: 24px;
-        color: #333;
-        font-size: 20px;
+      text-align: center;
+      margin-bottom: 24px;
+      color: #2d3748;
+      font-size: 20px;
+      font-weight: 600;
     }
-
+  
     .form-group {
-        margin-bottom: 16px;
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .radio-group {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-
-            .radio-label {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                cursor: pointer;
-
-                input[type="radio"] {
-                    appearance: none;
-                    width: 20px;
-                    height: 20px;
-                    border: 2px solid #ddd;
-                    border-radius: 50%;
-                    outline: none;
-                    cursor: pointer;
-                    position: relative;
-
-                    &:checked {
-                        border-color: #2196F3;
-
-                        &::after {
-                            content: '';
-                            position: absolute;
-                            top: 50%;
-                            left: 50%;
-                            transform: translate(-50%, -50%);
-                            width: 10px;
-                            height: 10px;
-                            background-color: #2196F3;
-                            border-radius: 50%;
-                        }
-                    }
-                }
-            }
-        }
-
-        input,
-        select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 16px;
-            position: relative;
-        }
-
-        input[type="number"] {
-            padding-right: 40px;
-        }
-
-
-    }
-
-    .modal-actions {
+      margin-bottom: 18px;
+      position: relative;
+  
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #4a5568;
+        font-size: 14px;
+      }
+  
+      .radio-group {
         display: flex;
-        justify-content: space-between;
-        gap: 16px;
-        margin-top: 24px;
-
-        button {
-            flex-grow: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
+        justify-content: center;
+        gap: 24px;
+        margin-top: 5px;
+  
+        .radio-label {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          cursor: pointer;
+          font-weight: 500;
+          color: #4a5568;
+  
+          input[type="radio"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 50%;
+            outline: none;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-
-            &.cancel-btn {
-                background-color: #E0E0E0;
-                color: #333;
-
-                &:hover {
-                    background-color: #D5D5D5;
-                }
+            position: relative;
+            transition: all 0.2s ease;
+  
+            &:checked {
+              border-color: #4299e1;
+  
+              &::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 10px;
+                height: 10px;
+                background-color: #4299e1;
+                border-radius: 50%;
+              }
             }
-
-            &.submit-btn {
-                background-color: #2196F3;
-                color: white;
-
-                &:hover {
-                    background-color: #1976D2;
-                }
-
-                &:disabled {
-                    background-color: #B0BEC5;
-                    cursor: not-allowed;
-                }
+            
+            &:hover:not(:checked) {
+              border-color: #cbd5e0;
             }
+          }
         }
+      }
+  
+      input,
+      select {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 15px;
+        color: #2d3748;
+        background-color: #fff;
+        transition: all 0.3s ease;
+        
+        &:focus {
+          outline: none;
+          border-color: #4299e1;
+          box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+        }
+      }
+      
+      select {
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 16px;
+        padding-right: 40px;
+      }
+  
+      input[type="number"] {
+        padding-right: 40px;
+      }
+      
+      input[type="date"] {
+        &::-webkit-calendar-picker-indicator {
+          cursor: pointer;
+          opacity: 0.6;
+          
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+  
+      .currency {
+        position: absolute;
+        right: 14px;
+        top: 42px;
+        color: #718096;
+        font-weight: 500;
+        pointer-events: none;
+      }
     }
-}
-
-// Responsive adjustments
-@media (max-width: 480px) {
+  
+    .modal-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 28px;
+  
+      button {
+        flex-grow: 1;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        
+        &:hover:not(:disabled) {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        &:active:not(:disabled) {
+          transform: translateY(0);
+        }
+  
+        &.cancel-btn {
+          background-color: #e2e8f0;
+          color: #4a5568;
+  
+          &:hover {
+            background-color: #cbd5e0;
+          }
+        }
+  
+        &.submit-btn {
+          background-color: #4299e1;
+          color: white;
+  
+          &:hover {
+            background-color: #3182ce;
+            box-shadow: 0 4px 8px rgba(66, 153, 225, 0.2);
+          }
+  
+          &:disabled {
+            background-color: #a0aec0;
+            cursor: not-allowed;
+            opacity: 0.7;
+            transform: none;
+            box-shadow: none;
+          }
+        }
+      }
+    }
+  }
+  
+  // 다크 모드 지원
+  .dark .add-transaction-modal {
+    background-color: #2d3748;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  
+    h2 {
+      color: #e2e8f0;
+    }
+  
+    .form-group {
+      label {
+        color: #e2e8f0;
+      }
+  
+      .radio-group {
+        .radio-label {
+          color: #e2e8f0;
+  
+          input[type="radio"] {
+            border-color: #4a5568;
+  
+            &:checked {
+              border-color: #63b3ed;
+  
+              &::after {
+                background-color: #63b3ed;
+              }
+            }
+            
+            &:hover:not(:checked) {
+              border-color: #718096;
+            }
+          }
+        }
+      }
+  
+      input,
+      select {
+        background-color: #1a202c;
+        border-color: #4a5568;
+        color: #e2e8f0;
+        
+        &:focus {
+          border-color: #63b3ed;
+        }
+      }
+      
+      select {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e2e8f0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      }
+      
+      input[type="date"] {
+        &::-webkit-calendar-picker-indicator {
+          filter: invert(1);
+        }
+      }
+  
+      .currency {
+        color: #a0aec0;
+      }
+    }
+  
+    .modal-actions {
+      button {
+        &:hover:not(:disabled) {
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+  
+        &.cancel-btn {
+          background-color: #4a5568;
+          color: #e2e8f0;
+  
+          &:hover {
+            background-color: #2d3748;
+          }
+        }
+  
+        &.submit-btn {
+          background-color: #4299e1;
+  
+          &:hover {
+            background-color: #3182ce;
+          }
+  
+          &:disabled {
+            background-color: #718096;
+          }
+        }
+      }
+    }
+  }
+  
+  // Responsive adjustments
+  @media (max-width: 480px) {
     .add-transaction-modal {
-        width: 95%;
-        padding: 16px;
-
-        .form-group {
-            .radio-group {
-                flex-direction: column;
-                gap: 8px;
-            }
+      width: 95%;
+      padding: 16px;
+  
+      .form-group {
+        .radio-group {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
         }
-
-        .modal-actions button {
-            padding: 10px;
-            font-size: 14px;
-        }
+      }
+  
+      .modal-actions button {
+        padding: 10px;
+        font-size: 14px;
+      }
     }
-}
+  }

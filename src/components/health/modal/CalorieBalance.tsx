@@ -1,5 +1,6 @@
 // CalorieBalance.tsx
 import { useCalorieBalance } from "@/hooks/health/modal/useCalorieBalance";
+import "@/assets/styles/components/health/modal/CalorieBalance.scss";
 import { Bar } from 'react-chartjs-2';
 import { 
  Chart as ChartJS, 

@@ -1,5 +1,6 @@
 // SleepPattern.tsx
 import { useSleepPattern } from "@/hooks/health/modal/useSleepPattern";
+import "@/assets/styles/components/health/modal/SleepPattern.scss";
 import { Line } from 'react-chartjs-2';
 import { 
  Chart as ChartJS, 

@@ -1,5 +1,6 @@
 // Settings.tsx
 import { useSettings } from "@/hooks/finance/modal/useSettings";
+import '@/assets/styles/components/finance/modal/Settings.scss';
 
 const Settings = ({ onClose }: { onClose: () => void }) => {
   const {

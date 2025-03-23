@@ -25,3 +25,48 @@ $spacing-xl: 32px;
 $mobile: 768px;
 $tablet: 1024px;
 $desktop: 1280px;
+
+// 라이트 모드 (기본)
+:root {
+    --background-color: #ffffff;
+    --text-color: #333333;
+    --primary-color: rgb(182, 237, 253);
+    --primary-dark-color: #2c5ae9; // 추가
+    --secondary-color: #e2e8f0;
+    --border-color: #eaeef3;
+    --card-bg: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --hover-bg: #f0f7ff;
+    --error-color: #e53e3e; // 추가
+    --error-bg: #fff5f5; // 추가
+    --error-dark: #c53030; // 추가
+    --info-color: #0ea5e9; // 추가
+    --info-bg: #e0f7ff; // 추가
+    --info-dark: #0284c7; // 추가
+}
+
+// 다크 모드
+.dark {
+    --background-color: #1a202c;
+    --text-color: #e2e8f0;
+    --primary-color: black;
+    --primary-dark-color: #3182ce; // 추가
+    --secondary-color: #2d3748;
+    --border-color: #2d3748;
+    --card-bg: #2d3748;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --hover-bg: #2c3a50;
+    --error-color: #fc8181; // 추가
+    --error-bg: #3b1d1d; // 추가
+    --error-dark: #f56565; // 추가
+    --info-color: #4fd1c5; // 추가
+    --info-bg: #1d3b38; // 추가
+    --info-dark: #38b2ac; // 추가
+}
+
+// 기존 변수들을 CSS 변수로 대체
+$background-color: var(--background-color);
+$text-color: var(--text-color);
+$primary-color: var(--primary-color);
+$secondary-color: var(--secondary-color);
+// 나머지 변수들도 마찬가지로 수정

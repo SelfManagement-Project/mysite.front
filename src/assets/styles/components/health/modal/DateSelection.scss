@@ -1,0 +1,181 @@
+// assets/styles/components/health/modal/DateSelection.scss
+.date-selection-modal {
+    padding: 24px;
+    font-family: 'Noto Sans KR', sans-serif;
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 12px;
+    
+    .date-input-container {
+      margin-bottom: 20px;
+      
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #4a5568;
+        font-size: 14px;
+      }
+      
+      .date-input {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 14px;
+        color: #2d3748;
+        background-color: #fff;
+        transition: all 0.3s ease;
+        
+        &:focus {
+          outline: none;
+          border-color: #4299e1;
+          box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+        }
+        
+        &::-webkit-calendar-picker-indicator {
+          cursor: pointer;
+          opacity: 0.6;
+          transition: opacity 0.2s;
+          
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+    }
+    
+    .calendar-view {
+      margin-bottom: 20px;
+      min-height: 50px;
+      // 달력 컴포넌트가 추가될 경우를 위한 스타일 공간
+    }
+    
+    .quick-select {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+      
+      button {
+        flex: 1;
+        min-width: 80px;
+        padding: 10px 15px;
+        background-color: #f7fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        color: #4a5568;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          background-color: #edf2f7;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        &:active {
+          transform: translateY(0);
+          box-shadow: none;
+        }
+      }
+    }
+    
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      
+      button {
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        
+        &.cancel-btn {
+          background-color: #f7fafc;
+          color: #4a5568;
+          border: 1px solid #e2e8f0;
+          
+          &:hover {
+            background-color: #edf2f7;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+          }
+          
+          &:active {
+            transform: translateY(0);
+            box-shadow: none;
+          }
+        }
+        
+        &.apply-btn {
+          background: linear-gradient(to right, #4299e1, #63b3ed);
+          color: white;
+          border: none;
+          box-shadow: 0 4px 10px rgba(66, 153, 225, 0.2);
+          
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(66, 153, 225, 0.3);
+          }
+          
+          &:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(66, 153, 225, 0.2);
+          }
+        }
+      }
+    }
+  }
+  
+  // 다크 모드 지원 (옵션)
+  .dark .date-selection-modal {
+    background-color: #2d3748;
+    
+    .date-input-container {
+      label {
+        color: #e2e8f0;
+      }
+      
+      .date-input {
+        background-color: #1a202c;
+        border-color: #4a5568;
+        color: #e2e8f0;
+        
+        &:focus {
+          border-color: #63b3ed;
+          box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.15);
+        }
+      }
+    }
+    
+    .quick-select {
+      button {
+        background-color: #2d3748;
+        color: #e2e8f0;
+        border-color: #4a5568;
+        
+        &:hover {
+          background-color: #1a202c;
+        }
+      }
+    }
+    
+    .modal-actions {
+      button.cancel-btn {
+        background-color: #2d3748;
+        color: #e2e8f0;
+        border-color: #4a5568;
+        
+        &:hover {
+          background-color: #1a202c;
+        }
+      }
+    }
+  }

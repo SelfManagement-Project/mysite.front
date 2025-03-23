@@ -25,7 +25,7 @@ const HabitInsert = ({ onClose }: HabitInsertProps) => {
   };
 
   return (
-    <form onSubmit={handleAddHabit}>
+    <form className='habit-insert-modal' onSubmit={handleAddHabit}>
       <h2>새 습관 추가</h2>
       {error && <p className="error-message">{error}</p>}
       <div className="form-group">

@@ -1,5 +1,6 @@
 // ExerciseTracking.tsx
 import { useExerciseTracking } from "@/hooks/health/modal/useExerciseTracking";
+import "@/assets/styles/components/health/modal/ExerciseTracking.scss";
 
 const ExerciseTracking = ({ onClose }: { onClose: () => void }) => {
   const {

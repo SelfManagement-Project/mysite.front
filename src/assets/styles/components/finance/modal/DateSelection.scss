@@ -1,0 +1,178 @@
+// assets/styles/components/finance/modal/DateSelection.scss
+.date-selection-modal {
+    padding: 24px;
+    font-family: 'Noto Sans KR', sans-serif;
+    max-width: 400px;
+    margin: 0 auto;
+    
+    .date-input-container {
+      margin-bottom: 20px;
+      
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 500;
+        color: #4a5568;
+        font-size: 14px;
+      }
+      
+      .date-input {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 14px;
+        color: #2d3748;
+        background-color: #fff;
+        transition: all 0.3s ease;
+        
+        &:focus {
+          outline: none;
+          border-color: #4299e1;
+          box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+        }
+        
+        &::-webkit-calendar-picker-indicator {
+          cursor: pointer;
+          opacity: 0.6;
+          
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+    }
+    
+    .calendar-view {
+      min-height: 50px;
+      margin-bottom: 20px;
+      // 달력 뷰를 추가할 경우 여기에 스타일 추가
+    }
+    
+    .quick-select {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+      
+      button {
+        flex: 1;
+        padding: 10px 0;
+        background-color: #f7fafc;
+        color: #4a5568;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        
+        &:hover {
+          background-color: #edf2f7;
+          transform: translateY(-1px);
+        }
+        
+        &:active {
+          transform: translateY(0);
+        }
+      }
+    }
+    
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      
+      button {
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .cancel-btn {
+        background-color: #e2e8f0;
+        color: #4a5568;
+        
+        &:hover {
+          background-color: #cbd5e0;
+          transform: translateY(-2px);
+        }
+        
+        &:active {
+          transform: translateY(0);
+        }
+      }
+      
+      .apply-btn {
+        background-color: #4299e1;
+        color: white;
+        
+        &:hover {
+          background-color: #3182ce;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(66, 153, 225, 0.2);
+        }
+        
+        &:active {
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+  
+  // 다크 모드 지원
+  .dark .date-selection-modal {
+    .date-input-container {
+      label {
+        color: #e2e8f0;
+      }
+      
+      .date-input {
+        background-color: #2d3748;
+        border-color: #4a5568;
+        color: #e2e8f0;
+        
+        &:focus {
+          border-color: #63b3ed;
+        }
+        
+        &::-webkit-calendar-picker-indicator {
+          filter: invert(1);
+        }
+      }
+    }
+    
+    .quick-select {
+      button {
+        background-color: #2d3748;
+        color: #e2e8f0;
+        border-color: #4a5568;
+        
+        &:hover {
+          background-color: #1a202c;
+        }
+      }
+    }
+    
+    .modal-actions {
+      .cancel-btn {
+        background-color: #4a5568;
+        color: #e2e8f0;
+        
+        &:hover {
+          background-color: #2d3748;
+        }
+      }
+      
+      .apply-btn {
+        background-color: #4299e1;
+        
+        &:hover {
+          background-color: #3182ce;
+        }
+      }
+    }
+  }

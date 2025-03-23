@@ -1,5 +1,6 @@
 // DietRecommendation.tsx
 import { useDietRecommendation } from "@/hooks/health/modal/useDietRecommendation";
+import "@/assets/styles/components/health/modal/DietRecommendation.scss";
 
 const DietRecommendation = ({ onClose }: { onClose: () => void }) => {
  const {

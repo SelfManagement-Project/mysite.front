@@ -1,5 +1,6 @@
 // CategoryManagement.tsx
 import { useCategoryManagement } from "@/hooks/finance/modal/useCategoryManagement";
+import '@/assets/styles/components/finance/modal/CategoryManagement.scss';
 
 const CategoryManagement = ({ onClose }: { onClose: () => void }) => {
  const {

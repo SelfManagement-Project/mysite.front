@@ -179,7 +179,7 @@ const FinancePage = () => {
         <button >리포트 보기</button>
         <button >지출분석</button>
         {/* <button onClick={() => setIsTransactionDetailModalOpen(true)}>거래상세</button> */}
-        <button onClick={() => setIsCategoryManagementModalOpen(true)}>지출출카테고리관리</button>
+        <button onClick={() => setIsCategoryManagementModalOpen(true)}>지출카테고리관리</button>
       </div>
 
       <Modal

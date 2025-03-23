@@ -1,0 +1,200 @@
+// assets/styles/components/schedule/modal/CalendarInsert.scss
+.calendar-form {
+    max-width: 100%;
+    padding: 10px 5px;
+    font-family: 'Noto Sans KR', sans-serif;
+
+    .input-group {
+        margin-bottom: 20px;
+        position: relative;
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #4a5568;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="datetime-local"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #2d3748;
+            background-color: #fff;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+            &:focus {
+                outline: none;
+                border-color: #4a90e2;
+                box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+            }
+
+            &::placeholder {
+                color: #a0aec0;
+            }
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 40px;
+        }
+
+        // 특별 스타일링 - 체크박스
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #4a90e2;
+            margin-right: 8px;
+            vertical-align: middle;
+            appearance: none;
+            /* 브라우저 기본 스타일 제거 */
+            border: 2px solid #ccc;
+            /* 체크되지 않았을 때 테두리 색 */
+            background-color: white;
+            /* 체크되지 않았을 때 배경색 */
+            border-radius: 4px;
+            /* 모서리 둥글게 */
+
+            &:checked {
+                background-color: #4a90e2;
+                /* 체크됐을 때 배경색 */
+                border-color: #4a90e2;
+                /* 체크됐을 때 테두리 색 */
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+                background-size: 12px;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+
+            &:checked+label {
+                color: #4a90e2;
+            }
+        }
+
+        // 체크박스 + 라벨 특별 케이스
+        &:first-of-type {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            label {
+                margin-bottom: 0;
+                margin-right: 10px;
+            }
+        }
+    }
+
+    .submit-button {
+        display: block;
+        width: 100%;
+        padding: 14px;
+        margin-top: 30px;
+        background: linear-gradient(135deg, #4a90e2 0%, #3b7cd3 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(74, 144, 226, 0.2);
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(74, 144, 226, 0.3);
+            background: linear-gradient(135deg, #3b7cd3 0%, #2a6bc2 100%);
+        }
+
+        &:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(74, 144, 226, 0.2);
+        }
+    }
+
+    // 날짜/시간 입력 필드 쌍을 위한 스타일
+    .date-time-pair {
+        display: flex;
+        gap: 15px;
+
+        .input-group {
+            flex: 1;
+        }
+    }
+
+    // 시간 입력 필드 스타일 개선
+    input[type="datetime-local"] {
+        &::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+
+    // 우선순위 선택 스타일
+    select[name="priority"] {
+        option[value="1"] {
+            color: #e53e3e;
+        }
+
+        option[value="2"] {
+            color: #f6ad55;
+        }
+
+        option[value="3"] {
+            color: #48bb78;
+        }
+    }
+}
+
+// 다크 모드 지원 (옵션)
+.dark .calendar-form {
+    .input-group {
+        label {
+            color: #e2e8f0;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="datetime-local"],
+        select,
+        textarea {
+            background-color: #2d3748;
+            border-color: #4a5568;
+            color: #e2e8f0;
+
+            &::placeholder {
+                color: #718096;
+            }
+
+            &:focus {
+                border-color: #4299e1;
+                box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+            }
+        }
+
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e2e8f0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+        }
+    }
+}

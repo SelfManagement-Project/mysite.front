@@ -1,5 +1,6 @@
 // MealLog.tsx
 import { useMealLog } from "@/hooks/health/modal/useMealLog";
+import "@/assets/styles/components/health/modal/MealLog.scss";
 
 const MealLog = ({ onClose }: { onClose: () => void }) => {
  const {

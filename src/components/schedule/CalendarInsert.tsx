@@ -1,5 +1,5 @@
-import "@/assets/styles/components/schedule/CalendarInsert.scss";
-import { useCalendarInsert } from '@/hooks/schedule/useCalendarInsert';
+import "@/assets/styles/components/schedule/modal/CalendarInsert.scss";
+import { useCalendarInsert } from '@/hooks/schedule/modal/useCalendarInsert';
 import { useState } from 'react';
 
 const CalendarInsert = () => {

@@ -1,5 +1,6 @@
 // SleepTracking.tsx
 import { useSleepTracking } from "@/hooks/health/modal/useSleepTracking";
+import "@/assets/styles/components/health/modal/SleepTracking.scss";
 
 const SleepTracking = ({ onClose }: { onClose: () => void }) => {
  const {

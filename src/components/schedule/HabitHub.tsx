@@ -125,7 +125,7 @@ const HabitHub = () => {
       <Modal
         isOpen={isGoalSettingModalOpen}
         onClose={() => setGoalSettingModalOpen(false)}
-        title="주간/월간 레포트"
+        title="목표 설정"
       >
         <GoalSetting onClose={() => setGoalSettingModalOpen(false)} />
       </Modal>

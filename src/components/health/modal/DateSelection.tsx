@@ -1,6 +1,7 @@
 // DateSelectionModal.tsx
 import { useDateSelection } from "@/hooks/health/modal/useDateSelection";
 import { DateSelectionModalProps } from '@/types/health/interface';
+import "@/assets/styles/components/health/modal/DateSelection.scss";
 
 
 const DateSelection = ({ onClose, onSelectDate }: DateSelectionModalProps) => {

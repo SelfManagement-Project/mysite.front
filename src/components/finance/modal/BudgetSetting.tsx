@@ -1,5 +1,6 @@
 // BudgetSetting.tsx
 import { useBudgetSetting } from "@/hooks/finance/modal/useBudgetSetting";
+import '@/assets/styles/components/finance/modal/BudgetSetting.scss';
 
 const BudgetSetting = ({ onClose }: { onClose: () => void }) => {
  const {

@@ -1,12 +1,181 @@
-// button {
-//     padding: 8px 16px;
-//     background: #1a73e8;
-//     color: white;
-//     border: none;
-//     border-radius: 4px;
-//     cursor: pointer;
-
-//     &:hover {
-//         background: #1557b0;
-//     }
-// }
+// assets/styles/components/schedule/modal/HabitInsert.scss
+.habit-insert-modal {
+    font-family: 'Noto Sans KR', sans-serif;
+    
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+      font-weight: 600;
+      font-size: 1.5rem;
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 10px;
+    }
+  
+    .form-group {
+      margin-bottom: 20px;
+      
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #4a5568;
+        font-size: 14px;
+      }
+      
+      input[type="text"],
+      textarea,
+      select {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 14px;
+        color: #2d3748;
+        background-color: #fff;
+        transition: all 0.3s ease;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        
+        &:focus {
+          outline: none;
+          border-color: #4a90e2;
+          box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        }
+        
+        &::placeholder {
+          color: #a0aec0;
+        }
+      }
+      
+      textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+      
+      select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        padding-right: 40px;
+      }
+    }
+    
+    .error-message {
+      color: #e53e3e;
+      background-color: #fff5f5;
+      border-radius: 6px;
+      padding: 10px 15px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      border-left: 3px solid #e53e3e;
+    }
+    
+    .modal-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 30px;
+      
+      .btn {
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
+        
+        &.btn-primary {
+          background: linear-gradient(135deg, #4a90e2 0%, #3b7cd3 100%);
+          color: white;
+          box-shadow: 0 4px 10px rgba(74, 144, 226, 0.2);
+          
+          &:hover:not(:disabled) {
+            background: linear-gradient(135deg, #3b7cd3 0%, #2c6dc3 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(74, 144, 226, 0.3);
+          }
+          
+          &:active:not(:disabled) {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(74, 144, 226, 0.2);
+          }
+          
+          &:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+            opacity: 0.7;
+          }
+        }
+        
+        &.btn-secondary {
+          background-color: #f7fafc;
+          color: #4a5568;
+          border: 1px solid #e2e8f0;
+          
+          &:hover {
+            background-color: #edf2f7;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+          }
+          
+          &:active {
+            transform: translateY(1px);
+            box-shadow: none;
+          }
+        }
+      }
+    }
+  }
+  
+  // 다크 모드 지원 (옵션)
+  .dark .habit-insert-modal {
+    h2 {
+      color: #e2e8f0;
+      border-bottom-color: #4a5568;
+    }
+  
+    .form-group {
+      label {
+        color: #e2e8f0;
+      }
+      
+      input[type="text"],
+      textarea,
+      select {
+        background-color: #2d3748;
+        border-color: #4a5568;
+        color: #e2e8f0;
+        
+        &::placeholder {
+          color: #718096;
+        }
+        
+        &:focus {
+          border-color: #4299e1;
+          box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+        }
+      }
+      
+      select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e2e8f0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      }
+    }
+    
+    .error-message {
+      background-color: rgba(229, 62, 62, 0.1);
+      border-left-color: #e53e3e;
+    }
+    
+    .modal-buttons {
+      .btn-secondary {
+        background-color: #2d3748;
+        color: #e2e8f0;
+        border-color: #4a5568;
+        
+        &:hover {
+          background-color: #4a5568;
+        }
+      }
+    }
+  }

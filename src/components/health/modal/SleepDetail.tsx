@@ -1,5 +1,6 @@
 // SleepDetail.tsx
 import { useSleepDetail } from "@/hooks/health/modal/useSleepDetail";
+import "@/assets/styles/components/health/modal/SleepDetail.scss";
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,

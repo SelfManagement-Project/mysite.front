@@ -1,5 +1,6 @@
 // SavingsGoal.tsx
 import { useSavingsGoal } from "@/hooks/finance/modal/useSavingsGoal";
+import '@/assets/styles/components/finance/modal/SavingsGoal.scss';
 
 const SavingsGoal = ({ onClose }: { onClose: () => void }) => {
  const {

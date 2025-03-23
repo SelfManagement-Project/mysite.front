@@ -1,5 +1,6 @@
 // WeightGraph.tsx
 import { useWeightGraph } from "@/hooks/health/modal/useWeightGraph";
+import "@/assets/styles/components/health/modal/WeightGraph.scss";
 import { Line } from 'react-chartjs-2';
 import { 
   Chart as ChartJS, 

@@ -1,5 +1,6 @@
 // NearbyGyms.tsx
 import { useNearbyGyms } from "@/hooks/health/modal/useNearbyGyms";
+import "@/assets/styles/components/health/modal/NearbyGyms.scss";
 
 const NearbyGyms = ({ onClose }: { onClose: () => void }) => {
  const {
