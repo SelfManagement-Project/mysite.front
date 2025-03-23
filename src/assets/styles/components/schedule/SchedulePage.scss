@@ -28,6 +28,10 @@
     border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     overflow: hidden;
+    
+    @media (max-width: 992px) {
+      flex-direction: column;
+    }
   }
 
   .schedule-calendar {
@@ -37,6 +41,10 @@
     .fc {
       height: 650px;
       width: 100%;
+      
+      @media (max-width: 768px) {
+        height: 500px;
+      }
       
       .fc-toolbar-title {
         font-size: 22px;
@@ -62,6 +70,13 @@
         border-radius: 4px;
         border: none;
         padding: 2px 5px;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+        
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
       }
       
       .fc-daygrid-day-number,
@@ -83,6 +98,11 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
+    
+    @media (max-width: 992px) {
+      border-left: none;
+      border-top: 1px solid #e9ecef;
+    }
     
     h3 {
       font-size: 22px;
@@ -237,6 +257,171 @@
           color: #4263eb;
         }
       }
+    }
+  }
+}
+
+// 다크 모드 지원
+.dark .schedule-page {
+  background-color: #1a202c;
+  color: #e2e8f0;
+  
+  .schedule-header h2 {
+    color: #e2e8f0;
+  }
+  
+  .schedule-content {
+    background-color: #2d3748;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .schedule-details {
+    border-left-color: #4a5568;
+    border-top-color: #4a5568;
+    
+    h3 {
+      color: #e2e8f0;
+      border-bottom-color: #4a5568;
+    }
+  }
+  
+  .schedule-calendar .fc {
+    .fc-daygrid-day-number,
+    .fc-col-header-cell-cushion {
+      color: #e2e8f0;
+    }
+    
+    .fc-day-today {
+      background-color: rgba(66, 99, 235, 0.2) !important;
+    }
+    
+    .fc-button-primary {
+      background-color: #4263eb;
+      border-color: #4263eb;
+      
+      &:hover {
+        background-color: #3b5bdb;
+      }
+    }
+    
+    .fc-view {
+      background-color: #2d3748;
+      color: #e2e8f0;
+    }
+    
+    .fc-scrollgrid, 
+    .fc-scrollgrid-section > td,
+    th, td {
+      border-color: #4a5568 !important;
+    }
+    
+    .fc-day {
+      background-color: #2d3748;
+    }
+    
+    .fc-day-other {
+      background-color: #1a202c;
+    }
+    
+    .fc-list-day-cushion {
+      background-color: #4a5568;
+    }
+  }
+  
+  .todo-table,
+  .upcoming-table {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    
+    th {
+      background-color: #3b5bdb;
+    }
+    
+    td {
+      border-bottom-color: #4a5568;
+      color: #e2e8f0;
+    }
+    
+    tbody tr:hover {
+      background-color: #364156;
+    }
+  }
+  
+  .schedule-upcoming .upcoming-table {
+    tbody .date-header {
+      background: #364156;
+      color: #63b3ed;
+      border-color: #4a5568;
+      
+      td {
+        color: #63b3ed;
+      }
+    }
+    
+    tbody tr td {
+      color: #e2e8f0;
+    }
+  }
+  
+  .schedule-progress {
+    background-color: #2d3748;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    
+    .progress-title {
+      color: #e2e8f0;
+    }
+    
+    .progress-box {
+      .progress-bar {
+        background-color: #4a5568;
+      }
+      
+      .progress-fill {
+        background: linear-gradient(to right, #4299e1, #63b3ed);
+      }
+      
+      .progress-text {
+        color: #a0aec0;
+        
+        .progress-percentage {
+          color: #63b3ed;
+        }
+      }
+    }
+  }
+}
+
+// 반응형 디자인 개선
+@media (max-width: 768px) {
+  .schedule-page {
+    padding: 15px;
+    
+    .schedule-header h2 {
+      font-size: 26px;
+    }
+    
+    .schedule-content {
+      gap: 15px;
+    }
+    
+    .schedule-calendar,
+    .schedule-details {
+      padding: 15px;
+    }
+    
+    .schedule-details h3 {
+      font-size: 20px;
+    }
+    
+    .todo-table, 
+    .upcoming-table {
+      th, td {
+        padding: 10px 12px;
+        font-size: 14px;
+      }
+    }
+    
+    .schedule-progress {
+      padding: 20px;
     }
   }
 }
