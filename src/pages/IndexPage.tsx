@@ -7,7 +7,7 @@ import Footer from '@/components/common/Footer';
 import mainIllustration1 from '@/assets/images/OneFlowLogo.webp';
 import mainIllustration2 from '@/assets/images/test.png'; // 다른 이미지 필요
 import mainIllustration3 from '@/assets/images/OneFlowLogo.webp'; // 다른 이미지 필요
-import '@/assets/styles/pages/index.scss';
+import '@/assets/styles/pages/IndexPage.scss';
 import 'swiper/swiper-bundle.css'; // 또는 'swiper/swiper-bundle.min.css'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
