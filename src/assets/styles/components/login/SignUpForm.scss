@@ -1,134 +1,273 @@
-.signup-form {
-    width: 100%;
-    max-width: 550px;
+// assets/styles/components/login/SignUpForm.scss
+.signup-form-content {
+    background: var(--card-bg, #ffffff);
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    max-width: 600px;
     margin: 0 auto;
-
-    .error-message {
-        background-color: #ffe0e0;
-        color: #d83131;
-        padding: 0.7rem;
-        border-radius: 4px;
-        margin-bottom: 1rem;
-        font-size: 0.9rem;
-        border-left: 4px solid #d83131;
-    }
-
-    .input-group {
-        margin-bottom: 1rem;
+    
+    .signup-form {
+      width: 100%;
+      max-width: 550px;
+      margin: 0 auto;
+  
+      .error-message {
+        background-color: #fff5f5;
+        color: #e53e3e;
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin-bottom: 16px;
+        font-size: 14px;
+        border-left: 4px solid #e53e3e;
+      }
+  
+      .input-group {
+        margin-bottom: 20px;
+  
         .email-input {
-            display: flex;
-            gap: 0.5rem;
-            input {
-                flex: 1;
-                width: 100%;
-                padding: 0.6rem 0.8rem;
-                border: 1px solid #ddd;
-                border-radius: 4px;
-                font-size: 0.9rem;
-                background-color: black;
-                transition: all 0.2s ease;
-    
-                &:focus {
-                    border-color: #4a90e2;
-                    background-color: #fff;
-                    outline: none;
-                    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
-                }
-    
-                &::placeholder {
-                    color: #999;
-                    font-size: 0.85rem;
-                }
-            }
-            .check-id-btn {
-                white-space: nowrap;
-                padding: 0 1rem;
-                background-color: #4a90e2;
-                color: white;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-                font-size: 0.9rem;
-                
-                &:hover {
-                  background-color: #357ab8;
-                }
-                
-                &:disabled {
-                  background-color: #a5c6f0;
-                  cursor: not-allowed;
-                }
-              }
-            }
-            .email-check-message {
-                margin-top: 0.5rem;
-                font-size: 0.85rem;
-                
-                &.success {
-                  color: #2ecc71;
-                }
-                
-                &.error {
-                  color: #e74c3c;
-                }
-              }
-        label {
-            display: block;
-            margin-bottom: 0.4rem;
-            font-weight: 500;
-            color: #333;
-            font-size: 0.9rem;
-        }
-
-        input {
+          display: flex;
+          gap: 12px;
+  
+          input {
+            flex: 1;
             width: 100%;
-            padding: 0.6rem 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            background-color: black;
-            transition: all 0.2s ease;
-
+            padding: 12px 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 15px;
+            color: #2d3748;
+            background-color: #fff;
+            transition: all 0.3s ease;
+  
             &:focus {
-                border-color: #4a90e2;
-                background-color: #fff;
-                outline: none;
-                box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+              border-color: #4299e1;
+              outline: none;
+              box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
             }
-
+  
             &::placeholder {
-                color: #999;
-                font-size: 0.85rem;
+              color: #a0aec0;
+              font-size: 14px;
             }
+          }
+  
+          .check-id-btn {
+            white-space: nowrap;
+            padding: 0 16px;
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(66, 153, 225, 0.2);
+  
+            &:hover:not(:disabled) {
+              background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%);
+              transform: translateY(-2px);
+              box-shadow: 0 4px 8px rgba(66, 153, 225, 0.25);
+            }
+            
+            &:active:not(:disabled) {
+              transform: translateY(0);
+            }
+  
+            &:disabled {
+              background: #a0aec0;
+              cursor: not-allowed;
+              box-shadow: none;
+            }
+          }
         }
-    }
-
-    .submit-button {
+  
+        .email-check-message {
+          margin-top: 8px;
+          font-size: 14px;
+          padding: 6px 0;
+  
+          &.success {
+            color: #38a169;
+          }
+  
+          &.error {
+            color: #e53e3e;
+          }
+        }
+  
+        label {
+          display: block;
+          margin-bottom: 8px;
+          font-weight: 600;
+          color: #4a5568;
+          font-size: 14px;
+        }
+  
+        input {
+          width: 100%;
+          padding: 12px 14px;
+          border: 1px solid #e2e8f0;
+          border-radius: 8px;
+          font-size: 15px;
+          color: #2d3748;
+          background-color: #fff;
+          transition: all 0.3s ease;
+  
+          &:focus {
+            border-color: #4299e1;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+          }
+  
+          &::placeholder {
+            color: #a0aec0;
+            font-size: 14px;
+          }
+        }
+      }
+  
+      .submit-button {
         width: 100%;
-        padding: 0.7rem;
-        background-color: #4a90e2;
+        padding: 14px;
+        background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
         color: white;
         border: none;
-        border-radius: 4px;
-        font-size: 0.95rem;
-        font-weight: 500;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
         cursor: pointer;
-        transition: background-color 0.2s;
-        margin-top: 0.8rem;
-
-        &:hover {
-            background-color: #3a7bc8;
+        transition: all 0.3s ease;
+        margin-top: 24px;
+        box-shadow: 0 4px 6px rgba(66, 153, 225, 0.2);
+  
+        &:hover:not(:disabled) {
+          background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 12px rgba(66, 153, 225, 0.3);
         }
-
-        &:active {
-            background-color: #3070b8;
-            transform: translateY(1px);
+        
+        &:active:not(:disabled) {
+          transform: translateY(0);
         }
-
+  
         &:disabled {
-            background-color: #a5c6f0;
-            cursor: not-allowed;
+          background: #a0aec0;
+          cursor: not-allowed;
+          box-shadow: none;
         }
+      }
     }
-}
-
+  }
+  
+  // 다크 모드 지원
+  .dark .signup-form-content {
+    background: var(--card-bg, #2d3748);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    
+    .signup-form {
+      .error-message {
+        background-color: rgba(229, 62, 62, 0.1);
+        color: #fc8181;
+        border-left-color: #e53e3e;
+      }
+      
+      .input-group {
+        label {
+          color: #e2e8f0;
+        }
+        
+        input {
+          background-color: #1a202c;
+          border-color: #4a5568;
+          color: #e2e8f0;
+          
+          &:focus {
+            border-color: #63b3ed;
+            box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.2);
+          }
+          
+          &::placeholder {
+            color: #718096;
+          }
+        }
+        
+        .email-input {
+          .check-id-btn {
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            
+            &:hover:not(:disabled) {
+              background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%);
+            }
+            
+            &:disabled {
+              background: #4a5568;
+              color: #a0aec0;
+            }
+          }
+        }
+        
+        .email-check-message {
+          &.success {
+            color: #68d391;
+          }
+          
+          &.error {
+            color: #fc8181;
+          }
+        }
+      }
+      
+      .submit-button {
+        background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+        
+        &:hover:not(:disabled) {
+          background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%);
+        }
+        
+        &:disabled {
+          background: #4a5568;
+          color: #a0aec0;
+        }
+      }
+    }
+  }
+  
+  // 반응형 디자인
+  @media (max-width: 480px) {
+    .signup-form-content {
+      padding: 16px;
+      
+      .signup-form {
+        .input-group {
+          margin-bottom: 16px;
+          
+          label {
+            font-size: 13px;
+          }
+          
+          input {
+            padding: 10px 12px;
+            font-size: 14px;
+          }
+          
+          .email-input {
+            flex-direction: column;
+            gap: 8px;
+            
+            .check-id-btn {
+              width: 100%;
+              padding: 10px;
+            }
+          }
+        }
+        
+        .submit-button {
+          padding: 12px;
+          font-size: 15px;
+          margin-top: 16px;
+        }
+      }
+    }
+  }

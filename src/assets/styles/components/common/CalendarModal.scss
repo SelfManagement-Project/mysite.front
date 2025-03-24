@@ -15,7 +15,8 @@
 }
 
 .calendar-modal-content {
-    background: white;
+    // background: white;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark-color, #2c5ae9) 100%);
     padding: 2.5rem;
     border-radius: 16px;
     width: 90%;

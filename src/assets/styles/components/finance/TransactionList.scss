@@ -1,27 +1,25 @@
-// TransactionList.scss - 개선 버전
-
+// TransactionList.scss
 .transaction-list-page {
     margin: 0 auto;
-    // font-family: 'Noto Sans KR', sans-serif;
     background-color: #f8f9fa;
     color: #333;
-    max-height: 720px;
+    max-height: 760px;
     overflow-y: auto;
-    
+
     // 스크롤바 스타일링
     &::-webkit-scrollbar {
         width: 8px;
     }
-    
+
     &::-webkit-scrollbar-track {
         background: #f1f3f5;
         border-radius: 10px;
     }
-    
+
     &::-webkit-scrollbar-thumb {
         background: #adb5bd;
         border-radius: 10px;
-        
+
         &:hover {
             background: #868e96;
         }
@@ -38,6 +36,7 @@
         background-color: #fff;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
         border-radius: 16px 16px 0 0;
+        transition: all 0.3s ease;
 
         h1 {
             font-size: 32px;
@@ -45,7 +44,7 @@
             color: #212529;
             margin: 0;
             position: relative;
-            
+
             &:after {
                 content: '';
                 position: absolute;
@@ -82,7 +81,7 @@
                 transform: translateY(-2px);
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             }
-            
+
             &:active {
                 transform: translateY(0);
             }
@@ -96,6 +95,7 @@
         background-color: #fff;
         border-bottom: 1px solid #e9ecef;
         border-radius: 0 0 16px 16px;
+        transition: all 0.3s ease;
 
         ul {
             display: flex;
@@ -141,6 +141,7 @@
         max-width: 1600px;
         margin: 30px auto;
         padding: 0 20px;
+        // height: 1000px;
 
         .filters-section {
             background-color: #fff;
@@ -149,7 +150,7 @@
             margin-bottom: 30px;
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
-            
+
             &:hover {
                 box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
             }
@@ -173,7 +174,7 @@
                         border-color: #4263eb;
                         box-shadow: 0 0 0 4px rgba(66, 99, 235, 0.15);
                     }
-                    
+
                     &::placeholder {
                         color: #adb5bd;
                     }
@@ -196,7 +197,7 @@
                         box-shadow: 0 4px 10px rgba(59, 91, 219, 0.3);
                         transform: translateY(-2px);
                     }
-                    
+
                     &:active {
                         transform: translateY(0);
                     }
@@ -241,7 +242,7 @@
                             border-color: #4263eb;
                             box-shadow: 0 0 0 4px rgba(66, 99, 235, 0.15);
                         }
-                        
+
                         &:hover {
                             border-color: #adb5bd;
                         }
@@ -251,13 +252,13 @@
                         display: flex;
                         align-items: center;
                         gap: 12px;
-                        
+
                         input[type="date"]::-webkit-calendar-picker-indicator {
                             filter: invert(50%) sepia(80%) saturate(1500%) hue-rotate(210deg) brightness(90%) contrast(100%);
                             cursor: pointer;
                             padding: 4px;
                         }
-                        
+
                         input {
                             flex: 1;
                             padding: 12px 14px;
@@ -273,7 +274,7 @@
                                 border-color: #4263eb;
                                 box-shadow: 0 0 0 4px rgba(66, 99, 235, 0.15);
                             }
-                            
+
                             &:hover {
                                 border-color: #adb5bd;
                             }
@@ -319,7 +320,7 @@
                         border-color: #4263eb;
                         box-shadow: 0 0 0 4px rgba(66, 99, 235, 0.15);
                     }
-                    
+
                     &:hover {
                         border-color: #adb5bd;
                     }
@@ -352,7 +353,7 @@
                     transform: translateY(-2px);
                     box-shadow: 0 4px 10px rgba(55, 178, 77, 0.3);
                 }
-                
+
                 &:active {
                     transform: translateY(0);
                 }
@@ -383,9 +384,11 @@
                 animation: spin 1s linear infinite;
             }
         }
-        
+
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .error-message {
@@ -413,7 +416,7 @@
                 display: flex;
                 align-items: center;
                 box-shadow: 0 4px 8px rgba(55, 178, 77, 0.2);
-                
+
                 &:before {
                     content: '+';
                     margin-right: 8px;
@@ -426,7 +429,7 @@
                     transform: translateY(-2px);
                     box-shadow: 0 6px 12px rgba(47, 158, 68, 0.3);
                 }
-                
+
                 &:active:not(:disabled) {
                     transform: translateY(0);
                 }
@@ -447,7 +450,7 @@
             border-radius: 16px;
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
-            
+
             &:hover {
                 box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
             }
@@ -505,7 +508,7 @@
                     padding-left: 24px;
                     cursor: pointer;
                     position: relative;
-                    
+
                     &:hover {
                         color: #4263eb;
                         text-decoration: underline;
@@ -542,7 +545,7 @@
                         transform: translateY(-2px);
                         box-shadow: 0 3px 8px rgba(66, 99, 235, 0.2);
                     }
-                    
+
                     &:active {
                         transform: translateY(0);
                     }
@@ -558,7 +561,7 @@
                         transform: translateY(-2px);
                         box-shadow: 0 3px 8px rgba(250, 82, 82, 0.2);
                     }
-                    
+
                     &:active {
                         transform: translateY(0);
                     }
@@ -576,20 +579,20 @@
                     font-size: 14px;
                     text-transform: uppercase;
                 }
-                
+
                 // 첫번째 행과 마지막 행 둥글게
                 tr:first-child th:first-child {
                     border-top-left-radius: 16px;
                 }
-                
+
                 tr:first-child th:last-child {
                     border-top-right-radius: 16px;
                 }
-                
+
                 tr:last-child td:first-child {
                     border-bottom-left-radius: 16px;
                 }
-                
+
                 tr:last-child td:last-child {
                     border-bottom-right-radius: 16px;
                 }
@@ -611,7 +614,7 @@
                     color: #37b24d;
                     font-weight: 700;
                     position: relative;
-                    
+
                     &:after {
                         content: '↑';
                         margin-left: 4px;
@@ -623,7 +626,7 @@
                     color: #fa5252;
                     font-weight: 700;
                     position: relative;
-                    
+
                     &:after {
                         content: '↓';
                         margin-left: 4px;
@@ -651,6 +654,7 @@
             border-radius: 16px;
             background-color: #fff;
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
 
             button {
                 padding: 12px 18px;
@@ -669,7 +673,7 @@
                     transform: translateY(-2px);
                     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
                 }
-                
+
                 &:active:not(:disabled) {
                     transform: translateY(0);
                 }
@@ -685,6 +689,454 @@
                     color: white;
                     border-color: #4263eb;
                     box-shadow: 0 4px 10px rgba(66, 99, 235, 0.3);
+                }
+            }
+        }
+    }
+}
+
+// 다크 모드 지원
+.dark .transaction-list-page {
+    background-color: #1a202c;
+    color: #e2e8f0;
+
+    &::-webkit-scrollbar-track {
+        background: #2d3748;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #4a5568;
+
+        &:hover {
+            background: #718096;
+        }
+    }
+
+    .page-header {
+        background-color: #2d3748;
+        border-bottom-color: #4a5568;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+        h1 {
+            color: #e2e8f0;
+
+            &:after {
+                background: linear-gradient(90deg, #4299e1, #63b3ed);
+            }
+        }
+
+        .back-btn {
+            background-color: #1a202c;
+            border-color: #4a5568;
+            color: #e2e8f0;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+            &:hover {
+                background-color: #2d3748;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+        }
+    }
+
+    .breadcrumb {
+        background-color: #2d3748;
+        border-bottom-color: #4a5568;
+
+        ul li {
+            color: #a0aec0;
+
+            .nav-link {
+                color: #63b3ed;
+
+                &:hover {
+                    color: #90cdf4;
+                }
+            }
+
+            &:not(:last-child)::after {
+                color: #718096;
+            }
+
+            &:last-child {
+                color: #e2e8f0;
+            }
+        }
+    }
+
+    .transaction-content {
+        .filters-section {
+            background-color: #2d3748;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+
+            &:hover {
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            }
+
+            .search-filter {
+                input {
+                    border-color: #4a5568;
+                    color: #e2e8f0;
+                    background-color: #1a202c;
+
+                    &:focus {
+                        border-color: #4299e1;
+                        box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.15);
+                    }
+
+                    &::placeholder {
+                        color: #718096;
+                    }
+                }
+
+                button {
+                    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+
+                    &:hover {
+                        background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%);
+                        box-shadow: 0 4px 10px rgba(49, 130, 206, 0.3);
+                    }
+                }
+            }
+
+            .filter-options {
+                .filter-group {
+                    label {
+                        color: #e2e8f0;
+                    }
+
+                    select {
+                        border-color: #4a5568;
+                        background-color: #1a202c;
+                        color: #e2e8f0;
+                        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e2e8f0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+
+                        &:focus {
+                            border-color: #4299e1;
+                            box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.15);
+                        }
+
+                        &:hover {
+                            border-color: #718096;
+                        }
+                    }
+
+                    .date-inputs {
+                        input[type="date"]::-webkit-calendar-picker-indicator {
+                            filter: invert(100%);
+                        }
+
+                        input {
+                            border-color: #4a5568;
+                            background-color: #1a202c;
+                            color: #e2e8f0;
+
+                            &:focus {
+                                border-color: #4299e1;
+                                box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.15);
+                            }
+
+                            &:hover {
+                                border-color: #718096;
+                            }
+                        }
+
+                        span {
+                            color: #718096;
+                        }
+                    }
+                }
+            }
+
+            .sort-options {
+                label {
+                    color: #e2e8f0;
+                }
+
+                select {
+                    border-color: #4a5568;
+                    background-color: #1a202c;
+                    color: #e2e8f0;
+                    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e2e8f0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+
+                    &:focus {
+                        border-color: #4299e1;
+                        box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.15);
+                    }
+
+                    &:hover {
+                        border-color: #718096;
+                    }
+                }
+            }
+
+            .export-btn {
+                background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+
+                &:hover {
+                    background: linear-gradient(135deg, #2f855a 0%, #276749 100%);
+                    box-shadow: 0 4px 10px rgba(47, 133, 90, 0.3);
+                }
+            }
+        }
+
+        .loading,
+        .error-message {
+            background-color: #2d3748;
+            color: #a0aec0;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .loading {
+            &:after {
+                border-color: #4a5568;
+                border-top-color: #4299e1;
+            }
+        }
+
+        .error-message {
+            color: #fc8181;
+            border-left-color: #e53e3e;
+            background-color: rgba(229, 62, 62, 0.1);
+        }
+
+        .transaction-add-btn-box {
+            .transaction-add-btn {
+                background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+                box-shadow: 0 4px 8px rgba(47, 133, 90, 0.2);
+
+                &:hover:not(:disabled) {
+                    background: linear-gradient(135deg, #2f855a 0%, #276749 100%);
+                    box-shadow: 0 6px 12px rgba(47, 133, 90, 0.3);
+                }
+
+                &:disabled {
+                    color: #9ae6b4;
+                    background: #38a169;
+                }
+            }
+        }
+
+        .transactions-table {
+            background-color: #2d3748;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+
+            &:hover {
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+            }
+
+            table {
+
+                th,
+                td {
+                    border-bottom-color: #4a5568;
+                    color: #e2e8f0;
+                }
+
+                th {
+                    background-color: #1a202c;
+                    color: #e2e8f0;
+                    border-bottom-color: #4a5568;
+                }
+
+                .transaction-row {
+                    &:hover {
+                        background-color: #1a202c;
+                    }
+                }
+
+                td:nth-child(5) {
+                    &:hover {
+                        color: #63b3ed;
+                    }
+                }
+
+                .transaction-info-update,
+                .transaction-info-delete {
+                    background-color: #1a202c;
+                    border-color: #4a5568;
+                }
+
+                .transaction-info-update {
+                    color: #63b3ed;
+                    border-color: #4299e1;
+
+                    &:hover {
+                        background-color: rgba(66, 153, 225, 0.15);
+                        border-color: #63b3ed;
+                        box-shadow: 0 3px 8px rgba(66, 153, 225, 0.2);
+                    }
+                }
+
+                .transaction-info-delete {
+                    color: #fc8181;
+                    border-color: #e53e3e;
+
+                    &:hover {
+                        background-color: rgba(229, 62, 62, 0.15);
+                        border-color: #fc8181;
+                        box-shadow: 0 3px 8px rgba(229, 62, 62, 0.2);
+                    }
+                }
+
+                .income {
+                    color: #68d391;
+                }
+
+                .expense {
+                    color: #fc8181;
+                }
+
+                .no-data {
+                    color: #a0aec0;
+                    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z'%3E%3C/path%3E%3Cpolyline points='13 2 13 9 20 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat center 20px;
+                }
+            }
+        }
+
+        .pagination {
+            background-color: #2d3748;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+
+            button {
+                border-color: #4a5568;
+                background-color: #1a202c;
+                color: #e2e8f0;
+
+                &:hover:not(:disabled) {
+                    background-color: #2d3748;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                }
+
+                &:disabled {
+                    color: #718096;
+                    background-color: #2d3748;
+                }
+
+                &.active {
+                    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+                    color: white;
+                    border-color: #4299e1;
+                    box-shadow: 0 4px 10px rgba(66, 153, 225, 0.3);
+                }
+            }
+        }
+    }
+}
+
+// 모바일 디바이스를 위한 추가 반응형 스타일
+@media (max-width: 768px) {
+    .transaction-list-page {
+        .transaction-content {
+            padding: 0 15px;
+
+            .filters-section {
+                padding: 20px;
+
+                .filter-options {
+                    gap: 15px;
+
+                    .filter-group {
+                        min-width: 100%;
+                    }
+                }
+
+                .sort-options {
+                    flex-direction: column;
+                    align-items: flex-start;
+
+                    label {
+                        margin-bottom: 10px;
+                    }
+
+                    select {
+                        width: 100%;
+                    }
+                }
+
+                .export-btn {
+                    width: 100%;
+                    margin-top: 10px;
+                }
+            }
+
+            .transactions-table {
+                table {
+
+                    th,
+                    td {
+                        padding: 12px 10px;
+                        font-size: 14px;
+                    }
+
+                    .transaction-info-update,
+                    .transaction-info-delete {
+                        padding: 5px 8px;
+                        font-size: 12px;
+                        margin: 0 2px;
+                    }
+                }
+            }
+
+            .pagination button {
+                padding: 8px 14px;
+                min-width: 36px;
+            }
+        }
+    }
+}
+
+// 작은 화면을 위한 추가 최적화
+@media (max-width: 480px) {
+    .transaction-list-page {
+        .page-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .back-btn {
+                align-self: flex-start;
+            }
+        }
+
+        .breadcrumb ul {
+            justify-content: flex-start;
+        }
+
+        .transaction-content {
+            .filters-section {
+                .search-filter {
+                    flex-direction: column;
+
+                    input {
+                        border-radius: 10px;
+                        margin-bottom: 10px;
+                    }
+
+                    button {
+                        border-radius: 10px;
+                        width: 100%;
+                    }
+                }
+
+                .filter-options .filter-group .date-inputs {
+                    flex-direction: column;
+
+                    span {
+                        align-self: center;
+                        margin: 5px 0;
+                    }
+                }
+            }
+
+            .transactions-table {
+                overflow-x: auto;
+
+                table {
+                    min-width: 700px;
                 }
             }
         }

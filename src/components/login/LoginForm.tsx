@@ -81,13 +81,13 @@ const LoginForm = () => {
                     className="forgot-id-link"
                     onClick={() => setIsForgotIdModalOpen(true)}
                 >
-                    아이디 찾기
+                    ID 찾기
                 </button>
                 <button
                     className="forgot-password-link"
                     onClick={() => setIsForgotPasswordModalOpen(true)}
                 >
-                    비밀번호 찾기
+                    Password 찾기
                 </button>
                 <button
                     className="signup-link"

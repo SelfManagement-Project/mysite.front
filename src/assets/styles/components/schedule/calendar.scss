@@ -1,7 +1,8 @@
 // assets/styles/components/schedule/Calendar.scss
 .fullcalendar-wrapper {
   padding: 20px;
-  background: #fff;
+  // background: #fff;
+  background: linear-gradient(135deg, var(#fff) 0%, var(--primary-dark-color, #2c5ae9) 100%);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 

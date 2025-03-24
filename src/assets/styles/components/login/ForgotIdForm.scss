@@ -1,43 +1,47 @@
+// assets/styles/components/login/ForgotIdForm.scss
 .forgot-id-form {
   width: 100%;
   max-width: 420px;
   margin: auto;
-  padding: 2rem;
+  padding: 24px;
   background-color: #fff;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  // font-family: 'Noto Sans KR', sans-serif;
+  gap: 20px;
+  font-family: 'Noto Sans KR', sans-serif;
 
   .input-group {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 8px;
 
     label {
       font-weight: 600;
-      color: #333;
-      font-size: 0.95rem;
+      color: #4a5568;
+      font-size: 14px;
     }
 
     input,
     select {
-      padding: 0.8rem 1rem;
-      border: 1px solid #ccc;
+      padding: 12px 16px;
+      border: 1px solid #e2e8f0;
       border-radius: 10px;
-      background-color: #fafafa;
-      font-size: 1rem;
-      transition: all 0.2s;
-      text-align: center;
-      color: black;
+      background-color: #f8fafc;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      color: #2d3748;
 
       &:focus {
-        border-color: #4a90e2;
+        border-color: #4299e1;
         background: #fff;
-        box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+        box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
         outline: none;
+      }
+      
+      &::placeholder {
+        color: #a0aec0;
       }
     }
   }
@@ -45,48 +49,54 @@
   .phone-input-container {
     display: flex;
     flex-direction: column;
-    gap: 0.7rem;
-    margin-bottom: 1rem;
+    gap: 12px;
+    margin-bottom: 16px;
+  
+    label {
+      font-weight: 600;
+      color: #4a5568;
+      font-size: 14px;
+    }
   
     .phone-first-row {
       display: flex;
-      gap: 0.5rem;
+      gap: 8px;
   
       select {
         flex: 1;
         appearance: none;
-        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
         background-repeat: no-repeat;
-        background-position: right 1rem center;
-        background-size: 1em;
-        padding-right: 2.5rem;
+        background-position: right 16px center;
+        background-size: 16px;
+        padding-right: 40px;
         
         &:hover {
-          border-color: #4a90e2;
+          border-color: #4299e1;
         }
       }
     }
   
     input, select {
-      padding: 0.9rem 1rem;
-      border: 1px solid #e0e0e0;
+      padding: 12px 16px;
+      border: 1px solid #e2e8f0;
       border-radius: 10px;
-      background-color: #f7f7f7;
-      font-size: 1rem;
-      transition: all 0.2s ease;
+      background-color: #f8fafc;
+      font-size: 15px;
+      transition: all 0.3s ease;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-      color: black;
+      color: #2d3748;
       
       &:focus {
-        border-color: #4a90e2;
+        border-color: #4299e1;
         background-color: #fff;
-        box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+        box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
         outline: none;
       }
       
       &::placeholder {
-        color: #aaa;
-        font-size: 0.9rem;
+        color: #a0aec0;
+        font-size: 14px;
       }
     }
   
@@ -100,22 +110,30 @@
 
   .verification-button-group {
     display: flex;
-    gap: 0.8rem;
-    margin-bottom: 1rem;
+    gap: 12px;
+    margin-bottom: 16px;
 
     button {
       flex: 1;
-      padding: 0.8rem;
+      padding: 12px;
       border-radius: 10px;
-      background-color: #4a90e2;
+      background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
       color: white;
       font-weight: 600;
+      font-size: 14px;
       border: none;
       cursor: pointer;
-      transition: background-color 0.2s;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 5px rgba(66, 153, 225, 0.2);
 
       &:hover {
-        background-color: #357abd;
+        background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(66, 153, 225, 0.3);
+      }
+      
+      &:active {
+        transform: translateY(0);
       }
     }
   }
@@ -123,55 +141,66 @@
   .phone-group {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
-    padding: 1rem;
-    background-color: #f8f9fa;
+    gap: 12px;
+    padding: 16px;
+    background-color: #f8fafc;
     border-radius: 10px;
-    border: 1px solid #e9ecef;
+    border: 1px solid #e2e8f0;
     
     label {
       font-weight: 600;
-      color: #333;
-      margin-bottom: 0.5rem;
+      color: #4a5568;
+      font-size: 14px;
+      margin-bottom: 8px;
     }
     
     .email-input-container {
-      margin-bottom: 0.5rem;
+      margin-bottom: 8px;
       
       .email-input {
         width: 100%;
-        color: black;
+        color: #2d3748;
       }
     }
 
     .verification-section {
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
+      gap: 10px;
 
       button {
         width: 100%;
-        padding: 0.8rem;
-        background-color: #4a90e2;
+        padding: 12px;
+        background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
         color: white;
         border-radius: 10px;
         border: none;
+        font-weight: 600;
+        font-size: 14px;
         cursor: pointer;
-        transition: background-color 0.2s;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 5px rgba(66, 153, 225, 0.2);
 
-        &:hover {
-          background-color: #357abd;
+        &:hover:not(:disabled) {
+          background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(66, 153, 225, 0.3);
+        }
+        
+        &:active:not(:disabled) {
+          transform: translateY(0);
         }
 
         &:disabled {
-          background-color: #ccc;
+          background: #a0aec0;
           cursor: not-allowed;
+          box-shadow: none;
         }
       }
 
       div {
         display: flex;
-        gap: 0.5rem;
+        gap: 8px;
         
         input {
           flex: 2;
@@ -182,54 +211,37 @@
         }
       }
 
-      input {
-        width: 100%;
-        padding: 0.8rem;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        background: #fafafa;
-        text-align: center;
-
-        &:focus {
-          border-color: #4a90e2;
-          box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
-          outline: none;
-        }
-
-        &:disabled {
-          background: #eee;
-          color: #aaa;
-        }
-      }
-
       span {
-        font-size: 0.85rem;
-        color: #666;
+        font-size: 14px;
+        color: #718096;
         text-align: center;
-        padding: 0.3rem;
+        padding: 5px;
         font-weight: 500;
       }
     }
   }
 
   .submit-button {
-    margin-top: 1rem;
-    padding: 1rem;
-    background-color: #4a90e2;
+    margin-top: 16px;
+    padding: 14px;
+    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
     color: white;
-    font-weight: bold;
-    font-size: 1.05rem;
+    font-weight: 700;
+    font-size: 16px;
     border-radius: 12px;
     border: none;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(66, 153, 225, 0.2);
 
     &:hover {
-      background-color: #357abd;
+      background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 10px rgba(66, 153, 225, 0.3);
     }
 
     &:active {
-      transform: scale(0.98);
+      transform: translateY(0);
     }
   }
 }
@@ -237,50 +249,203 @@
 // 이메일 인증 입력창
 .email-check-input, .sms-check-input {
   width: 100%;
-  padding: 0.8rem;
-  border: 1px solid #ccc;
+  padding: 12px;
+  border: 1px solid #e2e8f0;
   border-radius: 10px;
-  background: #fafafa;
+  background-color: #f8fafc;
+  font-size: 15px;
   text-align: center;
+  color: #2d3748;
+  transition: all 0.3s ease;
 
   &:focus {
-    border-color: #4a90e2;
-    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+    border-color: #4299e1;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
     outline: none;
   }
 
   &:disabled {
-    background: #eee;
-    color: #aaa;
+    background: #e2e8f0;
+    color: #a0aec0;
   }
 }
 
 // 이메일 인증 버튼
 .email-check-button, .sms-check-button {
   width: 100%;
-  padding: 0.8rem;
-  background-color: #4a90e2;
+  padding: 12px;
+  background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
   color: white;
   border-radius: 10px;
   border: none;
+  font-weight: 600;
+  font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(66, 153, 225, 0.2);
 
-  &:hover {
-    background-color: #357abd;
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(66, 153, 225, 0.3);
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(0);
   }
 
   &:disabled {
-    background-color: #ccc;
+    background: #a0aec0;
     cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+// 다크 모드 지원
+.dark .forgot-id-form {
+  background-color: #2d3748;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  
+  .input-group {
+    label {
+      color: #e2e8f0;
+    }
+    
+    input, select {
+      background-color: #1a202c;
+      border-color: #4a5568;
+      color: #e2e8f0;
+      
+      &:focus {
+        border-color: #63b3ed;
+        background-color: #2d3748;
+        box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.2);
+      }
+      
+      &::placeholder {
+        color: #718096;
+      }
+    }
+  }
+  
+  .phone-input-container {
+    label {
+      color: #e2e8f0;
+    }
+    
+    input, select {
+      background-color: #1a202c;
+      border-color: #4a5568;
+      color: #e2e8f0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      
+      &:focus {
+        border-color: #63b3ed;
+        background-color: #2d3748;
+        box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.2);
+      }
+      
+      &::placeholder {
+        color: #718096;
+      }
+    }
+    
+    .phone-first-row select {
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e2e8f0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      
+      &:hover {
+        border-color: #63b3ed;
+      }
+    }
+  }
+  
+  .verification-button-group button {
+    background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%);
+    box-shadow: 0 2px 5px rgba(99, 179, 237, 0.2);
+    
+    &:hover {
+      background: linear-gradient(135deg, #2b6cb0 0%, #1e4e8c 100%);
+      box-shadow: 0 4px 8px rgba(99, 179, 237, 0.3);
+    }
+  }
+  
+  .phone-group {
+    background-color: #1a202c;
+    border-color: #4a5568;
+    
+    label {
+      color: #e2e8f0;
+    }
+    
+    .verification-section {
+      button {
+        background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%);
+        box-shadow: 0 2px 5px rgba(99, 179, 237, 0.2);
+        
+        &:hover:not(:disabled) {
+          background: linear-gradient(135deg, #2b6cb0 0%, #1e4e8c 100%);
+          box-shadow: 0 4px 8px rgba(99, 179, 237, 0.3);
+        }
+        
+        &:disabled {
+          background: #4a5568;
+        }
+      }
+      
+      span {
+        color: #a0aec0;
+      }
+    }
+  }
+  
+  .submit-button {
+    background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%);
+    box-shadow: 0 4px 6px rgba(99, 179, 237, 0.2);
+    
+    &:hover {
+      background: linear-gradient(135deg, #2b6cb0 0%, #1e4e8c 100%);
+      box-shadow: 0 6px 10px rgba(99, 179, 237, 0.3);
+    }
+  }
+  
+  .email-check-input, .sms-check-input {
+    background-color: #1a202c;
+    border-color: #4a5568;
+    color: #e2e8f0;
+    
+    &:focus {
+      border-color: #63b3ed;
+      background-color: #2d3748;
+      box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.2);
+    }
+    
+    &:disabled {
+      background: #4a5568;
+      color: #a0aec0;
+    }
+  }
+  
+  .email-check-button, .sms-check-button {
+    background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%);
+    box-shadow: 0 2px 5px rgba(99, 179, 237, 0.2);
+    
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, #2b6cb0 0%, #1e4e8c 100%);
+      box-shadow: 0 4px 8px rgba(99, 179, 237, 0.3);
+    }
+    
+    &:disabled {
+      background: #4a5568;
+    }
   }
 }
 
 // 반응형
 @media (max-width: 480px) {
   .forgot-id-form {
-    padding: 1.5rem;
-    gap: 1rem;
+    padding: 20px;
+    gap: 16px;
 
     .verification-button-group {
       flex-direction: column;
@@ -301,6 +466,11 @@
       input, button {
         width: 100%;
       }
+    }
+    
+    .submit-button {
+      padding: 12px;
+      font-size: 15px;
     }
   }
 }

@@ -24,6 +24,7 @@
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
     animation: modalFadeIn 0.4s cubic-bezier(0.21, 1.02, 0.73, 1);
     border: 1px solid rgba(230, 235, 245, 0.9);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark-color, #2c5ae9) 100%);
 }
 
 .modal-header {

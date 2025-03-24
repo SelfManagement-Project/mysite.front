@@ -1,5 +1,6 @@
 // pages/LoginPage.tsx
 import LoginForm from '@/components/login/LoginForm'
+import '@/assets/styles/pages/login/LoginPage.scss';
 
 const LoginPage = () => {
 

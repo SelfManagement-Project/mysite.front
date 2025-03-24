@@ -1,4 +1,3 @@
-import React from "react";
 import { useTabContext } from "@/hooks/common/useTabContext"; // named export로 가져옴
 import SchedulePage from "@/components/schedule/SchedulePage";
 import HabitHub from "@/components/schedule/HabitHub";
@@ -9,7 +8,7 @@ import AiPage from "@/components/ai/AiPage";
 import FinancePage from "@/components/finance/FinancePage";
 import Footer from "../Footer";
 
-const TabLayout: React.FC = () => {
+const TabLayout = () => {
   const {
     tabs,
     selectedTab,
