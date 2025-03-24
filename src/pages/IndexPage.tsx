@@ -4,9 +4,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Mousewheel, Autoplay, EffectCreative } from 'swiper/modules';
 
 import Footer from '@/components/common/Footer';
-import mainIllustration1 from '@/assets/images/OneFlowLogo.webp';
-import mainIllustration2 from '@/assets/images/test.png'; // 다른 이미지 필요
-import mainIllustration3 from '@/assets/images/OneFlowLogo.webp'; // 다른 이미지 필요
+import mainIllustration1 from '@/assets/images/slide-img/img1.webp';
+import mainIllustration2 from '@/assets/images/slide-img/img2.webp'; // 다른 이미지 필요
+import mainIllustration3 from '@/assets/images/slide-img/img3.webp'; // 다른 이미지 필요
+import mainIllustration4 from '@/assets/images/slide-img/img4.webp'; // 다른 이미지 필요
 import '@/assets/styles/pages/IndexPage.scss';
 import 'swiper/swiper-bundle.css'; // 또는 'swiper/swiper-bundle.min.css'
 
@@ -100,6 +101,9 @@ const IndexPage = () => {
               </SwiperSlide>
               <SwiperSlide>
                 <img className="main-illustration" src={mainIllustration3} alt="OneFlow 메인 일러스트레이션 3" />
+              </SwiperSlide>
+              <SwiperSlide>
+                <img className="main-illustration" src={mainIllustration4} alt="OneFlow 메인 일러스트레이션 4" />
               </SwiperSlide>
             </Swiper>
           </div>
