@@ -1,5 +1,11 @@
 // types/finance/interfaces.ts
+export interface ApiResponse<T> {
+    apiData: T;
+    message: string | null;
+    result: string;
+}
 export interface Transaction {
+    id: string;
     date: string;
     type: string;
     category: string;
@@ -7,6 +13,15 @@ export interface Transaction {
     description: string;
     is_income: boolean;
 }
+export interface FinanceState {
+    transactions: Transaction[];
+    categoryBudgets: CategoryBudget[];
+    budgetStatus: BudgetStatus;
+    savingsStatus: SavingsStatus;
+    isLoading: boolean;
+    error: string | null;
+}
+
 
 export interface CategoryBudget {
     category_name: string;

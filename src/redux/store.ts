@@ -4,6 +4,7 @@ import urlReducer from './reducers/urlSlice';
 import chatReducer from './reducers/ai/aiReducer';
 import searchReducer from './reducers/common/searchReducer';
 import healthReducer from './reducers/health/healthReducer';
+import financeReducer from './reducers/finance/financeReducer';
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     chat: chatReducer,
     search: searchReducer,
     health: healthReducer,
+    finance: financeReducer,
   },
   middleware: (getDefaultMiddleware) => 
     getDefaultMiddleware().concat([])
