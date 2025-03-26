@@ -6,8 +6,8 @@ import { Exercise, Diet, Sleep, HealthMetrics, HealthState } from "@/types/healt
 const initialState: HealthState = {
     exerciseData: [],
     dietData: [],
-    sleepData: null,
-    healthMetrics: null,
+    sleepData: [],
+    healthMetrics: [],
     isLoading: false,
     error: null
 };
@@ -24,8 +24,8 @@ const healthSlice = createSlice({
         fetchHealthDataSuccess: (state, action: PayloadAction<{
             exerciseData: Exercise[];
             dietData: Diet[];
-            sleepData: Sleep | null;
-            healthMetrics: HealthMetrics | null;
+            sleepData: Sleep[];
+            healthMetrics: HealthMetrics[];
         }>) => {
             state.isLoading = false;
             state.exerciseData = action.payload.exerciseData;

@@ -6,7 +6,7 @@
   background-color: #f8f9fa;
   color: #343a40;
   // font-family: 'Noto Sans KR', sans-serif;
- 
+
   .header {
     display: flex;
     justify-content: space-between;
@@ -14,55 +14,90 @@
     margin-bottom: 40px;
     padding-bottom: 15px;
     border-bottom: 1px solid #e9ecef;
- 
+
     h2 {
       font-size: 32px;
       font-weight: 700;
       color: #212529;
       margin: 0;
     }
- 
-    .settings-btn {
-      padding: 10px 18px;
-      background-color: #4263eb;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 5px rgba(66, 99, 235, 0.2);
- 
-      &:hover {
-        background-color: #3b5bdb;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(66, 99, 235, 0.3);
+
+    .date-container {
+      display: flex;
+      align-items: center;
+
+
+      .current-date {
+        margin-right: 12px;
+        font-size: 16px;
+        font-weight: 500;
+        padding: 6px 12px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        color: #333;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        display: inline-flex;
+        align-items: center;
+        transition: all 0.2s ease;
+
+        &:hover {
+          border-color: #4a90e2;
+          background-color: #f0f7ff;
+        }
+
+        // 달력 아이콘 추가 (선택사항)
+        &::before {
+          content: "📅";
+          margin-right: 8px;
+          font-size: 14px;
+        }
       }
-      
-      &:active {
-        transform: translateY(0);
+
+      .settings-btn {
+        padding: 10px 18px;
+        background-color: #4263eb;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 5px rgba(66, 99, 235, 0.2);
+
+        &:hover {
+          background-color: #3b5bdb;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(66, 99, 235, 0.3);
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
       }
     }
+
+
   }
- 
+
   .main-metrics {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 25px;
     margin-bottom: 40px;
- 
+
     .metric-card {
       background-color: white;
       border-radius: 12px;
       padding: 25px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
- 
+
       &:hover {
         transform: translateY(-5px);
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
       }
- 
+
       h3 {
         font-size: 20px;
         font-weight: 600;
@@ -71,7 +106,7 @@
         padding-bottom: 10px;
         border-bottom: 1px solid #e9ecef;
         position: relative;
- 
+
         &:after {
           content: '';
           position: absolute;
@@ -83,7 +118,7 @@
           border-radius: 3px;
         }
       }
- 
+
       .track-btn {
         width: 100%;
         padding: 12px 0;
@@ -96,18 +131,25 @@
         transition: all 0.3s ease;
         margin-bottom: 18px;
         box-shadow: 0 2px 5px rgba(66, 99, 235, 0.2);
- 
+
         &:hover {
           background-color: #3b5bdb;
           transform: translateY(-2px);
           box-shadow: 0 4px 8px rgba(66, 99, 235, 0.3);
         }
-        
+
         &:active {
           transform: translateY(0);
         }
       }
- 
+
+      .sleep-content {
+        margin: 0 0 20px 0;
+        min-height: 150px;
+        max-height: 130px;
+        overflow-y: auto;
+      }
+
       ul {
         list-style: none;
         padding: 10px 0;
@@ -117,43 +159,70 @@
         min-height: 150px;
         max-height: 200px;
         overflow-y: auto;
-        
+
         // 스크롤바 스타일링
         &::-webkit-scrollbar {
           width: 6px;
         }
-        
+
         &::-webkit-scrollbar-track {
           background: #f1f1f1;
           border-radius: 10px;
         }
-        
+
         &::-webkit-scrollbar-thumb {
           background: #c5c5c5;
           border-radius: 10px;
-          
+
           &:hover {
             background: #a1a1a1;
           }
         }
- 
+
         li {
           padding: 12px 15px;
           border-bottom: 1px solid #e9ecef;
           font-size: 15px;
           color: #495057;
- 
+
           &:last-child {
             border-bottom: none;
           }
- 
+
           &.highlight {
             color: #4263eb;
             font-weight: 500;
           }
         }
       }
- 
+      .sleep-info-btn-box {
+        display: flex;
+        justify-content: space-between;
+        .sleep-track-btn, .sleep-detail-btn {
+          width: 49%;
+          padding: 12px 0;
+          background-color: #4263eb;
+          color: white;
+          border: none;
+          border-radius: 8px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          margin-bottom: 18px;
+          box-shadow: 0 2px 5px rgba(66, 99, 235, 0.2);
+  
+          &:hover {
+            background-color: #3b5bdb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(66, 99, 235, 0.3);
+          }
+  
+          &:active {
+            transform: translateY(0);
+          }
+        }
+      }
+
       .add-btn {
         width: 100%;
         padding: 12px 0;
@@ -165,20 +234,20 @@
         cursor: pointer;
         transition: all 0.3s ease;
         box-shadow: 0 2px 5px rgba(64, 192, 87, 0.2);
- 
+
         &:hover {
           background-color: #37b24d;
           transform: translateY(-2px);
           box-shadow: 0 4px 8px rgba(64, 192, 87, 0.3);
         }
-        
+
         &:active {
           transform: translateY(0);
         }
       }
     }
   }
- 
+
   .summary {
     background-color: white;
     border-radius: 12px;
@@ -186,12 +255,12 @@
     margin-bottom: 40px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    
+
     &:hover {
       transform: translateY(-3px);
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
     }
- 
+
     h3 {
       font-size: 20px;
       font-weight: 600;
@@ -200,7 +269,7 @@
       padding-bottom: 10px;
       border-bottom: 1px solid #e9ecef;
       position: relative;
- 
+
       &:after {
         content: '';
         position: absolute;
@@ -212,13 +281,13 @@
         border-radius: 3px;
       }
     }
- 
+
     .summary-metrics {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       margin: 25px 0;
-      
+
       span {
         flex: 1;
         min-width: 150px;
@@ -232,14 +301,14 @@
         color: #495057;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
         transition: transform 0.2s ease, box-shadow 0.2s ease;
-        
+
         &:hover {
           transform: translateY(-2px);
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
         }
       }
     }
- 
+
     button {
       padding: 12px 20px;
       background-color: #4263eb;
@@ -252,21 +321,21 @@
       margin-right: 15px;
       margin-bottom: 10px;
       box-shadow: 0 2px 5px rgba(66, 99, 235, 0.2);
- 
+
       &:hover {
         background-color: #3b5bdb;
         transform: translateY(-2px);
         box-shadow: 0 4px 8px rgba(66, 99, 235, 0.3);
       }
-      
+
       &:active {
         transform: translateY(0);
       }
- 
+
       &:last-child {
         background-color: #40c057;
         box-shadow: 0 2px 5px rgba(64, 192, 87, 0.2);
- 
+
         &:hover {
           background-color: #37b24d;
           box-shadow: 0 4px 8px rgba(64, 192, 87, 0.3);
@@ -274,19 +343,19 @@
       }
     }
   }
- 
+
   .analysis-tools {
     background-color: white;
     border-radius: 12px;
     padding: 25px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    
+
     &:hover {
       transform: translateY(-3px);
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
     }
- 
+
     h3 {
       font-size: 20px;
       font-weight: 600;
@@ -295,7 +364,7 @@
       padding-bottom: 10px;
       border-bottom: 1px solid #e9ecef;
       position: relative;
- 
+
       &:after {
         content: '';
         position: absolute;
@@ -307,12 +376,12 @@
         border-radius: 3px;
       }
     }
- 
+
     .tool-buttons {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 20px;
- 
+
       button {
         padding: 15px 10px;
         background-color: #f8f9fa;
@@ -324,7 +393,7 @@
         transition: all 0.3s ease;
         text-align: center;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
- 
+
         &:hover {
           background-color: #4263eb;
           color: white;
@@ -332,15 +401,15 @@
           box-shadow: 0 4px 8px rgba(66, 99, 235, 0.3);
           border-color: #4263eb;
         }
-        
+
         &:active {
           transform: translateY(0);
         }
- 
+
         &:nth-child(2n) {
           background-color: #f1f3f5;
         }
- 
+
         &:nth-child(2n):hover {
           background-color: #4263eb;
         }
@@ -353,82 +422,82 @@
 .dark .health-dashboard {
   background-color: #1a202c;
   color: #e2e8f0;
- 
+
   .header {
     border-bottom-color: #2d3748;
- 
+
     h2 {
       color: #e2e8f0;
     }
- 
+
     .settings-btn {
       background-color: #4299e1;
       box-shadow: 0 2px 5px rgba(66, 153, 225, 0.2);
- 
+
       &:hover {
         background-color: #3182ce;
         box-shadow: 0 4px 8px rgba(66, 153, 225, 0.3);
       }
     }
   }
- 
+
   .main-metrics {
     .metric-card {
       background-color: #2d3748;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
- 
+
       &:hover {
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
       }
- 
+
       h3 {
         color: #e2e8f0;
         border-bottom-color: #4a5568;
- 
+
         &:after {
           background-color: #4299e1;
         }
       }
- 
+
       .track-btn {
         background-color: #4299e1;
         box-shadow: 0 2px 5px rgba(66, 153, 225, 0.2);
- 
+
         &:hover {
           background-color: #3182ce;
           box-shadow: 0 4px 8px rgba(66, 153, 225, 0.3);
         }
       }
- 
+
       ul {
         background-color: #1a202c;
-        
+
         &::-webkit-scrollbar-track {
           background: #2d3748;
         }
-        
+
         &::-webkit-scrollbar-thumb {
           background: #4a5568;
-          
+
           &:hover {
             background: #718096;
           }
         }
- 
+
         li {
           border-bottom-color: #4a5568;
           color: #a0aec0;
- 
+
           &.highlight {
             color: #63b3ed;
           }
         }
       }
- 
+
       .add-btn {
         background-color: #38a169;
         box-shadow: 0 2px 5px rgba(56, 161, 105, 0.2);
- 
+
         &:hover {
           background-color: #2f855a;
           box-shadow: 0 4px 8px rgba(56, 161, 105, 0.3);
@@ -436,49 +505,49 @@
       }
     }
   }
- 
+
   .summary {
     background-color: #2d3748;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-    
+
     &:hover {
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
     }
- 
+
     h3 {
       color: #e2e8f0;
       border-bottom-color: #4a5568;
- 
+
       &:after {
         background-color: #4299e1;
       }
     }
- 
+
     .summary-metrics {
       span {
         background-color: #1a202c;
         color: #a0aec0;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        
+
         &:hover {
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
       }
     }
- 
+
     button {
       background-color: #4299e1;
       box-shadow: 0 2px 5px rgba(66, 153, 225, 0.2);
- 
+
       &:hover {
         background-color: #3182ce;
         box-shadow: 0 4px 8px rgba(66, 153, 225, 0.3);
       }
- 
+
       &:last-child {
         background-color: #38a169;
         box-shadow: 0 2px 5px rgba(56, 161, 105, 0.2);
- 
+
         &:hover {
           background-color: #2f855a;
           box-shadow: 0 4px 8px rgba(56, 161, 105, 0.3);
@@ -486,42 +555,42 @@
       }
     }
   }
- 
+
   .analysis-tools {
     background-color: #2d3748;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-    
+
     &:hover {
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
     }
- 
+
     h3 {
       color: #e2e8f0;
       border-bottom-color: #4a5568;
- 
+
       &:after {
         background-color: #4299e1;
       }
     }
- 
+
     .tool-buttons {
       button {
         background-color: #1a202c;
         color: #a0aec0;
         border-color: #4a5568;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
- 
+
         &:hover {
           background-color: #4299e1;
           color: white;
           box-shadow: 0 4px 8px rgba(66, 153, 225, 0.3);
           border-color: #4299e1;
         }
- 
+
         &:nth-child(2n) {
           background-color: #2d3748;
         }
- 
+
         &:nth-child(2n):hover {
           background-color: #4299e1;
         }
@@ -534,57 +603,57 @@
 @media (max-width: 768px) {
   .health-dashboard {
     padding: 20px;
-    
+
     .header {
       flex-direction: column;
       align-items: flex-start;
       gap: 15px;
-      
+
       h2 {
         font-size: 26px;
       }
-      
+
       .settings-btn {
         width: 100%;
       }
     }
-    
+
     .main-metrics {
       gap: 15px;
-      
+
       .metric-card {
         padding: 20px;
-        
+
         h3 {
           font-size: 18px;
         }
-        
+
         ul {
           min-height: 120px;
         }
       }
     }
-    
+
     .summary {
       padding: 20px;
-      
+
       .summary-metrics {
         flex-direction: column;
-        
+
         span {
           margin: 0 0 10px 0;
         }
       }
-      
+
       button {
         width: 100%;
         margin-right: 0;
       }
     }
-    
+
     .analysis-tools {
       padding: 20px;
-      
+
       .tool-buttons {
         gap: 15px;
       }

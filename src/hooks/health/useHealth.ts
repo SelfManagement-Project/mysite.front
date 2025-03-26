@@ -20,8 +20,10 @@ export const useHealth = () => {
     const [isWeightChangeModalOpen, setIsWeightChangeModalOpen] = useState(false);
     const [isNearbyGymsModalOpen, setIsNearbyGymsModalOpen,] = useState(false);
     const [isDietRecommendationModalOpen, setIsDietRecommendationModalOpen,] = useState(false);
+    const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+    const [isSleepAddModalOpen, setIsSleepAddModalOpen] = useState(false);
 
-
+    
 
     const { 
         exerciseData,
@@ -32,9 +34,21 @@ export const useHealth = () => {
         error
     } = useAppSelector(state => state.health);
 
+
+    const handleDateSelect = (date: Date) => {
+        setSelectedDate(date);
+        // 이 함수에서 선택된 날짜에 맞는 데이터를 다시 불러오는 로직도 추가할 수 있습니다
+    };
+    
     useEffect(() => {
-        dispatch(fetchHealthData());
-    }, [dispatch]);
+        dispatch(fetchHealthData(selectedDate))
+            .then(action => {
+                // unwrap()은 createAsyncThunk의 fulfilled 값을 반환합니다
+                if(action.meta?.requestStatus === 'fulfilled') {
+                    console.log('Response data structure:', action.payload);
+                }
+            });
+    }, [dispatch, selectedDate]);
 
     return {
         exerciseData,
@@ -58,5 +72,8 @@ export const useHealth = () => {
         isWeightChangeModalOpen, setIsWeightChangeModalOpen,
         isNearbyGymsModalOpen, setIsNearbyGymsModalOpen,
         isDietRecommendationModalOpen, setIsDietRecommendationModalOpen,
+        selectedDate,
+        handleDateSelect,
+        isSleepAddModalOpen, setIsSleepAddModalOpen,
     };
 };

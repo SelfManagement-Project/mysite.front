@@ -18,6 +18,7 @@ import SleepPattern from "./modal/SleepPattern";
 import WeightChange from "./modal/WeightChange";
 import NearbyGyms from "./modal/NearbyGyms";
 import DietRecommendation from "./modal/DietRecommendation";
+import AddSleep from "./modal/AddSleep";
 
 // 인터페이스 import
 
@@ -43,6 +44,9 @@ const HealthPage = () => {
     isWeightChangeModalOpen, setIsWeightChangeModalOpen,
     isNearbyGymsModalOpen, setIsNearbyGymsModalOpen,
     isDietRecommendationModalOpen, setIsDietRecommendationModalOpen,
+    selectedDate,
+    isSleepAddModalOpen, setIsSleepAddModalOpen,
+    handleDateSelect
   } = useHealth();
 
 
@@ -64,7 +68,12 @@ const HealthPage = () => {
     <div className="health-dashboard">
       <div className="header">
         <h2>종합 건강 관리</h2>
-        <button className="settings-btn" onClick={() => setIsDateSelectionModalOpen(true)}>날짜 선택</button>
+        <div className="date-container">
+          <p className="current-date">
+            적용 날짜 : {selectedDate.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </p>
+          <button className="settings-btn" onClick={() => setIsDateSelectionModalOpen(true)}>날짜 선택</button>
+        </div>
       </div>
 
       {/* 운동 데이터 */}
@@ -76,8 +85,8 @@ const HealthPage = () => {
           <ul className="exercise-list">
             {exerciseData.length > 0 ? (
               exerciseData.map((exercise) => (
-                <li key={exercise.exercise_id}>
-                  {exercise.exercise_type} {exercise.duration}분
+                <li key={exercise.exerciseId}>
+                  {exercise.exerciseType} {exercise.duration}분
                 </li>
               ))
             ) : (
@@ -95,8 +104,8 @@ const HealthPage = () => {
           <ul className="diet-list">
             {dietData.length > 0 ? (
               dietData.map((meal) => (
-                <li key={meal.diet_id}>
-                  {meal.meal_type} : {meal.calories}kcal
+                <li key={meal.dietId}>
+                  {meal.mealType} : {meal.calories}kcal
                 </li>
               ))
             ) : (
@@ -110,25 +119,49 @@ const HealthPage = () => {
         {/* 수면 데이터 */}
         <div className="metric-card">
           <h3>수면 관리</h3>
-          <button className="track-btn" onClick={() => setIsSleepTrackingModalOpen(true)}>수면 시간/품질 보기</button>
-          <ul className="sleep-list">
-            <li>취침: {sleepData?.sleep_start ?? "정보 없음"}</li>
-            <li>기상: {sleepData?.sleep_end ?? "정보 없음"}</li>
-            <li>수면 품질: {sleepData?.sleep_quality ?? 0}%</li>
-          </ul>
+          <div className="sleep-info-btn-box">
+            <button className="sleep-track-btn" onClick={() => setIsSleepTrackingModalOpen(true)}>수면 시간/품질 보기</button>
+            <button className="sleep-detail-btn" onClick={() => setIsSleepDetailModalOpen(true)}>수면 데이터 상세</button>
+          </div>
+          <div className="sleep-content">
+            {sleepData.length > 0 ? (
+              sleepData.map((sleep) => (
+                <ul className="sleep-list" key={sleep.sleepId}>
+                  <li>
+                    취침 : {sleep.sleepStart}
+                  </li>
+                  <li>기상 : {sleep.sleepEnd}</li>
+                  <li>수면 품질  : {sleep.sleepQuality}%</li>
+                </ul>
 
-          <button className="add-btn" onClick={() => setIsSleepDetailModalOpen(true)}>수면 데이터 상세</button>
+              ))
+            ) : (
+              <ul className="sleep-list">
+                <li>수면 데이터 없음</li>
+              </ul>
+            )}
+          </div>
+
+          <button className="add-btn" onClick={() => setIsSleepAddModalOpen(true)}>수면 추가</button>
         </div>
       </div>
 
       {/* 건강 지표 */}
       <div className="summary">
         <h3>주간 요약</h3>
-        <div className="summary-metrics">
-          <span>현재: {healthMetrics?.weight ?? "정보 없음"}kg</span>
-          <span>목표: {healthMetrics?.target_weight ?? "정보 없음"}kg</span>
-          <span>BMI: {healthMetrics?.bmi ?? "정보 없음"}</span>
-        </div>
+        {healthMetrics.length > 0 ? (
+          healthMetrics.map((metrics) => (
+            <div className="summary-metrics" key={metrics.metricId}>
+              <span>현재 : {metrics.weight}kg</span>
+              <span>목표 : {metrics.targetWeight}kg</span>
+              <span>BMI : {metrics.bmi}%</span>
+            </div>
+          ))
+        ) : (
+          <div className="summary-metrics">
+            <span>수면 데이터 없음</span>
+          </div>
+        )}
         <button onClick={() => setIsWeightGraphModalOpen(true)}>체중 그래프 보기</button>
         <button onClick={() => setIsAddWeightInfoModalOpen(true)}>체중 정보 추가</button>
       </div>
@@ -150,7 +183,10 @@ const HealthPage = () => {
         onClose={() => setIsDateSelectionModalOpen(false)}
         title="날짜 선택"
       >
-        <DateSelection onClose={() => setIsDateSelectionModalOpen(false)} />
+        <DateSelection
+          onClose={() => setIsDateSelectionModalOpen(false)}
+          onSelectDate={handleDateSelect}
+        />
       </Modal>
 
       <Modal
@@ -199,6 +235,14 @@ const HealthPage = () => {
         title="수면 데이터 상세용"
       >
         <SleepDetail onClose={() => setIsSleepDetailModalOpen(false)} />
+      </Modal>
+      
+      <Modal
+        isOpen={isSleepAddModalOpen}
+        onClose={() => setIsSleepAddModalOpen(false)}
+        title="수면 추가"
+      >
+        <AddSleep onClose={() => setIsSleepAddModalOpen(false)} />
       </Modal>
 
 

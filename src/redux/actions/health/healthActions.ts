@@ -10,25 +10,27 @@ import {
 // 모든 건강 데이터 조회
 export const fetchHealthData = createAsyncThunk(
     'health/fetchData',
-    async (_, { dispatch }) => {
+    async (date: Date = new Date(), { dispatch }) => {
         try {
             const token = localStorage.getItem('token');
             if (!token) throw new Error('로그인이 필요합니다.');
             
             dispatch(fetchHealthDataRequest());
             
+            const formattedDate = date.toISOString().split('T')[0];
+
             const [exerciseData, dietData, sleepData, healthMetrics] = await Promise.all([
-                healthService.exerciseRes(token),
-                healthService.dietRes(token),
-                healthService.sleepRes(token),
-                healthService.metricsRes(token)
+                healthService.exerciseRes(token, formattedDate),
+                healthService.dietRes(token, formattedDate),
+                healthService.sleepRes(token, formattedDate),
+                healthService.metricsRes(token, formattedDate)
             ]);
             
             const payload = {
-                exerciseData: exerciseData || [],
-                dietData: dietData || [],
-                sleepData: sleepData || null,
-                healthMetrics: healthMetrics || null
+                exerciseData: exerciseData.apiData || [],
+                dietData: dietData.apiData || [],
+                sleepData: sleepData.apiData || [],
+                healthMetrics: healthMetrics.apiData || []
             };
             
             dispatch(fetchHealthDataSuccess(payload));
