@@ -58,13 +58,15 @@ export interface ProgressChartProps {
 }
 
 export interface TransactionList {
-    id: string;
+    transactionId: number;
     amount: number;
     category: string;
-    description: string;
     date: string;
-    is_income: boolean;
-    created_at: string;
+    description: string;
+    income: boolean;
+    type: string | null;
+    createdAt?: string;
+    updatedAt?: string;
 }
 
 export interface FilterOptions {

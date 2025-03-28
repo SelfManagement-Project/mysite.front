@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 
 interface Transaction {
-  id: string;
+  id: number;
   amount: number;
   category: string;
   description: string;
@@ -19,7 +19,7 @@ interface EditableTransaction {
   date: string;
 }
 
-export const useTransactionDetail = (transactionId: string) => {
+export const useTransactionDetail = (transactionId: number) => {
   const [transaction, setTransaction] = useState<Transaction | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);

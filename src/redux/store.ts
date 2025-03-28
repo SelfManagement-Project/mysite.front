@@ -5,6 +5,7 @@ import chatReducer from './reducers/ai/aiReducer';
 import searchReducer from './reducers/common/searchReducer';
 import healthReducer from './reducers/health/healthReducer';
 import financeReducer from './reducers/finance/financeReducer';
+import transactionReducer from './reducers/finance/transactionReducer';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     search: searchReducer,
     health: healthReducer,
     finance: financeReducer,
+    transaction: transactionReducer,
   },
   middleware: (getDefaultMiddleware) => 
     getDefaultMiddleware().concat([])

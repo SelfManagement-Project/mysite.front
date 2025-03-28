@@ -1,6 +1,5 @@
 // TransactionList.tsx
 import { useTransactionList } from "@/hooks/finance/useTransactionList";
-import { useState } from "react";
 import '@/assets/styles/components/finance/TransactionList.scss';
 import Footer from "../common/Footer";
 import Modal from "../common/Modal";
@@ -31,10 +30,14 @@ const TransactionList = () => {
     isTransactionInsertModalOpen,
     setIsTransactionInsertModalOpen,
     isTransactionsId,
-    handletransactionId
+    handletransactionUpdateId,
+    searchTerm, setSearchTerm,
+    getVisiblePages,
+    handleDelete,
+    handletransactionDetailId
   } = useTransactionList();
 
-  const [searchTerm, setSearchTerm] = useState("");
+
 
   return (
     <div className="transaction-list-page">
@@ -154,16 +157,20 @@ const TransactionList = () => {
                 <tbody>
                   {transactions.length > 0 ? (
                     transactions.map((transaction) => (
-                      <tr key={transaction.id} className="transaction-row">
+                      <tr key={transaction.transactionId} className="transaction-row">
                         <td>{new Date(transaction.date).toLocaleDateString()}</td>
-                        <td>{transaction.is_income ? '수입' : '지출'}</td>
+                        <td>{transaction.income ? '수입' : '지출'}</td>
                         <td>{transaction.category}</td>
-                        <td className={transaction.is_income ? 'income' : 'expense'}>
-                          {transaction.is_income ? '+' : '-'}
+                        <td className={transaction.income ? 'income' : 'expense'}>
+                          {/* (확인{transaction.isIncome}) */}
+                          {transaction.income ? '+' : '-'}
                           {transaction.amount?.toLocaleString() ?? 0}원
                         </td>
-                        <td onClick={() => setIsTransactionDetailModalOpen(true)}>{transaction.description}</td>
-                        <td><button onClick={() => handletransactionId(transaction.id)} className="transaction-info-update">수정</button> / <button className="transaction-info-delete">삭제</button></td>
+                        <td onClick={() => handletransactionDetailId(transaction.transactionId)}>{transaction.description}</td>
+                        <td>
+                          <button onClick={() => handletransactionUpdateId(transaction.transactionId)} className="transaction-info-update">수정</button> /
+                          <button type="button" className="transaction-info-delete" onClick={() => handleDelete(transaction.transactionId)}>삭제</button>
+                        </td>
                       </tr>
                     ))
                   ) : (
@@ -183,7 +190,14 @@ const TransactionList = () => {
                 이전
               </button>
 
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              {currentPage > 3 && (
+                <>
+                  <button onClick={() => handlePageChange(1)}>1</button>
+                  <span>...</span>
+                </>
+              )}
+
+              {getVisiblePages(currentPage, totalPages).map((page) => (
                 <button
                   key={page}
                   className={currentPage === page ? 'active' : ''}
@@ -193,6 +207,13 @@ const TransactionList = () => {
                 </button>
               ))}
 
+              {currentPage < totalPages - 2 && (
+                <>
+                  <span>...</span>
+                  <button onClick={() => handlePageChange(totalPages)}>{totalPages}</button>
+                </>
+              )}
+
               <button
                 disabled={currentPage >= totalPages}
                 onClick={() => handlePageChange(currentPage + 1)}
@@ -200,6 +221,7 @@ const TransactionList = () => {
                 다음
               </button>
             </div>
+
           </>
         )}
       </div>
@@ -209,10 +231,12 @@ const TransactionList = () => {
         onClose={() => setIsTransactionDetailModalOpen(false)}
         title="거래 상세"
       >
-        <TransactionDetail
-          onClose={() => setIsTransactionDetailModalOpen(false)}
-          transactionId="123" // 실제 transactionId를 전달해야 합니다
-        />
+        {isTransactionsId !== null && (
+          <TransactionDetail
+            onClose={() => setIsTransactionDetailModalOpen(false)}
+            transactionId={isTransactionsId} // 실제 transactionId를 전달해야 합니다
+          />
+        )}
       </Modal>
       <Modal
         isOpen={isAddTransactionModalOpen}
@@ -227,10 +251,12 @@ const TransactionList = () => {
         onClose={() => setIsTransactionInsertModalOpen(false)}
         title="거래 수정"
       >
-        <TransactionInsert
-          onClose={() => setIsTransactionInsertModalOpen(false)}
-          transactionId={isTransactionsId} // 실제 transactionId를 전달해야 합니다
-        />
+        {isTransactionsId !== null && (
+          <TransactionInsert
+            onClose={() => setIsTransactionInsertModalOpen(false)}
+            transactionId={isTransactionsId}
+          />
+        )}
       </Modal>
 
 

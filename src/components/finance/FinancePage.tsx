@@ -228,7 +228,7 @@ const FinancePage = () => {
       >
         <TransactionDetail
           onClose={() => setIsTransactionDetailModalOpen(false)}
-          transactionId="123" // 실제 transactionId를 전달해야 합니다
+          transactionId={123} // 실제 transactionId를 전달해야 합니다
         />
       </Modal>
       <Modal

@@ -159,7 +159,7 @@ const HealthPage = () => {
           ))
         ) : (
           <div className="summary-metrics">
-            <span>수면 데이터 없음</span>
+            <span>체중 데이터 없음</span>
           </div>
         )}
         <button onClick={() => setIsWeightGraphModalOpen(true)}>체중 그래프 보기</button>

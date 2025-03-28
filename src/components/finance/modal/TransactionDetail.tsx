@@ -3,7 +3,7 @@ import { useTransactionDetail } from "@/hooks/finance/modal/useTransactionDetail
 import '@/assets/styles/components/finance/modal/TransactionDetail.scss';
 
 
-const TransactionDetail = ({ onClose, transactionId }: { onClose: () => void, transactionId: string }) => {
+const TransactionDetail = ({ onClose, transactionId }: { onClose: () => void, transactionId: number }) => {
   const {
     transaction,
     loading,
