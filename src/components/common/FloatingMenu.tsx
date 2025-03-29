@@ -1,7 +1,7 @@
 // components/common/FloatingMenu.tsx
 import { Link } from 'react-router-dom';
 import { useFloating } from '@/hooks/common/useFloating';
-import EditProfileForm from "@/components/login/EditProfileForm";
+import EditProfileForm from "@/components/login/modal/EditProfileForm";
 import EditProfileModal from "@/components/common/EditProfileModal";
 
 const FloatingMenu = () => {

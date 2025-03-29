@@ -1,6 +1,11 @@
-import "@/assets/styles/components/login/EditProfileForm.scss";
+import "@/assets/styles/components/login/modal/EditProfileForm.scss";
 
 const EditProfileForm = () => {
+  const userStr = localStorage.getItem('user');
+  const user = userStr ? JSON.parse(userStr) : null;
+  const userEmail = user?.apiData?.email || '이메일';
+
+
   return (
     <div className="edit-profile-form-contents">
       <form className="edit-profile-form">
@@ -10,10 +15,11 @@ const EditProfileForm = () => {
           <input
             type="email"
             name="email"
-            //   value={formData.email}
+              value={userEmail}
             //   onChange={handleChange}
             placeholder="이메일을 입력하세요"
             required
+            disabled
           />
         </div>
         <div className="input-group">
