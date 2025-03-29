@@ -153,10 +153,10 @@ const FinancePage = () => {
               transactions.map((transaction, index) => (
                 <tr key={index} onClick={() => setIsTransactionDetailModalOpen(true)}>
                   <td>{new Date(transaction.date).toLocaleDateString()}</td>
-                  <td>{transaction.is_income ? '수입' : '지출'}</td>
+                  <td>{transaction.income ? '수입' : '지출'}</td>
                   <td>{transaction.category}</td>
-                  <td className={transaction.is_income ? 'income' : 'expense'}>
-                    {transaction.is_income ? '+' : '-'}
+                  <td className={transaction.income ? 'income' : 'expense'}>
+                    {transaction.income ? '+' : '-'}
                     {transaction.amount?.toLocaleString() ?? 0}원
                   </td>
                   <td>{transaction.description}</td>

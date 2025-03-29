@@ -40,13 +40,13 @@ const SleepDetail = ({ onClose }: { onClose: () => void }) => {
 
   // 차트 데이터 구성
   const chartData = {
-    labels: sleepHistory.map(entry => new Date(entry.sleep_start).toLocaleDateString()),
+    labels: sleepHistory.map(entry => new Date(entry.sleepStart).toLocaleDateString()),
     datasets: [
       {
         label: '수면 시간 (시간)',
         data: sleepHistory.map(entry => {
-          const start = new Date(entry.sleep_start);
-          const end = new Date(entry.sleep_end);
+          const start = new Date(entry.sleepStart);
+          const end = new Date(entry.sleepEnd);
           return Number(((end.getTime() - start.getTime()) / (1000 * 60 * 60)).toFixed(1));
         }),
         borderColor: 'rgb(53, 162, 235)',
@@ -54,7 +54,7 @@ const SleepDetail = ({ onClose }: { onClose: () => void }) => {
       },
       {
         label: '수면 품질 (%)',
-        data: sleepHistory.map(entry => entry.sleep_quality),
+        data: sleepHistory.map(entry => entry.sleepQuality),
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
         yAxisID: 'y1',
@@ -164,21 +164,21 @@ const SleepDetail = ({ onClose }: { onClose: () => void }) => {
                 <div className="info-grid">
                   <div className="info-item">
                     <span className="label">취침 시간:</span>
-                    <span className="value">{new Date(sleepData.sleep_start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                    <span className="value">{new Date(sleepData.sleepStart).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                   </div>
                   <div className="info-item">
                     <span className="label">기상 시간:</span>
-                    <span className="value">{new Date(sleepData.sleep_end).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                    <span className="value">{new Date(sleepData.sleepEnd).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                   </div>
                   <div className="info-item">
                     <span className="label">수면 시간:</span>
                     <span className="value">
-                      {calculateSleepDuration(sleepData.sleep_start, sleepData.sleep_end)}
+                      {calculateSleepDuration(sleepData.sleepStart, sleepData.sleepEnd)}
                     </span>
                   </div>
                   <div className="info-item">
                     <span className="label">수면 품질:</span>
-                    <span className="value">{sleepData.sleep_quality}%</span>
+                    <span className="value">{sleepData.sleepQuality}%</span>
                   </div>
                 </div>
               </div>
@@ -205,13 +205,13 @@ const SleepDetail = ({ onClose }: { onClose: () => void }) => {
                   <div className="stat-item">
                     <span className="label">평균 취침 시간:</span>
                     <span className="value">
-                      {calculateAverageTime(sleepHistory.map(entry => new Date(entry.sleep_start)))}
+                      {calculateAverageTime(sleepHistory.map(entry => new Date(entry.sleepStart)))}
                     </span>
                   </div>
                   <div className="stat-item">
                     <span className="label">평균 기상 시간:</span>
                     <span className="value">
-                      {calculateAverageTime(sleepHistory.map(entry => new Date(entry.sleep_end)))}
+                      {calculateAverageTime(sleepHistory.map(entry => new Date(entry.sleepEnd)))}
                     </span>
                   </div>
                 </div>

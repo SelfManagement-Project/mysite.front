@@ -46,7 +46,13 @@ const HealthPage = () => {
     isDietRecommendationModalOpen, setIsDietRecommendationModalOpen,
     selectedDate,
     isSleepAddModalOpen, setIsSleepAddModalOpen,
-    handleDateSelect
+    handleDateSelect,
+    handleEditMetrics,
+    handleMetricsInputChange,
+    handleSaveMetrics,
+    handleCancelEdit,
+    handleDeleteMetrics,
+    editingMetricId, editMetricData
   } = useHealth();
 
 
@@ -152,9 +158,84 @@ const HealthPage = () => {
         {healthMetrics.length > 0 ? (
           healthMetrics.map((metrics) => (
             <div className="summary-metrics" key={metrics.metricId}>
-              <span>현재 : {metrics.weight}kg</span>
-              <span>목표 : {metrics.targetWeight}kg</span>
-              <span>BMI : {metrics.bmi}%</span>
+              {editingMetricId === metrics.metricId ? (
+                // 수정 모드
+                // HealthPage.tsx 수정 폼 부분
+                <>
+                  <div className="metrics-actions">
+                    <button
+                      className="save-btn"
+                      onClick={() => handleSaveMetrics(metrics.metricId)}
+                    >
+                      저장
+                    </button>
+                    <button
+                      className="cancel-btn"
+                      onClick={handleCancelEdit}
+                    >
+                      취소
+                    </button>
+                  </div>
+                  <div className="metrics-data">
+                    <span>
+                      <label>키 (cm):</label>
+                      <input
+                        type="number"
+                        name="height"
+                        value={editMetricData.height || ''}
+                        onChange={handleMetricsInputChange}
+                        min="0"
+                      />
+                    </span>
+                    <span>
+                      <label>현재 체중 (kg):</label>
+                      <input
+                        type="number"
+                        name="weight"
+                        value={editMetricData.weight || ''}
+                        onChange={handleMetricsInputChange}
+                        min="0"
+                        step="0.1"
+                      />
+                    </span>
+                    <span>
+                      <label>목표 체중 (kg):</label>
+                      <input
+                        type="number"
+                        name="targetWeight"
+                        value={editMetricData.targetWeight || ''}
+                        onChange={handleMetricsInputChange}
+                        min="0"
+                        step="0.1"
+                      />
+                    </span>
+                    <span>
+                      <label>BMI:</label>
+                      <input
+                        type="text"
+                        value={editMetricData.bmi ? `${editMetricData.bmi}%` : '-'}
+                        disabled
+                      />
+                    </span>
+
+                  </div>
+                </>
+              ) : (
+                // 보기 모드
+                <>
+                  <div className="metrics-actions">
+                    <button className="edit-btn" onClick={() => handleEditMetrics(metrics)}>수정</button>
+                    <button className="delete-btn" onClick={() => handleDeleteMetrics(metrics.metricId)}>삭제</button>
+                  </div>
+                  <div className="metrics-data">
+                    <span>키 : {metrics.height}cm</span>
+                    <span>현재 : {metrics.weight}kg</span>
+                    <span>목표 : {metrics.targetWeight}kg</span>
+                    <span>BMI : {metrics.bmi}%</span>
+                  </div>
+
+                </>
+              )}
             </div>
           ))
         ) : (
@@ -236,7 +317,7 @@ const HealthPage = () => {
       >
         <SleepDetail onClose={() => setIsSleepDetailModalOpen(false)} />
       </Modal>
-      
+
       <Modal
         isOpen={isSleepAddModalOpen}
         onClose={() => setIsSleepAddModalOpen(false)}

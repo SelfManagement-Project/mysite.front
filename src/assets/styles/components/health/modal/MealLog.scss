@@ -1,29 +1,411 @@
 // assets/styles/components/health/modal/MealLog.scss
 .meal-log-modal {
-    padding: 24px;
-    // font-family: 'Noto Sans KR', sans-serif;
-    max-width: 700px;
-    margin: 0 auto;
+  padding: 24px;
+  // font-family: 'Noto Sans KR', sans-serif;
+  max-width: 700px;
+  margin: 0 auto;
+  
+  .date-filter {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
     
-    .date-filter {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 24px;
+    label {
+      font-weight: 500;
+      color: #4a5568;
+      font-size: 14px;
+    }
+    
+    input[type="date"] {
+      padding: 10px 14px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #2d3748;
+      background-color: #fff;
+      transition: all 0.3s ease;
       
-      label {
-        font-weight: 500;
-        color: #4a5568;
-        font-size: 14px;
+      &:focus {
+        outline: none;
+        border-color: #4299e1;
+        box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
       }
       
-      input[type="date"] {
-        padding: 10px 14px;
+      &::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        opacity: 0.6;
+        
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+    
+    button {
+      padding: 10px 16px;
+      background-color: #4299e1;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background-color: #3182ce;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(66, 153, 225, 0.2);
+      }
+      
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+  
+  .meal-summary {
+    display: flex;
+    gap: 15px;
+    background-color: #f7fafc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 24px;
+    border: 1px solid #e2e8f0;
+    
+    .summary-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      
+      span:first-child {
+        font-size: 14px;
+        color: #718096;
+      }
+      
+      span:last-child {
+        font-size: 20px;
+        font-weight: 700;
+        color: #2d3748;
+      }
+    }
+  }
+  
+  .loading {
+    text-align: center;
+    padding: 30px;
+    color: #a0aec0;
+    font-size: 16px;
+    
+    &:after {
+      content: "";
+      display: block;
+      width: 30px;
+      height: 30px;
+      margin: 15px auto 0;
+      border-radius: 50%;
+      border: 3px solid rgba(66, 153, 225, 0.3);
+      border-top-color: #4299e1;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  }
+  
+  .error-message {
+    text-align: center;
+    padding: 20px;
+    background-color: #FED7D7;
+    color: #E53E3E;
+    border-radius: 8px;
+    margin-bottom: 24px;
+  }
+  
+  // 리스트 헤더 스타일 추가
+  .list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    
+    h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: #2d3748;
+    }
+    
+    .add-btn {
+      padding: 8px 14px;
+      background-color: #48bb78;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background-color: #38a169;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(72, 187, 120, 0.2);
+      }
+      
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+  
+  .meal-list {
+    margin-bottom: 24px;
+    
+    .meal-items {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-height: 400px;
+      overflow-y: auto;
+      padding-right: 8px;
+      
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: #cbd5e0;
+        border-radius: 10px;
+        
+        &:hover {
+          background: #a0aec0;
+        }
+      }
+    }
+    
+    .meal-item {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid #e2e8f0;
+      
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      
+      .meal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        background-color: #f7fafc;
+        border-bottom: 1px solid #e2e8f0;
+        
+        h4 {
+          margin: 0;
+          font-size: 16px;
+          font-weight: 600;
+          color: #2d3748;
+        }
+        
+        span {
+          font-size: 13px;
+          color: #718096;
+        }
+      }
+      
+      .meal-details {
+        padding: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        
+        span {
+          display: block;
+          padding: 6px 12px;
+          background-color: #f7fafc;
+          border-radius: 20px;
+          font-size: 13px;
+          color: #4a5568;
+          border: 1px solid #e2e8f0;
+        }
+      }
+      
+      // 식사 액션 버튼 스타일 추가
+      .meal-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        padding: 0 15px 15px;
+        
+        button {
+          padding: 6px 12px;
+          font-size: 12px;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          
+          &:first-child {
+            background-color: #4299e1;
+            color: white;
+            
+            &:hover {
+              background-color: #3182ce;
+            }
+          }
+          
+          &:last-child {
+            background-color: #f56565;
+            color: white;
+            
+            &:hover {
+              background-color: #e53e3e;
+            }
+          }
+        }
+      }
+      
+      // 식사 수정 폼 스타일 추가
+      .meal-edit-form {
+        padding: 15px;
+        
+        .form-row {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+          margin-bottom: 15px;
+        }
+        
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          
+          label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #4a5568;
+          }
+          
+          input, select {
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 14px;
+            
+            &:focus {
+              outline: none;
+              border-color: #4299e1;
+              box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+            }
+          }
+        }
+        
+        .meal-edit-actions {
+          display: flex;
+          gap: 8px;
+          justify-content: flex-end;
+          
+          button {
+            padding: 8px 14px;
+            font-size: 13px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            
+            &:first-child {
+              background-color: #48bb78;
+              color: white;
+              
+              &:hover {
+                background-color: #38a169;
+              }
+            }
+            
+            &:last-child {
+              background-color: #e2e8f0;
+              color: #4a5568;
+              
+              &:hover {
+                background-color: #cbd5e0;
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    .no-data {
+      text-align: center;
+      padding: 30px;
+      color: #a0aec0;
+      font-style: italic;
+      background-color: #f7fafc;
+      border-radius: 8px;
+      border: 1px dashed #e2e8f0;
+    }
+  }
+  
+  // 추가 폼 스타일
+  .add-meal-form {
+    background-color: #f8fafc;
+    border-radius: 10px;
+    padding: 24px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-bottom: 24px;
+    
+    h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #2d3748;
+      font-weight: 600;
+      font-size: 20px;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+      
+      @media (max-width: 600px) {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      
+      label {
+        font-size: 14px;
+        font-weight: 500;
+        color: #4a5568;
+      }
+      
+      input, select {
+        padding: 12px 14px;
         border: 1px solid #e2e8f0;
         border-radius: 8px;
         font-size: 14px;
         color: #2d3748;
-        background-color: #fff;
         transition: all 0.3s ease;
         
         &:focus {
@@ -31,200 +413,16 @@
           border-color: #4299e1;
           box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
         }
-        
-        &::-webkit-calendar-picker-indicator {
-          cursor: pointer;
-          opacity: 0.6;
-          
-          &:hover {
-            opacity: 1;
-          }
-        }
-      }
-      
-      button {
-        padding: 10px 16px;
-        background-color: #4299e1;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-weight: 500;
-        font-size: 14px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        
-        &:hover {
-          background-color: #3182ce;
-          transform: translateY(-2px);
-          box-shadow: 0 4px 8px rgba(66, 153, 225, 0.2);
-        }
-        
-        &:active {
-          transform: translateY(0);
-        }
       }
     }
     
-    .meal-summary {
+    .form-actions {
       display: flex;
-      gap: 15px;
-      background-color: #f7fafc;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 24px;
-      border: 1px solid #e2e8f0;
-      
-      .summary-item {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-        
-        span:first-child {
-          font-size: 14px;
-          color: #718096;
-        }
-        
-        span:last-child {
-          font-size: 20px;
-          font-weight: 700;
-          color: #2d3748;
-        }
-      }
-    }
-    
-    .loading {
-      text-align: center;
-      padding: 30px;
-      color: #a0aec0;
-      font-size: 16px;
-      
-      &:after {
-        content: "";
-        display: block;
-        width: 30px;
-        height: 30px;
-        margin: 15px auto 0;
-        border-radius: 50%;
-        border: 3px solid rgba(66, 153, 225, 0.3);
-        border-top-color: #4299e1;
-        animation: spin 1s linear infinite;
-      }
-      
-      @keyframes spin {
-        to { transform: rotate(360deg); }
-      }
-    }
-    
-    .meal-list {
-      margin-bottom: 24px;
-      
-      h3 {
-        margin-bottom: 16px;
-        font-size: 18px;
-        font-weight: 600;
-        color: #2d3748;
-      }
-      
-      .meal-items {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        max-height: 400px;
-        overflow-y: auto;
-        padding-right: 8px;
-        
-        &::-webkit-scrollbar {
-          width: 6px;
-        }
-        
-        &::-webkit-scrollbar-track {
-          background: #f1f1f1;
-          border-radius: 10px;
-        }
-        
-        &::-webkit-scrollbar-thumb {
-          background: #cbd5e0;
-          border-radius: 10px;
-          
-          &:hover {
-            background: #a0aec0;
-          }
-        }
-      }
-      
-      .meal-item {
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border: 1px solid #e2e8f0;
-        
-        &:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .meal-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 15px;
-          background-color: #f7fafc;
-          border-bottom: 1px solid #e2e8f0;
-          
-          h4 {
-            margin: 0;
-            font-size: 16px;
-            font-weight: 600;
-            color: #2d3748;
-          }
-          
-          span {
-            font-size: 13px;
-            color: #718096;
-          }
-        }
-        
-        .meal-details {
-          padding: 15px;
-          display: flex;
-          flex-wrap: wrap;
-          gap: 12px;
-          
-          span {
-            display: block;
-            padding: 6px 12px;
-            background-color: #f7fafc;
-            border-radius: 20px;
-            font-size: 13px;
-            color: #4a5568;
-            border: 1px solid #e2e8f0;
-          }
-        }
-      }
-      
-      .no-data {
-        text-align: center;
-        padding: 30px;
-        color: #a0aec0;
-        font-style: italic;
-        background-color: #f7fafc;
-        border-radius: 8px;
-        border: 1px dashed #e2e8f0;
-      }
-    }
-    
-    .modal-actions {
-      display: flex;
+      gap: 12px;
       justify-content: flex-end;
       
-      .close-btn {
+      button {
         padding: 12px 24px;
-        background-color: #e2e8f0;
-        color: #4a5568;
         border: none;
         border-radius: 8px;
         font-weight: 500;
@@ -232,10 +430,26 @@
         cursor: pointer;
         transition: all 0.3s ease;
         
-        &:hover {
-          background-color: #cbd5e0;
-          transform: translateY(-2px);
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        &.save-btn {
+          background-color: #48bb78;
+          color: white;
+          
+          &:hover {
+            background-color: #38a169;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(72, 187, 120, 0.2);
+          }
+        }
+        
+        &.cancel-btn {
+          background-color: #e2e8f0;
+          color: #4a5568;
+          
+          &:hover {
+            background-color: #cbd5e0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          }
         }
         
         &:active {
@@ -245,116 +459,213 @@
     }
   }
   
-  // 다크 모드 지원
-  .dark .meal-log-modal {
-    .date-filter {
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    
+    .close-btn {
+      padding: 12px 24px;
+      background-color: #e2e8f0;
+      color: #4a5568;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background-color: #cbd5e0;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+// 다크 모드 지원
+.dark .meal-log-modal {
+  .date-filter {
+    label {
+      color: #e2e8f0;
+    }
+    
+    input[type="date"] {
+      background-color: #2d3748;
+      border-color: #4a5568;
+      color: #e2e8f0;
+      
+      &:focus {
+        border-color: #63b3ed;
+      }
+    }
+    
+    button {
+      background-color: #4299e1;
+      
+      &:hover {
+        background-color: #3182ce;
+      }
+    }
+  }
+  
+  .meal-summary {
+    background-color: #2d3748;
+    border-color: #4a5568;
+    
+    .summary-item {
+      span:first-child {
+        color: #a0aec0;
+      }
+      
+      span:last-child {
+        color: #e2e8f0;
+      }
+    }
+  }
+  
+  .loading {
+    color: #718096;
+  }
+  
+  .error-message {
+    background-color: #9B2C2C;
+    color: #FED7D7;
+  }
+  
+  .list-header {
+    h3 {
+      color: #e2e8f0;
+    }
+    
+    .add-btn {
+      background-color: #48bb78;
+      
+      &:hover {
+        background-color: #38a169;
+      }
+    }
+  }
+  
+  .meal-list {
+    .meal-items {
+      &::-webkit-scrollbar-track {
+        background: #2d3748;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: #4a5568;
+        
+        &:hover {
+          background: #718096;
+        }
+      }
+    }
+    
+    .meal-item {
+      background-color: #2d3748;
+      border-color: #4a5568;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      
+      &:hover {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      }
+      
+      .meal-header {
+        background-color: #1a202c;
+        border-color: #4a5568;
+        
+        h4 {
+          color: #e2e8f0;
+        }
+        
+        span {
+          color: #a0aec0;
+        }
+      }
+      
+      .meal-details {
+        span {
+          background-color: #1a202c;
+          color: #e2e8f0;
+          border-color: #4a5568;
+        }
+      }
+      
+      .meal-edit-form {
+        .form-group {
+          label {
+            color: #e2e8f0;
+          }
+          
+          input, select {
+            background-color: #1a202c;
+            border-color: #4a5568;
+            color: #e2e8f0;
+          }
+        }
+        
+        .meal-edit-actions {
+          button {
+            &:last-child {
+              background-color: #4a5568;
+              color: #e2e8f0;
+            }
+          }
+        }
+      }
+    }
+    
+    .no-data {
+      color: #718096;
+      background-color: #2d3748;
+      border-color: #4a5568;
+    }
+  }
+  
+  .add-meal-form {
+    background-color: #2d3748;
+    border-color: #4a5568;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    
+    h2 {
+      color: #e2e8f0;
+    }
+    
+    .form-group {
       label {
         color: #e2e8f0;
       }
       
-      input[type="date"] {
-        background-color: #2d3748;
+      input, select {
+        background-color: #1a202c;
         border-color: #4a5568;
         color: #e2e8f0;
-        
-        &:focus {
-          border-color: #63b3ed;
-        }
-      }
-      
-      button {
-        background-color: #4299e1;
-        
-        &:hover {
-          background-color: #3182ce;
-        }
       }
     }
     
-    .meal-summary {
-      background-color: #2d3748;
-      border-color: #4a5568;
-      
-      .summary-item {
-        span:first-child {
-          color: #a0aec0;
-        }
-        
-        span:last-child {
+    .form-actions {
+      button {
+        &.cancel-btn {
+          background-color: #4a5568;
           color: #e2e8f0;
         }
       }
     }
-    
-    .loading {
-      color: #718096;
-    }
-    
-    .meal-list {
-      h3 {
-        color: #e2e8f0;
-      }
+  }
+  
+  .modal-actions {
+    .close-btn {
+      background-color: #4a5568;
+      color: #e2e8f0;
       
-      .meal-items {
-        &::-webkit-scrollbar-track {
-          background: #2d3748;
-        }
-        
-        &::-webkit-scrollbar-thumb {
-          background: #4a5568;
-          
-          &:hover {
-            background: #718096;
-          }
-        }
-      }
-      
-      .meal-item {
+      &:hover {
         background-color: #2d3748;
-        border-color: #4a5568;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        
-        &:hover {
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .meal-header {
-          background-color: #1a202c;
-          border-color: #4a5568;
-          
-          h4 {
-            color: #e2e8f0;
-          }
-          
-          span {
-            color: #a0aec0;
-          }
-        }
-        
-        .meal-details {
-          span {
-            background-color: #1a202c;
-            color: #e2e8f0;
-            border-color: #4a5568;
-          }
-        }
-      }
-      
-      .no-data {
-        color: #718096;
-        background-color: #2d3748;
-        border-color: #4a5568;
-      }
-    }
-    
-    .modal-actions {
-      .close-btn {
-        background-color: #4a5568;
-        color: #e2e8f0;
-        
-        &:hover {
-          background-color: #2d3748;
-        }
       }
     }
   }
+}

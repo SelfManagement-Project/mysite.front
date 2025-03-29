@@ -1,102 +1,127 @@
-// useMealLog.ts
 import { useState, useEffect } from "react";
-import { Diet } from "@/types/health/interface";
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import {
+  fetchMeals,
+  addMeal,
+  updateMeal,
+  deleteMeal,
+  toggleAddMode,
+  toggleEditMode
+} from '@/redux/actions/health/modal/mealLogAction';
+import { Diet } from '@/types/health/interface';
 
 export const useMealLog = () => {
-  const [meals, setMeals] = useState<Diet[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const dispatch = useAppDispatch();
+  const {
+    meals,
+    loading,
+    totalCalories,
+    totalProtein,
+    totalCarbs,
+    error,
+    isAdding,
+    editingId
+  } = useAppSelector(state => state.mealLog);
+  
   const [selectedDate, setSelectedDate] = useState<string>(
     new Date().toISOString().split('T')[0]
   );
-  const [totalCalories, setTotalCalories] = useState<number>(0);
-  const [totalProtein, setTotalProtein] = useState<number>(0);
-  const [totalCarbs, setTotalCarbs] = useState<number>(0);
-
+  const [newMeal, setNewMeal] = useState<Partial<Diet>>({
+    mealType: '',
+    calories: 0,
+    protein: 0,
+    carbs: 0
+  });
+  const [editMeal, setEditMeal] = useState<Partial<Diet>>({});
+  const [time, setTime] = useState<string>(
+    new Date().toTimeString().split(' ')[0].substring(0, 5)
+  );
+  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTime(e.target.value);
+  };
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedDate(event.target.value);
   };
 
-  const fetchMeals = async (date: string) => {
-    setLoading(true);
-    try {
-      // API 호출 예시 - 실제 구현에 맞게 수정 필요
-      // const response = await fetch(`/api/meals?date=${date}`);
-      // const data = await response.json();
-      // setMeals(data);
-      
-      // 임시 데이터 예시
-      const mockData: Diet[] = [
-        { 
-          diet_id: 1, 
-          user_id: 1,
-          meal_type: '아침', 
-          calories: 450, 
-          protein: 20,
-          carbs: 60,
-          created_at: `${date}T07:30:00.000Z`, 
-          updated_at: `${date}T07:30:00.000Z` 
-        },
-        { 
-          diet_id: 2, 
-          user_id: 1,
-          meal_type: '점심', 
-          calories: 650, 
-          protein: 35,
-          carbs: 70,
-          created_at: `${date}T12:30:00.000Z`, 
-          updated_at: `${date}T12:30:00.000Z` 
-        },
-        { 
-          diet_id: 3, 
-          user_id: 1,
-          meal_type: '저녁', 
-          calories: 550, 
-          protein: 30,
-          carbs: 55,
-          created_at: `${date}T18:30:00.000Z`, 
-          updated_at: `${date}T18:30:00.000Z` 
-        }
-      ];
-      
-      setTimeout(() => {
-        setMeals(mockData);
-        calculateSummary(mockData);
-        setLoading(false);
-      }, 500);
-    } catch (error) {
-      console.error('식사 데이터를 불러오는 중 오류 발생:', error);
-      setMeals([]);
-      setLoading(false);
+  const filterMeals = (date: string) => {
+    dispatch(fetchMeals(date));
+  };
+
+  const handleAddMeal = (mealData: Diet) => {
+    dispatch(addMeal({
+      mealData: {
+        ...mealData,
+        createdAt: `${selectedDate}T${new Date().toTimeString().split(' ')[0]}.000Z`
+      },
+      date: selectedDate
+    }));
+  };
+
+  const handleUpdateMeal = (mealId: number, mealData: Diet) => {
+    dispatch(updateMeal({
+      mealId,
+      mealData,
+      date: selectedDate
+    }));
+  };
+
+  const handleDeleteMeal = (mealId: number) => {
+    if(window.confirm('이 식사 기록을 삭제하시겠습니까?')) {
+      dispatch(deleteMeal({
+        mealId,
+        date: selectedDate
+      }));
     }
   };
 
-  const calculateSummary = (mealData: Diet[]) => {
-    const totalCals = mealData.reduce((sum, meal) => sum + meal.calories, 0);
-    const totalProt = mealData.reduce((sum, meal) => sum + meal.protein, 0);
-    const totalCarbohydrates = mealData.reduce((sum, meal) => sum + meal.carbs, 0);
-    
-    setTotalCalories(totalCals);
-    setTotalProtein(totalProt);
-    setTotalCarbs(totalCarbohydrates);
+  const handleToggleAddMode = (isAdding: boolean) => {
+    dispatch(toggleAddMode(isAdding));
+    if (isAdding) {
+      setNewMeal({
+        mealType: '',
+        calories: 0,
+        protein: 0,
+        carbs: 0
+      });
+    }
   };
 
-  const filterMeals = (date: string) => {
-    fetchMeals(date);
+  const handleToggleEditMode = (meal: Diet | null) => {
+    if (meal) {
+      dispatch(toggleEditMode(meal.dietId));
+      setEditMeal({ ...meal });
+    } else {
+      dispatch(toggleEditMode(null));
+    }
   };
 
   // 초기 데이터 로드
   useEffect(() => {
-    fetchMeals(selectedDate);
-  }, []);
+    dispatch(fetchMeals(selectedDate));
+  }, [dispatch]);
 
   return {
     meals,
+    loading,
+    error,
     selectedDate,
     totalCalories,
     totalProtein,
     totalCarbs,
-    loading,
+    isAdding,
+    editingId,
+    newMeal,
+    editMeal,
+    setNewMeal,
+    setEditMeal,
     handleDateChange,
-    filterMeals
+    filterMeals,
+    handleAddMeal,
+    handleUpdateMeal,
+    handleDeleteMeal,
+    handleToggleAddMode,
+    handleToggleEditMode,
+    time,
+    handleTimeChange
   };
 };

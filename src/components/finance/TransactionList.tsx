@@ -37,8 +37,6 @@ const TransactionList = () => {
     handletransactionDetailId
   } = useTransactionList();
 
-
-
   return (
     <div className="transaction-list-page">
       <div className="page-header">

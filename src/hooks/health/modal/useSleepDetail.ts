@@ -85,18 +85,18 @@ export const useSleepDetail = () => {
         const sleepQuality = Math.floor(50 + Math.random() * 50); // 50-100% 사이
         
         mockData.push({
-          sleep_id: i + 1,
-          user_id: 1,
-          sleep_start: sleepStart.toISOString(),
-          sleep_end: sleepEnd.toISOString(),
-          sleep_quality: sleepQuality,
-          created_at: currentDate.toISOString(),
-          updated_at: currentDate.toISOString()
+          sleepId: i + 1,
+          userId: 1,
+          sleepStart: sleepStart.toISOString(),
+          sleepEnd: sleepEnd.toISOString(),
+          sleepQuality: sleepQuality,
+          createdAt: currentDate.toISOString(),
+          updatedAt: currentDate.toISOString()
         });
       }
       
       // 날짜 순으로 정렬
-      mockData.sort((a, b) => new Date(a.sleep_start).getTime() - new Date(b.sleep_start).getTime());
+      mockData.sort((a, b) => new Date(a.sleepStart).getTime() - new Date(b.sleepStart).getTime());
       
       setTimeout(() => {
         setSleepHistory(mockData);

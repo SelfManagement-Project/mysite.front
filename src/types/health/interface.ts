@@ -23,7 +23,7 @@ export interface Diet {
   calories: number;
   protein: number;
   carbs: number;
-  createdAt: string | null;
+  createdAt: string;
   updatedAt: string | null;
 }
 
@@ -41,6 +41,7 @@ export interface HealthMetrics {
   metricId: number;
   userId: number;
   weight: number;
+  height: number;
   targetWeight: number;
   bmi: number;
   createdAt: string | null;

@@ -11,7 +11,7 @@ export interface Transaction {
     category: string;
     amount: number;
     description: string;
-    is_income: boolean;
+    income: boolean;
 }
 export interface FinanceState {
     transactions: Transaction[];
