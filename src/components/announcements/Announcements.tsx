@@ -14,14 +14,15 @@ interface Announcement {
 
 const Announcements = () => {
   // 공지사항 상태 관리
-  const [announcements, setAnnouncements] = useState<Announcement[]>([]);
+  const [allAnnouncements, setAllAnnouncements] = useState<Announcement[]>([]);
+  const [filteredAnnouncements, setFilteredAnnouncements] = useState<Announcement[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedAnnouncement, setSelectedAnnouncement] = useState<Announcement | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchKeyword, setSearchKeyword] = useState('');
 
   const itemsPerPage = 10;
-  const totalPages = Math.ceil(announcements.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredAnnouncements.length / itemsPerPage);
 
   // 공지사항 데이터 불러오기 (실제로는 API 호출로 대체)
   useEffect(() => {
@@ -40,7 +41,6 @@ const Announcements = () => {
         content: '안녕하세요. \'공통/플로\' 지식베이스 내 지식 인터랙티브 기능이 2025년 4월부터 종료됩니다.\n\n변경 사항:\n• 2025년 3월 31일까지: 기존과 동일하게 서비스 이용 가능\n• 2025년 4월 1일부터: 인터랙티브 기능 종료, 읽기 전용으로 전환\n• 2025년 5월 1일부터: 기존 데이터 열람 불가\n\n대체 서비스로 신규 지식 라이브러리 서비스를 이용해 주시기 바랍니다.\n\n불편을 드려 죄송합니다. 더 나은 서비스로 찾아뵙겠습니다.',
         date: '2025.03.20'
       },
-      // 나머지 공지사항은 유지
       {
         id: 3,
         title: 'Internet Explorer 브라우저 지원 종료 안내',
@@ -93,7 +93,8 @@ const Announcements = () => {
 
     // API 호출 시뮬레이션
     setTimeout(() => {
-      setAnnouncements(dummyAnnouncements);
+      setAllAnnouncements(dummyAnnouncements);
+      setFilteredAnnouncements(dummyAnnouncements); // 초기에는 모든 공지사항 표시
       setLoading(false);
     }, 500);
   }, []);
@@ -108,21 +109,51 @@ const Announcements = () => {
     setSelectedAnnouncement(null);
   };
 
+  // 검색 처리
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // 검색 로직 구현
-    console.log("검색어:", searchKeyword);
-    // 실제로는 API 호출 또는 로컬 필터링
+    
+    if (!searchKeyword.trim()) {
+      // 검색어가 없으면 모든 공지사항 표시
+      setFilteredAnnouncements(allAnnouncements);
+    } else {
+      // 검색어가 있으면 제목과 내용에서 검색
+      const filtered = allAnnouncements.filter(announcement => 
+        announcement.title.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+        announcement.content.toLowerCase().includes(searchKeyword.toLowerCase())
+      );
+      setFilteredAnnouncements(filtered);
+    }
+    
+    // 검색 후 첫 페이지로 이동
+    setCurrentPage(1);
+    // 상세보기 상태 초기화
+    setSelectedAnnouncement(null);
   };
 
+  // 검색어 입력 필드 변경 처리
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchKeyword(e.target.value);
+  };
+
+  // 검색어 초기화
+  const clearSearch = () => {
+    setSearchKeyword('');
+    setFilteredAnnouncements(allAnnouncements);
+    setCurrentPage(1);
+  };
+
+  // 페이지 변경 처리
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     // 페이지 변경 시 상세보기 닫기
     setSelectedAnnouncement(null);
+    // 페이지 상단으로 스크롤
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // 현재 페이지에 표시할 공지사항 목록
-  const currentAnnouncements = announcements.slice(
+  const currentAnnouncements = filteredAnnouncements.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -151,7 +182,7 @@ const Announcements = () => {
             type="text"
             placeholder="제목, 내용"
             value={searchKeyword}
-            onChange={(e) => setSearchKeyword(e.target.value)}
+            onChange={handleSearchInputChange}
           />
           <button type="submit">
             <FaSearch />
@@ -185,7 +216,7 @@ const Announcements = () => {
             {formatContent(selectedAnnouncement.content)}
           </div>
         </div>
-      ) : (
+      ) : filteredAnnouncements.length > 0 ? (
         // 공지사항 목록
         <div className="announcements-list">
           {currentAnnouncements.map((announcement) => (
@@ -202,10 +233,17 @@ const Announcements = () => {
             </div>
           ))}
         </div>
+      ) : (
+        // 검색 결과가 없을 때
+        <div className="no-results">
+          <p>검색 결과가 없습니다.</p>
+          <p>다른 검색어로 다시 시도하거나 검색어를 초기화해 주세요.</p>
+          <button className="clear-search-btn" onClick={clearSearch}>검색어 초기화</button>
+        </div>
       )}
 
-      {/* 상세보기 상태가 아닐 때만 페이지네이션 표시 */}
-      {!selectedAnnouncement && (
+      {/* 상세보기 상태가 아니고 공지사항이 있을 때만 페이지네이션 표시 */}
+      {!selectedAnnouncement && filteredAnnouncements.length > 0 && (
         <div className="pagination">
           <button
             className="page-nav"
