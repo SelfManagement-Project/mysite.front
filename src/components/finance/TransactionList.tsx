@@ -1,7 +1,6 @@
 // TransactionList.tsx
 import { useTransactionList } from "@/hooks/finance/useTransactionList";
 import '@/assets/styles/components/finance/TransactionList.scss';
-import Footer from "../common/Footer";
 import Modal from "../common/Modal";
 import TransactionDetail from "./modal/TransactionDetail";
 import AddTransaction from "./modal/AddTransaction";
@@ -259,7 +258,6 @@ const TransactionList = () => {
 
 
 
-      <Footer />
 
     </div>
   );

@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Mousewheel, Autoplay, EffectCreative } from 'swiper/modules';
 
-import Footer from '@/components/common/Footer';
 import mainIllustration1 from '@/assets/images/slide-img/img1.webp';
 import mainIllustration2 from '@/assets/images/slide-img/img2.webp'; // 다른 이미지 필요
 import mainIllustration3 from '@/assets/images/slide-img/img3.webp'; // 다른 이미지 필요
@@ -66,6 +65,18 @@ const IndexPage = () => {
               >
                 더 알아보기
               </button>
+              <button
+                className="service-btn secondary-btn"
+                onClick={() => navigate('/help')}
+              >
+                고객센터
+              </button>
+              <button
+                className="service-btn secondary-btn"
+                onClick={() => navigate('/announcements')}
+              >
+                공지사항
+              </button>
             </div>
           </div>
           <div className="illustration-section">
@@ -109,7 +120,6 @@ const IndexPage = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

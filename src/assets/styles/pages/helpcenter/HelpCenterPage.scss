@@ -1,0 +1,25 @@
+.help-center-page {
+  overflow-y: auto;
+  max-height: 810px;
+  background-color: #f8f9fa;
+
+  .help-center-content {
+    margin: 0 auto;
+    padding: 30px;
+    // font-family: 'Noto Sans KR', sans-serif;
+  }
+}
+.dark .help-center-page {
+  background-color: #1a202c;
+  color: #e2e8f0;
+}
+
+// 반응형 디자인
+@media (max-width: 768px) {
+  .help-center-page {
+    .help-center-content {
+      padding: 20px;
+
+    }
+  }
+}

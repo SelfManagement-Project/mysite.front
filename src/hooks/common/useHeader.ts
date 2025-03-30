@@ -5,6 +5,7 @@ export const useHeader = () => {
   const [isAiModalOpen, setIsAiModalOpen] = useState(false);
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
   const [showScheduleDropdown, setShowScheduleDropdown] = useState(false);
+  const [showCustomerSupportDropdown, setShowCustomerSupportDropdown] = useState(false);
 
 
   const handleLogoClick = () => {
@@ -22,6 +23,8 @@ export const useHeader = () => {
     isAiModalOpen,
     setIsAiModalOpen,
     isEditProfileModalOpen,
-    setIsEditProfileModalOpen
+    setIsEditProfileModalOpen,
+    showCustomerSupportDropdown,
+    setShowCustomerSupportDropdown
   };
 };

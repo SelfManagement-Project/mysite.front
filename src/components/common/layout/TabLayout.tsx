@@ -6,7 +6,6 @@ import LocationServices from "@/components/location/LocationServices";
 import HealthPage from "@/components/health/HealthPage";
 import AiPage from "@/components/ai/AiPage";
 import FinancePage from "@/components/finance/FinancePage";
-import Footer from "../Footer";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -89,7 +88,6 @@ const TabLayout = () => {
           {selectedTab && renderTabContent(selectedTab)}
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

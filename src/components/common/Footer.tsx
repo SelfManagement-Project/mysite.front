@@ -18,8 +18,9 @@ const Footer = () => {
               <h4>고객 지원</h4>
               <ul>
                 <li>고객센터</li>
-                <li>자주 묻는 질문</li>
-                <li>문의하기</li>
+                <li>공지사항</li>
+                {/* <li>자주 묻는 질문</li>
+                <li>문의하기</li> */}
               </ul>
             </div>
             <div className="footer-section">

@@ -1,0 +1,23 @@
+// assets/styles/components/dashboard/DashboardPage.scss
+.dashboard-page {
+  overflow-y: auto;
+  max-height: 760px;
+  background-color: #f8f9fa;
+
+  .dashboard-content {
+    margin: 0 auto;
+    padding: 30px;
+    max-width: 1600px;
+    // font-family: 'Noto Sans KR', sans-serif;
+  }
+}
+
+// 반응형 디자인
+@media (max-width: 768px) {
+  .dashboard-page {
+    .dashboard-content {
+      padding: 20px;
+
+    }
+  }
+}

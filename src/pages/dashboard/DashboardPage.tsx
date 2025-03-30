@@ -1,7 +1,7 @@
-import Footer from "@/components/common/Footer";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import '@/assets/styles/components/dashboard/DashboardPage.scss';
+import '@/assets/styles/pages/dashboard/DashboardPage.scss';
+import DashBoard from "@/components/dashboard/DashBoard";
 
 const DashboardPage = () => {
   const navigate = useNavigate();
@@ -16,23 +16,8 @@ const DashboardPage = () => {
   return (
     <div className="dashboard-page">
       <div className="dashboard-content">
-        <div className="dashboard-header">
-          <h1>대시보드</h1>
-          <div className="dashboard-actions">
-            {/* <button className="secondary">새로고침</button>
-            <button>설정</button> */}
-          </div>
-        </div>
-
-        <div className="dashboard-iframe-container">
-          <iframe
-            src="http://localhost:3000/goto/lJbVFApHR?orgId=1"
-            frameBorder="0"
-            allowFullScreen
-          ></iframe>
-        </div>
+        <DashBoard />
       </div>
-      <Footer />
     </div>
   );
 };

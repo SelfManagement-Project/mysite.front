@@ -1,6 +1,5 @@
 import "@/assets/styles/components/common/SearchComponent.scss";
 import { useSearch } from "@/hooks/common/useSearch";
-import Footer from '@/components/common/Footer';
 import { ReactNode } from 'react';
 
 // 테이블 결과 인터페이스
@@ -543,7 +542,6 @@ const SearchComponent = () => {
                     )}
                 </div>
             </div>
-            <Footer />
         </div>
     );
 };

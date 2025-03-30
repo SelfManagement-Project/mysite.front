@@ -38,7 +38,12 @@ const Header = ({ onMenuClick, showNav = true }: HeaderProps) => {
   const user = userStr ? JSON.parse(userStr) : null;
   const userName = user?.apiData?.username || '사용자';  // 기본값 설정
 
-  const { isSignUpModalOpen, setIsSignUpModalOpen, handleLogoClick, showScheduleDropdown, setShowScheduleDropdown, setIsAiModalOpen, isAiModalOpen, isEditProfileModalOpen, setIsEditProfileModalOpen } = useHeader();
+  const { isSignUpModalOpen, setIsSignUpModalOpen,
+    handleLogoClick, showScheduleDropdown,
+    setShowScheduleDropdown, setIsAiModalOpen,
+    isAiModalOpen, isEditProfileModalOpen, setIsEditProfileModalOpen,
+    showCustomerSupportDropdown, setShowCustomerSupportDropdown
+  } = useHeader();
 
 
   const { isAuthenticated } = useAppSelector((state) => state.auth);
@@ -153,30 +158,30 @@ const Header = ({ onMenuClick, showNav = true }: HeaderProps) => {
               onMouseEnter={() => setShowScheduleDropdown(true)}
               onMouseLeave={() => setShowScheduleDropdown(false)}
             >
-              <Link to='/tab-page' onClick={() => onMenuClick("Schedule")}>일정/습관 관리</Link>
+              <button onClick={() => onMenuClick("Schedule")}>일정/습관 관리</button>
               {showScheduleDropdown && (
                 <div className="dropdown-content">
-                  <Link to='/tab-page' onClick={() => onMenuClick("Schedule")}>
+                  <button onClick={() => onMenuClick("Schedule")}>
                     캘린더 기반 일정 관리
-                  </Link>
-                  <Link to='/tab-page' onClick={() => onMenuClick("HabitHub")}>
+                  </button>
+                  <button onClick={() => onMenuClick("HabitHub")}>
                     습관 트래킹 및 목표 관리
-                  </Link>
-                  <Link to='/tab-page' onClick={() => onMenuClick("Notification")}>
+                  </button>
+                  <button onClick={() => onMenuClick("Notification")}>
                     알림 서비스
-                  </Link>
+                  </button>
                 </div>
               )}
             </li>
 
             <li>
-              <Link to='/tab-page' onClick={() => onMenuClick("Health")}>건강 관리</Link>
+              <button onClick={() => onMenuClick("Health")}>건강 관리</button>
             </li>
             <li>
-              <Link to='/tab-page' onClick={() => onMenuClick("Finance")}>재무 관리</Link>
+              <button onClick={() => onMenuClick("Finance")}>재무 관리</button>
             </li>
             <li>
-              <Link to='/tab-page' onClick={() => onMenuClick("LocationServices")}>위치 기반 서비스</Link>
+              <button onClick={() => onMenuClick("LocationServices")}>위치 기반 서비스</button>
             </li>
             <li>
               <button onClick={() => setIsAiModalOpen(true)}>
@@ -191,19 +196,22 @@ const Header = ({ onMenuClick, showNav = true }: HeaderProps) => {
                 <AiPage />
               </AiModal>
             </li>
-
             <li
               className="dropdown"
-              onMouseEnter={() => setShowScheduleDropdown(true)}
-              onMouseLeave={() => setShowScheduleDropdown(false)}
+              onMouseEnter={() => setShowCustomerSupportDropdown(true)}
+              onMouseLeave={() => setShowCustomerSupportDropdown(false)}
             >
-              <button>고객지원</button>
-              {showScheduleDropdown && (
+              <Link to='#'>고객지원</Link>
+              {showCustomerSupportDropdown && (
                 <div className="dropdown-content">
-                  <button>
+                  <button
+                    onClick={() => navigate('/help')}
+                  >
                     고객센터
                   </button>
-                  <button>
+                  <button
+                    onClick={() => navigate('/announcements')}
+                  >
                     공지사항
                   </button>
                 </div>

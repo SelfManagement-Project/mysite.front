@@ -1,23 +1,30 @@
 #root {
   width: 100vw;
   height: 100vh;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: 0;
+  padding: 0;
   text-align: center;
+  overflow: hidden; /* 루트 레벨에서 오버플로우 방지 */
 }
 
 .App {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  margin: -2rem;
-  /* root의 padding을 상쇄 */
+  height: 100vh; /* 화면 전체 높이를 차지 */
+  width: 100%;
 }
 
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #fff; /* 헤더 배경색 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 헤더 그림자 */
+}
 .content {
-  /* max-height: 620px; */
   flex: 1;
-  /* 남은 공간을 모두 차지 */
+  overflow-y: auto; /* 내용만 스크롤 */
+  height: calc(100vh - 헤더높이px); /* 헤더 높이를 제외한 나머지 공간 */
 }
 
 .logo {
@@ -60,8 +67,10 @@
 }
 
 .tab-box {
-  max-height: 760px;
-  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 
@@ -91,10 +100,9 @@
 
 .tab-container {
   width: 100%;
-  background-color: ＃ffffff;
-  border-bottom: 1px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
   padding: 24px;
-  /* @include flex(space-between, center); */
   max-width: 1680px;
   margin: 0 auto;
 }
@@ -102,6 +110,8 @@
 
 
 .tab-content {
+  flex: 1;
+  overflow-y: auto; /* 탭 내용만 스크롤 */
   margin-top: 16px;
   padding: 16px;
   border: 1px solid #ddd;
@@ -109,8 +119,6 @@
   background-color: #fff;
   background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark-color, #2c5ae9) 100%);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  /* max-height: 500px;  */
-  /* overflow-y: auto;  */
 }
 
 .close-button {

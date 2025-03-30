@@ -2,7 +2,7 @@ import { RouteObject } from "react-router-dom";
 import LoginPage from "@/pages/login/LoginPage";
 import IndexPage from "@/pages/IndexPage";
 import DashboardPage from "@/pages/dashboard/DashboardPage";
-import TabLayout from "@/components/common/layout/TabLayout";
+// import TabLayout from "@/components/common/layout/TabLayout";
 import DefaultLayout from "@/components/common/layout/DefaultLayout";
 import BlankLayout from "@/components/common/layout/BlankLayout";
 import NotFound from "@/components/error/NotFound";
@@ -13,6 +13,8 @@ import NaverCallback from "@/components/login/NaverCallback";
 import GoogleCallback from "@/components/login/GoogleCallback";
 import TransactionList from "@/components/finance/TransactionList";
 import TabPage from "@/pages/tab/TabPage";
+import AnnouncementsPage from "@/pages/announcements/AnnouncementsPage";
+import HelpCenterPage from "@/pages/helpcenter/HelpCenterPage";
 
 export const routes: RouteObject[] = [
   {
@@ -66,6 +68,19 @@ export const routes: RouteObject[] = [
       <ProtectedRoute>
         <DefaultLayout><TabPage /></DefaultLayout>
       </ProtectedRoute>
+    ),
+  },
+
+  {
+    path: "/announcements",
+    element: (
+        <DefaultLayout showNav={false}><AnnouncementsPage /></DefaultLayout>
+    ),
+  },
+  {
+    path: "/help",
+    element: (
+        <DefaultLayout showNav={false}><HelpCenterPage /></DefaultLayout>
     ),
   },
 
