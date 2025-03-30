@@ -6,7 +6,7 @@ const HelpCenter = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
-  
+
   // 페이지네이션 관련 상태
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
@@ -100,10 +100,10 @@ const HelpCenter = () => {
   // 검색 필터링
   const filteredFaqs = faqData.filter(faq => {
     const matchesCategory = selectedCategory === "all" || faq.category === selectedCategory;
-    const matchesSearch = searchQuery === "" || 
-      faq.question.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    const matchesSearch = searchQuery === "" ||
+      faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
       faq.answer.toLowerCase().includes(searchQuery.toLowerCase());
-    
+
     return matchesCategory && matchesSearch;
   });
 
@@ -151,13 +151,13 @@ const HelpCenter = () => {
   // 페이지 번호 배열 생성
   const getPageNumbers = () => {
     const pageNumbers: number[] = [];
-    
+
     // 화면에 표시할 페이지 번호 개수 (5개로 제한)
     const maxPageNumbersShown = 5;
-    
+
     let startPage: number;
     let endPage: number;
-    
+
     if (totalPages <= maxPageNumbersShown) {
       // 전체 페이지가 5개 이하인 경우
       startPage = 1;
@@ -166,7 +166,7 @@ const HelpCenter = () => {
       // 현재 페이지가 중간에 오도록 계산
       const maxPagesBeforeCurrentPage = Math.floor(maxPageNumbersShown / 2);
       const maxPagesAfterCurrentPage = Math.ceil(maxPageNumbersShown / 2) - 1;
-      
+
       if (currentPage <= maxPagesBeforeCurrentPage) {
         // 현재 페이지가 앞쪽에 위치한 경우
         startPage = 1;
@@ -181,11 +181,11 @@ const HelpCenter = () => {
         endPage = currentPage + maxPagesAfterCurrentPage;
       }
     }
-    
+
     for (let i = startPage; i <= endPage; i++) {
       pageNumbers.push(i);
     }
-    
+
     return pageNumbers;
   };
 
@@ -207,8 +207,8 @@ const HelpCenter = () => {
             className="search-input"
           />
           {searchQuery && (
-            <FaTimes 
-              className="clear-search" 
+            <FaTimes
+              className="clear-search"
               onClick={() => setSearchQuery("")}
             />
           )}
@@ -230,12 +230,12 @@ const HelpCenter = () => {
       <div className="faq-list">
         {currentFaqs.length > 0 ? (
           currentFaqs.map(faq => (
-            <div 
-              key={faq.id} 
+            <div
+              key={faq.id}
               className={`faq-item ${expandedFaq === faq.id ? 'expanded' : ''}`}
             >
-              <div 
-                className="faq-question" 
+              <div
+                className="faq-question"
                 onClick={() => toggleFaq(faq.id)}
               >
                 <span>{faq.question}</span>
@@ -245,11 +245,11 @@ const HelpCenter = () => {
                   <FaPlus className="faq-icon" />
                 )}
               </div>
-              {expandedFaq === faq.id && (
-                <div className="faq-answer">
+              <div className={`faq-answer ${expandedFaq === faq.id ? 'show' : ''}`}>
+                <div className="faq-answer-content">
                   <p>{faq.answer}</p>
                 </div>
-              )}
+              </div>
             </div>
           ))
         ) : (
@@ -263,14 +263,14 @@ const HelpCenter = () => {
       {/* 수정된 부분: 페이지가 2개 이상일 때만 페이지네이션 표시 */}
       {totalPages > 1 && (
         <div className="pagination">
-          <button 
-            className="pagination-arrow" 
-            onClick={goToPreviousPage} 
+          <button
+            className="pagination-arrow"
+            onClick={goToPreviousPage}
             disabled={currentPage === 1}
           >
             <FaChevronLeft />
           </button>
-          
+
           {getPageNumbers().map(number => (
             <button
               key={number}
@@ -280,10 +280,10 @@ const HelpCenter = () => {
               {number}
             </button>
           ))}
-          
-          <button 
-            className="pagination-arrow" 
-            onClick={goToNextPage} 
+
+          <button
+            className="pagination-arrow"
+            onClick={goToNextPage}
             disabled={currentPage === totalPages}
           >
             <FaChevronRight />

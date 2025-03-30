@@ -178,11 +178,11 @@
 
             &.expanded {
                 box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-                
+
                 .faq-question {
                     background-color: #f8f9fa;
                     border-bottom: 1px solid #e9ecef;
-                    
+
                     span {
                         color: #4263eb;
                         font-weight: 700;
@@ -225,15 +225,34 @@
             }
 
             .faq-answer {
-                padding: 24px;
-                color: #495057;
-                line-height: 1.6;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s cubic-bezier(0, 1, 0, 1), padding 0.3s ease;
+                padding: 0 24px;
                 background-color: #fff;
-                animation: fadeIn 0.3s ease-in-out;
 
-                p {
-                    margin: 0;
-                    font-size: 16px;
+                .faq-answer-content {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                    transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s;
+                    line-height: 1.6;
+                    color: #495057;
+
+                    p {
+                        margin: 0;
+                        font-size: 16px;
+                    }
+                }
+
+                &.show {
+                    max-height: 1000px; // 충분히 큰 값
+                    padding: 24px;
+                    transition: max-height 0.5s ease-in-out, padding 0.3s ease;
+
+                    .faq-answer-content {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
                 }
             }
         }
@@ -244,16 +263,16 @@
             padding: 40px 30px;
             text-align: center;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            
+
             p {
                 margin: 8px 0;
-                
+
                 &:first-child {
                     font-size: 18px;
                     font-weight: 600;
                     color: #495057;
                 }
-                
+
                 &:last-child {
                     color: #868e96;
                     font-size: 16px;
@@ -274,7 +293,7 @@
         transition: all 0.3s ease;
         max-width: 1200px;
 
-        .pagination-arrow, 
+        .pagination-arrow,
         .pagination-number {
             padding: 12px 18px;
             border: 1px solid #dee2e6;
@@ -363,6 +382,7 @@
             opacity: 0;
             transform: translateY(-10px);
         }
+
         100% {
             opacity: 1;
             transform: translateY(0);
@@ -474,11 +494,11 @@
 
             &.expanded {
                 box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-                
+
                 .faq-question {
                     background-color: #1a202c;
                     border-bottom-color: #4a5568;
-                    
+
                     span {
                         color: #63b3ed;
                     }
@@ -508,20 +528,23 @@
             }
 
             .faq-answer {
-                color: #a0aec0;
                 background-color: #2d3748;
+
+                .faq-answer-content {
+                    color: #a0aec0;
+                }
             }
         }
 
         .no-results {
             background-color: #2d3748;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            
+
             p {
                 &:first-child {
                     color: #e2e8f0;
                 }
-                
+
                 &:last-child {
                     color: #a0aec0;
                 }
@@ -584,61 +607,61 @@
     .help-center-container {
         .help-center-header {
             padding: 25px 15px;
-            
+
             h1 {
                 font-size: 26px;
             }
         }
-        
+
         .search-container {
             padding: 15px;
-            
+
             .search-input-wrapper .search-input {
                 padding: 14px 15px 14px 45px;
                 font-size: 15px;
             }
         }
-        
+
         .category-tabs {
             padding: 0 15px 15px;
             gap: 8px;
-            
+
             .category-tab {
                 padding: 10px 16px;
                 font-size: 13px;
             }
         }
-        
+
         .faq-list {
             margin: 20px auto;
             padding: 0 15px;
-            
+
             .faq-item {
                 margin-bottom: 12px;
-                
+
                 .faq-question {
                     padding: 16px 20px;
-                    
+
                     span {
                         font-size: 15px;
                     }
                 }
-                
+
                 .faq-answer {
                     padding: 20px;
-                    
+
                     p {
                         font-size: 15px;
                     }
                 }
             }
         }
-        
+
         .pagination {
             margin: 25px auto;
             padding: 15px;
             gap: 6px;
-            
+
             .pagination-arrow,
             .pagination-number {
                 padding: 10px 14px;
@@ -646,16 +669,16 @@
                 font-size: 13px;
             }
         }
-        
+
         .contact-section {
             margin: 30px auto;
             padding: 25px 15px;
-            
+
             h2 {
                 font-size: 20px;
                 margin-bottom: 15px;
             }
-            
+
             .contact-button {
                 padding: 12px 24px;
                 font-size: 15px;
@@ -671,36 +694,37 @@
             h1 {
                 font-size: 22px;
             }
-            
+
             p {
                 font-size: 14px;
             }
         }
-        
+
         .category-tabs {
             overflow-x: auto;
             padding-bottom: 10px;
             flex-wrap: nowrap;
-            
+
             &::-webkit-scrollbar {
                 height: 4px;
             }
-            
+
             .category-tab {
                 white-space: nowrap;
                 flex: 0 0 auto;
             }
         }
-        
+
         .faq-item .faq-question {
             padding: 14px 16px;
-            
+
             span {
                 font-size: 14px;
             }
         }
-        
+
         .pagination {
+
             .pagination-arrow,
             .pagination-number {
                 padding: 8px 12px;
@@ -708,14 +732,14 @@
                 font-size: 12px;
             }
         }
-        
+
         .contact-section {
             padding: 20px 15px;
-            
+
             h2 {
                 font-size: 18px;
             }
-            
+
             .contact-button {
                 padding: 10px 20px;
                 font-size: 14px;
