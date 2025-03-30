@@ -20,7 +20,7 @@ const Announcements = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchKeyword, setSearchKeyword] = useState('');
 
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
   const totalPages = Math.ceil(announcements.length / itemsPerPage);
 
   // 공지사항 데이터 불러오기 (실제로는 API 호출로 대체)

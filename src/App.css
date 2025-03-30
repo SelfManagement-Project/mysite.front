@@ -100,7 +100,7 @@ header {
 
 .tab-container {
   width: 100%;
-  background-color: #ffffff;
+  background-color: var(--background-color);
   border-bottom: 1px solid #ddd;
   padding: 24px;
   max-width: 1680px;

@@ -1,182 +1,301 @@
-// components/helpcenter/HelpCenter.tsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "@/assets/styles/components/helpcenter/HelpCenter.scss";
-import { FaSearch, FaPlus } from "react-icons/fa";
+import { FaSearch, FaPlus, FaTimes, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const HelpCenter = () => {
-  const [searchKeyword, setSearchKeyword] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  
+  // 페이지네이션 관련 상태
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+  const [totalPages, setTotalPages] = useState(1);
 
-  // 자주 찾는 도움말 데이터
-  const frequentQuestions = [
-    { id: 1, title: "넷플릭스 멤버십 사용 방법", category: "넷플릭스/OTT 서비스", tag: "#스트리밍 서비스" },
-    { id: 2, title: "포스트 종료 일정 안내", category: "포스트", tag: "#포스트" },
-    { id: 3, title: "Internet Explorer 브라우저 지원 종료 안내", category: "네이버 정책", tag: "#네이버 정책" },
-    { id: 4, title: "진짜 유심 개시 관련 방법", category: "시리즈", tag: "#시리즈" },
-    { id: 5, title: "modoo! 서비스 종료 안내", category: "서비스 종료", tag: "#modoo!" },
-    { id: 6, title: "지지직 정산 실지급액 개선 안내", category: "지지직", tag: "#네이버 정책" },
-    { id: 7, title: "iOS 백그라운드에서 올리기/내리받기", category: "앱 기능", tag: "#MYBOX" },
-    { id: 8, title: "사진 페이지 설정 방법(Chrome)", category: "브라우저", tag: "#네이버 정책" }
-  ];
-
-  // 추천 서비스 아이콘 데이터
-  const serviceIcons = [
-    { id: 1, name: "회원정보", icon: "👤", link: "#" },
-    { id: 2, name: "메일", icon: "✉️", link: "#" },
-    { id: 3, name: "블로그", icon: "📝", link: "#" },
-    { id: 4, name: "카페", icon: "☕", link: "#" },
-    { id: 5, name: "지식iN", icon: "🎓", link: "#" },
-    { id: 6, name: "네이버 게임", icon: "🎮", link: "#" },
-    { id: 7, name: "Papago", icon: "🌐", link: "#" },
-    { id: 8, name: "Papago Plus", icon: "🌍", link: "#" },
-    { id: 9, name: "네이버 검색", icon: "🔍", link: "#" },
-    { id: 10, name: "MYBOX", icon: "📦", link: "#" },
-    { id: 11, name: "VIBE", icon: "🎵", link: "#" },
-    { id: 12, name: "네이버플러스 멤버십", icon: "🎭", link: "#" },
-    { id: 13, name: "시리즈", icon: "📚", link: "#" },
-    { id: 14, name: "CLOVA X", icon: "🤖", link: "#" },
-    { id: 15, name: "웹툰", icon: "🖼️", link: "#" },
-    { id: 16, name: "스마트플레이스 사업주", icon: "🏪", link: "#" },
-    { id: 17, name: "지도", icon: "🗺️", link: "#" },
-    { id: 18, name: "사전", icon: "📔", link: "#" }
-  ];
-
-  // 추가 도움 옵션
-  const helpOptions = [
-    { 
-      id: 1, 
-      title: "스마트봇 문의하기", 
-      icon: "🤖", 
-      description: "24시간 언제든지 궁금하신 것을 스마트봇이 알려드립니다."
+  // 자주 묻는 질문 데이터
+  const faqData = [
+    {
+      id: 1,
+      category: "account",
+      question: "계정은 어떻게 만들 수 있나요?",
+      answer: "회원가입 페이지에서 이메일, 비밀번호, 기본 정보를 입력하여 계정을 생성할 수 있습니다."
     },
-    { 
-      id: 2, 
-      title: "톡톡 문의하기", 
-      icon: "💬", 
-      description: "1:1 채팅을 통해 문의사항을 빠르게 안내드립니다."
+    {
+      id: 2,
+      category: "payment",
+      question: "결제 방법은 어떤 것이 있나요?",
+      answer: "신용카드, 체크카드, 계좌이체, 페이팔 등 다양한 결제 방법을 지원합니다."
     },
-    { 
-      id: 3, 
-      title: "문의/요청사항 찾기", 
-      icon: "📧", 
-      description: "궁금한 사항을 문의주시면 성심껏 답변드립니다."
+    {
+      id: 3,
+      category: "shipping",
+      question: "배송은 얼마나 걸리나요?",
+      answer: "국내 배송은 2-3일, 해외 배송은 지역에 따라 7-14일 정도 소요됩니다."
+    },
+    {
+      id: 4,
+      category: "refund",
+      question: "환불 정책은 어떻게 되나요?",
+      answer: "구매일로부터 14일 이내에 제품 상태가 양호한 경우 전액 환불이 가능합니다."
+    },
+    {
+      id: 5,
+      category: "account",
+      question: "비밀번호를 잊어버렸어요.",
+      answer: "로그인 페이지에서 '비밀번호 찾기'를 클릭하여 이메일을 통해 재설정할 수 있습니다."
+    },
+    {
+      id: 6,
+      category: "shipping",
+      question: "해외 배송도 가능한가요?",
+      answer: "네, 대부분의 국가로 해외 배송이 가능합니다. 국가별 배송비와 소요시간은 다를 수 있습니다."
+    },
+    {
+      id: 7,
+      category: "payment",
+      question: "분할 결제가 가능한가요?",
+      answer: "네, 특정 금액 이상 구매 시 3개월, 6개월, 12개월 무이자 할부 결제가 가능합니다."
+    },
+    {
+      id: 8,
+      category: "refund",
+      question: "교환/반품 배송비는 어떻게 되나요?",
+      answer: "제품 불량의 경우 왕복 배송비는 회사가 부담합니다. 고객 변심의 경우 왕복 배송비는 고객 부담입니다."
+    },
+    {
+      id: 9,
+      category: "account",
+      question: "회원 탈퇴는 어떻게 하나요?",
+      answer: "마이페이지 > 개인정보 설정 > 회원 탈퇴 메뉴에서 진행할 수 있습니다."
+    },
+    {
+      id: 10,
+      category: "shipping",
+      question: "배송 조회는 어디서 할 수 있나요?",
+      answer: "마이페이지 > 주문 내역에서 배송 조회 버튼을 클릭하시면 현재 배송 상태를 확인할 수 있습니다."
+    },
+    {
+      id: 11,
+      category: "payment",
+      question: "결제 후 영수증은 어디서 확인할 수 있나요?",
+      answer: "마이페이지 > 주문 내역 > 해당 주문 상세 페이지에서 영수증 출력이 가능합니다."
+    },
+    {
+      id: 12,
+      category: "refund",
+      question: "부분 환불도 가능한가요?",
+      answer: "네, 여러 상품을 함께 구매하신 경우 특정 상품만 선택하여 환불 신청이 가능합니다."
     }
   ];
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // 검색 기능 구현
-    console.log("검색어:", searchKeyword);
+  // 카테고리 데이터
+  const categories = [
+    { id: "all", name: "전체" },
+    { id: "account", name: "계정" },
+    { id: "payment", name: "결제" },
+    { id: "shipping", name: "배송" },
+    { id: "refund", name: "환불" }
+  ];
+
+  // 검색 필터링
+  const filteredFaqs = faqData.filter(faq => {
+    const matchesCategory = selectedCategory === "all" || faq.category === selectedCategory;
+    const matchesSearch = searchQuery === "" || 
+      faq.question.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      faq.answer.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    return matchesCategory && matchesSearch;
+  });
+
+  // 페이지네이션 계산
+  useEffect(() => {
+    setTotalPages(Math.ceil(filteredFaqs.length / itemsPerPage));
+    // 필터링 변경 시 첫 페이지로 이동하되, 현재 페이지가 유효하면 유지
+    if (currentPage > Math.ceil(filteredFaqs.length / itemsPerPage)) {
+      setCurrentPage(1);
+    }
+  }, [filteredFaqs, itemsPerPage]);
+
+  // 현재 페이지 데이터
+  const currentFaqs = filteredFaqs.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  // FAQ 토글 함수
+  const toggleFaq = (id: number) => {
+    setExpandedFaq(expandedFaq === id ? null : id);
+  };
+
+  // 페이지 변경 함수
+  const changePage = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    // 페이지 상단으로 스크롤
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // 이전 페이지 함수
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      changePage(currentPage - 1);
+    }
+  };
+
+  // 다음 페이지 함수
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      changePage(currentPage + 1);
+    }
+  };
+
+  // 페이지 번호 배열 생성
+  const getPageNumbers = () => {
+    const pageNumbers: number[] = [];
+    
+    // 화면에 표시할 페이지 번호 개수 (5개로 제한)
+    const maxPageNumbersShown = 5;
+    
+    let startPage: number;
+    let endPage: number;
+    
+    if (totalPages <= maxPageNumbersShown) {
+      // 전체 페이지가 5개 이하인 경우
+      startPage = 1;
+      endPage = totalPages;
+    } else {
+      // 현재 페이지가 중간에 오도록 계산
+      const maxPagesBeforeCurrentPage = Math.floor(maxPageNumbersShown / 2);
+      const maxPagesAfterCurrentPage = Math.ceil(maxPageNumbersShown / 2) - 1;
+      
+      if (currentPage <= maxPagesBeforeCurrentPage) {
+        // 현재 페이지가 앞쪽에 위치한 경우
+        startPage = 1;
+        endPage = maxPageNumbersShown;
+      } else if (currentPage + maxPagesAfterCurrentPage >= totalPages) {
+        // 현재 페이지가 뒤쪽에 위치한 경우
+        startPage = totalPages - maxPageNumbersShown + 1;
+        endPage = totalPages;
+      } else {
+        // 현재 페이지가 중간에 위치한 경우
+        startPage = currentPage - maxPagesBeforeCurrentPage;
+        endPage = currentPage + maxPagesAfterCurrentPage;
+      }
+    }
+    
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(i);
+    }
+    
+    return pageNumbers;
   };
 
   return (
     <div className="help-center-container">
-      {/* 헤더 섹션 */}
-      <div className="help-header">
-        <h1>네이버 고객센터</h1>
-        <p>궁금한 점은 검색으로 쉽고 빠르게 확인하세요.</p>
-        
-        <div className="search-box">
-          <form onSubmit={handleSearch}>
-            <input 
-              type="text" 
-              placeholder="궁금한 점을 검색해 보세요" 
-              value={searchKeyword}
-              onChange={(e) => setSearchKeyword(e.target.value)}
+      <div className="help-center-header">
+        <h1>고객센터</h1>
+        <p>자주 묻는 질문에서 해결책을 찾아보세요.</p>
+      </div>
+
+      <div className="search-container">
+        <div className="search-input-wrapper">
+          <FaSearch className="search-icon" />
+          <input
+            type="text"
+            placeholder="질문을 검색해보세요"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="search-input"
+          />
+          {searchQuery && (
+            <FaTimes 
+              className="clear-search" 
+              onClick={() => setSearchQuery("")}
             />
-            <button type="submit">
-              <FaSearch />
-            </button>
-          </form>
+          )}
         </div>
       </div>
 
-      {/* 메뉴 네비게이션 */}
-      <div className="help-navigation">
-        <ul className="main-menu">
-          <li className="active"><a href="#">주요 질의어</a></li>
-          <li><a href="#">넷플릭스</a></li>
-          <li><a href="#">최근검색어 상세/복구 방법</a></li>
-          <li><a href="#">라푼</a></li>
-          <li><a href="#">회원가입</a></li>
-          <li><a href="#">네이버 비밀번호 찾기</a></li>
-          <li><a href="#">QR코드/바코드 검색 기능</a></li>
-        </ul>
-        <div className="notice-banner">
-          <span className="notice-tag">공지</span>
-          <span className="notice-text">[안내] 블로그랩 + 동영상 오픈도 및 편집시 따로 이미지/파일/그래프 기능이 정상 작동 (a.4 픽)</span>
-          <a href="#" className="more-link">공지 전체보기 &gt;</a>
-        </div>
+      <div className="category-tabs">
+        {categories.map(category => (
+          <button
+            key={category.id}
+            className={`category-tab ${selectedCategory === category.id ? 'active' : ''}`}
+            onClick={() => setSelectedCategory(category.id)}
+          >
+            {category.name}
+          </button>
+        ))}
       </div>
 
-      {/* 자주 찾는 도움말 */}
-      <div className="frequent-questions">
-        <div className="section-header">
-          <h2>자주 찾는 도움말</h2>
-          <div className="category-tabs">
-            <button className="active">전체</button>
-            <button>계정 관리</button>
-            <button>도움 보기</button>
-            <button>이용정지</button>
-            <button>개인보호</button>
-            <button>결제정보</button>
-            <button>예약주문</button>
-            <button>이벤트혜택</button>
-            <button>프로필 설정</button>
-            <button>환경 설정</button>
+      <div className="faq-list">
+        {currentFaqs.length > 0 ? (
+          currentFaqs.map(faq => (
+            <div 
+              key={faq.id} 
+              className={`faq-item ${expandedFaq === faq.id ? 'expanded' : ''}`}
+            >
+              <div 
+                className="faq-question" 
+                onClick={() => toggleFaq(faq.id)}
+              >
+                <span>{faq.question}</span>
+                {expandedFaq === faq.id ? (
+                  <FaTimes className="faq-icon" />
+                ) : (
+                  <FaPlus className="faq-icon" />
+                )}
+              </div>
+              {expandedFaq === faq.id && (
+                <div className="faq-answer">
+                  <p>{faq.answer}</p>
+                </div>
+              )}
+            </div>
+          ))
+        ) : (
+          <div className="no-results">
+            <p>검색 결과가 없습니다.</p>
+            <p>다른 키워드로 검색하거나 문의하기를 이용해주세요.</p>
           </div>
-        </div>
-
-        <div className="questions-grid">
-          {frequentQuestions.map(question => (
-            <div key={question.id} className="question-card">
-              <h3>
-                <span className="q-icon">Q</span>
-                {question.title}
-              </h3>
-              <div className="question-tag">
-                <span className={question.tag.includes("네이버") ? "tag-naver" : "tag-service"}>
-                  {question.tag}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <button className="more-questions-btn">
-          <FaPlus /> 도움말 더보기
-        </button>
+        )}
       </div>
 
-      {/* 고객센터 서비스 */}
-      <div className="service-section">
-        <h2>고객센터를 통해 궁금증을 해결하세요.</h2>
-        <div className="service-icons-grid">
-          {serviceIcons.map(service => (
-            <a key={service.id} href={service.link} className="service-icon">
-              <div className="icon-circle">
-                <span className="icon">{service.icon}</span>
-              </div>
-              <span className="service-name">{service.name}</span>
-            </a>
+      {/* 수정된 부분: 페이지가 2개 이상일 때만 페이지네이션 표시 */}
+      {totalPages > 1 && (
+        <div className="pagination">
+          <button 
+            className="pagination-arrow" 
+            onClick={goToPreviousPage} 
+            disabled={currentPage === 1}
+          >
+            <FaChevronLeft />
+          </button>
+          
+          {getPageNumbers().map(number => (
+            <button
+              key={number}
+              className={`pagination-number ${currentPage === number ? 'active' : ''}`}
+              onClick={() => changePage(number)}
+            >
+              {number}
+            </button>
           ))}
+          
+          <button 
+            className="pagination-arrow" 
+            onClick={goToNextPage} 
+            disabled={currentPage === totalPages}
+          >
+            <FaChevronRight />
+          </button>
         </div>
-        <button className="more-services-btn">
-          <FaPlus /> 서비스 더보기
-        </button>
-      </div>
+      )}
 
-      {/* 추가 도움 옵션 */}
-      <div className="help-options">
-        <h2>다른 도움이 필요하신가요?</h2>
-        <div className="options-grid">
-          {helpOptions.map(option => (
-            <div key={option.id} className="help-option-card">
-              <div className="option-icon">{option.icon}</div>
-              <h3>{option.title}</h3>
-              <p>{option.description}</p>
-            </div>
-          ))}
-        </div>
+      <div className="contact-section">
+        <h2>원하는 답변을 찾지 못하셨나요?</h2>
+        <button className="contact-button">
+          1:1 문의하기
+        </button>
       </div>
     </div>
   );
