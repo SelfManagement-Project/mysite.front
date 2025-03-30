@@ -33,12 +33,13 @@ export const useTabs = () => {
       ]);
     }
     setSelectedTab(menuName);
-    navigate(`/tab/${menuName.toLowerCase()}`);
+    navigate(`/tab-page`);
   };
 
   const handleTabClick = (tabName: string) => {
     setSelectedTab(tabName);
-    navigate(`/tab/${tabName.toLowerCase()}`);
+    // navigate(`/tab/${tabName.toLowerCase()}`);
+    navigate(`/tab-page`);
   };
 
   const handleTabClose = (tabName: string) => {
@@ -48,7 +49,7 @@ export const useTabs = () => {
     if (selectedTab === tabName) {
       if (updatedTabs.length > 0) {
         setSelectedTab(updatedTabs[0].name);
-        navigate(`/tab/${updatedTabs[0].name.toLowerCase()}`);
+        navigate(`/tab-page`);
       } else {
         setSelectedTab(null);
         navigate("/dashboard");

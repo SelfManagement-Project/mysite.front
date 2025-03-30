@@ -1,7 +1,7 @@
 import { RouteObject } from "react-router-dom";
 import LoginPage from "@/pages/login/LoginPage";
 import IndexPage from "@/pages/IndexPage";
-import DashboardPage from "@/components/dashboard/DashboardPage";
+import DashboardPage from "@/pages/dashboard/DashboardPage";
 import TabLayout from "@/components/common/layout/TabLayout";
 import DefaultLayout from "@/components/common/layout/DefaultLayout";
 import BlankLayout from "@/components/common/layout/BlankLayout";
@@ -12,6 +12,7 @@ import KakaoCallback from "@/components/login/KakaoCallback";
 import NaverCallback from "@/components/login/NaverCallback";
 import GoogleCallback from "@/components/login/GoogleCallback";
 import TransactionList from "@/components/finance/TransactionList";
+import TabPage from "@/pages/tab/TabPage";
 
 export const routes: RouteObject[] = [
   {
@@ -58,14 +59,24 @@ export const routes: RouteObject[] = [
       </ProtectedRoute>
     ),
   },
+
   {
-    path: "/tab/:name",
+    path: "/tab-page",
     element: (
       <ProtectedRoute>
-        <DefaultLayout><TabLayout /></DefaultLayout>
+        <DefaultLayout><TabPage /></DefaultLayout>
       </ProtectedRoute>
     ),
   },
+
+  // {
+  //   path: "/tab/:name",
+  //   element: (
+  //     <ProtectedRoute>
+  //       <DefaultLayout><TabLayout /></DefaultLayout>
+  //     </ProtectedRoute>
+  //   ),
+  // },
   {
     path: "*",
     element: <BlankLayout><NotFound /></BlankLayout>,
