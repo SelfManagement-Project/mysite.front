@@ -38,15 +38,17 @@ const TransactionList = () => {
 
   return (
     <div className="transaction-list-page">
-      <div className="page-header">
-        <h1>거래 내역</h1>
-        <button className="back-btn" onClick={goBack}>뒤로가기</button>
-      </div>
-      <div className="breadcrumb">
-        <ul>
-          <li><span onClick={goBack} className="nav-link">재무관리</span></li>
-          <li>거래 내역 보기</li>
-        </ul>
+      <div className="page-box">
+        <div className="page-header">
+          <h1>거래 내역</h1>
+          <button className="back-btn" onClick={goBack}>뒤로가기</button>
+        </div>
+        <div className="breadcrumb">
+          <ul>
+            <li><span onClick={goBack} className="nav-link">재무관리</span></li>
+            <li>거래 내역 보기</li>
+          </ul>
+        </div>
       </div>
       <div className="transaction-content">
         <div className="filters-section">
