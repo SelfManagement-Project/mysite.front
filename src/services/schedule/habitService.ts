@@ -66,7 +66,7 @@ export const habitService = {
         const response = await axios.get(`${baseUrl}/api/schedule/habits/today`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
-        console.log(response.data);
+        // console.log(response.data);
         return response.data;
     },
 

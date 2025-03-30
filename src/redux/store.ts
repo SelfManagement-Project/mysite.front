@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './reducers/login/authReducer';
+import profileReducer from './reducers/login/modal/profileReducer';
 import urlReducer from './reducers/urlSlice';
 import chatReducer from './reducers/ai/aiReducer';
 import searchReducer from './reducers/common/searchReducer';
@@ -22,6 +23,7 @@ export const store = configureStore({
     exerciseTracking: exerciseTrackingReducer, // 추가
     mealLog: mealLogReducer, // 추가
     sleepTracking: sleepTrackingReducer, // 추가
+    profile: profileReducer
   },
   middleware: (getDefaultMiddleware) => 
     getDefaultMiddleware().concat([])
