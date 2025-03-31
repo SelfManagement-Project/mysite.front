@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // 공지사항 타입 정의
 export interface Announcement {
@@ -10,6 +11,7 @@ export interface Announcement {
 }
 
 export const useAnnouncements = () => {
+  const navigate = useNavigate();
   // 공지사항 상태 관리
   const [allAnnouncements, setAllAnnouncements] = useState<Announcement[]>([]);
   const [filteredAnnouncements, setFilteredAnnouncements] = useState<Announcement[]>([]);
@@ -155,6 +157,11 @@ export const useAnnouncements = () => {
     currentPage * itemsPerPage
   );
 
+  // 뒤로가기 함수
+  const goBack = () => {
+    navigate(-1);
+  };
+
   
 
   return {
@@ -173,5 +180,6 @@ export const useAnnouncements = () => {
     handleSearchInputChange,
     clearSearch,
     handlePageChange,
+    goBack
   };
 };

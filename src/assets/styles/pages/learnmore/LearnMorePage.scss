@@ -1,0 +1,23 @@
+.learn-more-page {
+    background-color: #f8f9fa;
+  
+    .learn-more-content {
+      margin: 0 auto;
+      padding: 30px;
+      // font-family: 'Noto Sans KR', sans-serif;
+    }
+  }
+  .dark .learn-more-page {
+    background-color: #1a202c;
+    color: #e2e8f0;
+  }
+  
+  // 반응형 디자인
+  @media (max-width: 768px) {
+    .learn-more-page {
+      .learn-more-content {
+        padding: 20px;
+  
+      }
+    }
+  }

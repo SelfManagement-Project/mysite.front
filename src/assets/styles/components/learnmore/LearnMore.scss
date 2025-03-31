@@ -1,0 +1,381 @@
+.learn-more-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    color: #333;
+    background-color: #f9fafb;
+    border-radius: 16px;
+
+    // 스크롤바 스타일링
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f1f3f5;
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #adb5bd;
+        border-radius: 10px;
+
+        &:hover {
+            background: #868e96;
+        }
+    }
+
+    // Hero Section
+    .hero-section {
+        text-align: center;
+        margin-bottom: 60px;
+
+        .header-box {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid black;
+            align-items: center;
+
+            h1 {
+                font-size: 36px;
+                font-weight: bold;
+                color: #111827;
+            }
+
+            .back-btn {
+                padding: 10px 18px;
+                background-color: #fff;
+                border: 1px solid #dee2e6;
+                border-radius: 8px;
+                color: #495057;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+                display: flex;
+                align-items: center;
+
+                &:before {
+                    content: '←';
+                    margin-right: 6px;
+                    font-size: 18px;
+                }
+
+                &:hover {
+                    background-color: #f1f3f5;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                }
+
+                &:active {
+                    transform: translateY(0);
+                }
+            }
+        }
+
+
+
+        p {
+            font-size: 18px;
+            color: #6b7280;
+        }
+
+        .hero-illustration {
+            max-width: 100%;
+            width: 1160px; // 최대 크기 제한 (필요시 조절 가능)
+            height: 500px;
+            margin-top: 30px;
+            border-radius: 12px; // 둥근 모서리로 더 깔끔한 느낌
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); // 부드러운 그림자
+            transition: all 0.3s ease;
+
+            &:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 18px rgba(0, 0, 0, 0.15);
+            }
+        }
+    }
+
+    // Features & Technologies Section Common
+    .testimonial-section,
+    .steps-section,
+    .features-section,
+    .technology-section {
+        margin-bottom: 80px;
+
+        h2 {
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #111827;
+            position: relative;
+
+            &:after {
+                content: '';
+                display: block;
+                width: 60px;
+                height: 4px;
+                background: linear-gradient(90deg, #3b82f6, #60a5fa);
+                margin: 10px auto 0;
+                border-radius: 2px;
+            }
+        }
+
+        .testimonial-grid,
+        .steps-grid,
+        .features-grid,
+        .technology-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+
+            .testimonial-card,
+            .step-card,
+            .feature-card,
+            .technology-card {
+                background-color: #ffffff;
+                padding: 30px;
+                border-radius: 16px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+                transition: all 0.3s ease;
+                text-align: center;
+
+                &:hover {
+                    transform: translateY(-8px);
+                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+                }
+
+                .testimonial-icon,
+                .step-icon,
+                .feature-icon,
+                .technology-icon {
+                    font-size: 40px;
+                    margin-bottom: 16px;
+                    color: #3b82f6;
+                }
+
+                h3 {
+                    font-size: 20px;
+                    margin-bottom: 12px;
+                    color: #111827;
+                }
+
+                p {
+                    font-size: 16px;
+                    color: #4b5563;
+                    line-height: 1.6;
+                }
+            }
+        }
+    }
+
+    // Call To Action Section
+    .cta-section {
+        background: linear-gradient(135deg, #3b82f6, #60a5fa);
+        color: #ffffff;
+        border-radius: 16px;
+        padding: 50px 20px;
+        text-align: center;
+        box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        transition: all 0.3s ease;
+
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(59, 130, 246, 0.35);
+        }
+
+        h2 {
+            font-size: 30px;
+            margin-bottom: 14px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .start-btn {
+            background-color: #ffffff;
+            color: #3b82f6;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+            &:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+            }
+
+            &:active {
+                transform: translateY(0);
+            }
+        }
+
+        .share-btn {
+            background-color: #10b981;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            padding: 12px 26px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-left: 12px;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background-color: #10b981;
+                color: #ffffff;
+                transform: translateY(-3px);
+                box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+            }
+
+            &:active {
+                transform: translateY(0);
+            }
+        }
+    }
+}
+
+// 다크모드 대응
+.dark .learn-more-container {
+    background-color: #1f2937;
+    color: #e5e7eb;
+
+    .hero-section {
+
+        h1 {
+            color: #f9fafb;
+        }
+
+        .back-btn {
+            background-color: #1a202c;
+            border-color: #4a5568;
+            color: #e2e8f0;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+            &:hover {
+                background-color: #2d3748;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        p {
+            color: #9ca3af;
+        }
+    }
+
+    .testimonial-section,
+    .steps-section,
+    .features-section,
+    .technology-section {
+        h2 {
+            color: #f9fafb;
+
+            &:after {
+                background: linear-gradient(90deg, #2563eb, #3b82f6);
+            }
+        }
+
+        .testimonial-card,
+        .step-card,
+        .feature-card,
+        .technology-card {
+            background-color: #374151;
+
+            .testimonial-icon,
+            .step-icon,
+            .feature-icon,
+            .technology-icon {
+                color: #60a5fa;
+            }
+
+            h3 {
+                color: #f9fafb;
+            }
+
+            p {
+                color: #d1d5db;
+            }
+        }
+    }
+
+    .cta-section {
+        background: linear-gradient(135deg, #2563eb, #3b82f6);
+        color: #f9fafb;
+
+        .start-btn {
+            background-color: #1f2937;
+            color: #60a5fa;
+
+            &:hover {
+                background-color: #374151;
+            }
+        }
+
+        .share-btn {
+            border-color: #34d399;
+            color: #f9fafb;
+
+            &:hover {
+                background-color: #34d399;
+                // color: #1f2937;
+            }
+        }
+    }
+}
+
+// 반응형 스타일링
+@media (max-width: 768px) {
+    .learn-more-container {
+        padding: 30px 15px;
+
+        .hero-section h1 {
+            font-size: 28px;
+        }
+
+        .testimonial-section,
+        .steps-section,
+        .features-section,
+        .technology-section {
+            margin-bottom: 60px;
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .testimonial-grid,
+            .steps-grid,
+            .features-grid,
+            .technology-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .cta-section {
+            padding: 40px 15px;
+
+            h2 {
+                font-size: 26px;
+            }
+
+            .start-btn {
+                width: 100%;
+            }
+
+            .share-btn {
+                margin-left: 0;
+                margin-top: 12px;
+                width: 100%;
+            }
+        }
+    }
+}

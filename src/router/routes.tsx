@@ -15,6 +15,7 @@ import TransactionList from "@/components/finance/TransactionList";
 import TabPage from "@/pages/tab/TabPage";
 import AnnouncementsPage from "@/pages/announcements/AnnouncementsPage";
 import HelpCenterPage from "@/pages/helpcenter/HelpCenterPage";
+import LearnMorePage from "@/pages/learnmore/LearnMorePage";
 
 export const routes: RouteObject[] = [
   {
@@ -81,6 +82,12 @@ export const routes: RouteObject[] = [
     path: "/help",
     element: (
         <DefaultLayout showNav={false}><HelpCenterPage /></DefaultLayout>
+    ),
+  },
+  {
+    path: "/learn-more",
+    element: (
+        <DefaultLayout showNav={false}><LearnMorePage /></DefaultLayout>
     ),
   },
 

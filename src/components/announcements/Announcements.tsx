@@ -17,6 +17,7 @@ const Announcements = () => {
     handleSearchInputChange,
     clearSearch,
     handlePageChange,
+    goBack
   } = useAnnouncements();
 
   // 공지사항 내용에서 줄바꿈 처리
@@ -34,6 +35,7 @@ const Announcements = () => {
         <div className="header-buttons">
           <button className="nav-button">네이버 다이어리</button>
           <button className="nav-button">서비스 전체</button>
+          <button className="back-btn" onClick={goBack}>뒤로가기</button>
         </div>
       </div>
 

@@ -18,13 +18,17 @@ const HelpCenter = () => {
     changePage,
     goToPreviousPage,
     goToNextPage,
-    getPageNumbers
+    getPageNumbers,
+    goBack
   } = useHelpCenter();
 
   return (
     <div className="help-center-container">
       <div className="help-center-header">
-        <h1>고객센터</h1>
+        <div className="help-center-header-box">
+          <h1>고객센터</h1>
+          <button className="back-btn" onClick={goBack}>뒤로가기</button>
+        </div>
         <p>자주 묻는 질문에서 해결책을 찾아보세요.</p>
       </div>
 

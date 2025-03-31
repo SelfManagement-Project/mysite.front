@@ -61,7 +61,7 @@ const IndexPage = () => {
               </button>
               <button
                 className="service-btn secondary-btn"
-                onClick={() => navigate('#')}
+                onClick={() => navigate('/learn-more')}
               >
                 더 알아보기
               </button>

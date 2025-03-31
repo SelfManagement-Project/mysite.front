@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 // FAQ 타입 정의
 export interface FAQ {
@@ -15,6 +16,7 @@ export interface Category {
 }
 
 export const useHelpCenter = () => {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
@@ -174,22 +176,26 @@ export const useHelpCenter = () => {
       changePage(currentPage + 1);
     }
   };
+  // 뒤로가기 함수
+  const goBack = () => {
+    navigate(-1);
+  };
 
   // 페이지 번호 배열 생성
   const getPageNumbers = () => {
     const pageNumbers: number[] = [];
     const maxPageNumbersShown = 5;
-    
+
     let startPage: number;
     let endPage: number;
-    
+
     if (totalPages <= maxPageNumbersShown) {
       startPage = 1;
       endPage = totalPages;
     } else {
       const maxPagesBeforeCurrentPage = Math.floor(maxPageNumbersShown / 2);
       const maxPagesAfterCurrentPage = Math.ceil(maxPageNumbersShown / 2) - 1;
-      
+
       if (currentPage <= maxPagesBeforeCurrentPage) {
         startPage = 1;
         endPage = maxPageNumbersShown;
@@ -201,11 +207,12 @@ export const useHelpCenter = () => {
         endPage = currentPage + maxPagesAfterCurrentPage;
       }
     }
-    
+
     for (let i = startPage; i <= endPage; i++) {
       pageNumbers.push(i);
     }
-    
+
+
     return pageNumbers;
   };
 
@@ -225,6 +232,7 @@ export const useHelpCenter = () => {
     changePage,
     goToPreviousPage,
     goToNextPage,
-    getPageNumbers
+    getPageNumbers,
+    goBack
   };
 };
