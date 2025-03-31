@@ -123,6 +123,38 @@
             }
         }
 
+        .write-review-btn-box {
+            display: flex;
+            justify-content: right;
+            margin: 20px 0px 20px 0px;
+
+             .write-review-btn {
+                // width: 100%;
+                padding: 12px 0;
+                background-color: #40c057;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 5px rgba(64, 192, 87, 0.2);
+
+                &:hover {
+                    background-color: #37b24d;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 8px rgba(64, 192, 87, 0.3);
+                }
+
+                &:active {
+                    transform: translateY(0);
+                }
+            }
+        }
+
+
+
+
         .testimonial-grid,
         .steps-grid,
         .features-grid,
@@ -146,6 +178,72 @@
                     transform: translateY(-8px);
                     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
                 }
+
+
+                .edit-textarea {
+                    width: 100%;
+                    height: 80px;
+                    resize: vertical;
+                    padding: 10px;
+                    font-size: 14px;
+                    border-radius: 8px;
+                    border: 1px solid #ccc;
+                    margin-bottom: 10px;
+                }
+
+
+
+                .action-btn-box {
+                    display: flex;
+                    justify-content: right;
+                    margin-top: 10px;
+
+                    button {
+                        margin: 5px 5px 0 5px;
+
+                        .update-review-btn {
+                            background-color: #4299e1;
+                            color: white;
+
+
+                            &:hover {
+                                background-color: #3182ce;
+                            }
+                        }
+
+                        &.delete-review-btn {
+                            background-color: #ef4444;
+                            color: white;
+
+                            &:hover {
+                                background-color: #dc2626;
+                            }
+                        }
+
+                        &.save-review-btn {
+                            background-color: #10b981;
+                            color: white;
+
+                            &:hover {
+                                background-color: #059669;
+                            }
+                        }
+
+                        &.cancel-review-btn {
+                            background-color: #6b7280;
+                            color: white;
+
+                            &:hover {
+                                background-color: #4b5563;
+                            }
+                        }
+                    }
+                }
+
+
+
+
+
 
                 .testimonial-icon,
                 .step-icon,
@@ -284,11 +382,67 @@
             }
         }
 
+        .write-review-btn {
+            background-color: #38a169;
+            box-shadow: 0 2px 5px rgba(56, 161, 105, 0.2);
+
+            &:hover {
+                background-color: #2f855a;
+                box-shadow: 0 4px 8px rgba(56, 161, 105, 0.3);
+            }
+        }
+
         .testimonial-card,
         .step-card,
         .feature-card,
         .technology-card {
             background-color: #374151;
+
+
+            .action-btn-box {
+                .update-review-btn {
+                    background-color: #4299e1;
+
+                    &:hover {
+                        background-color: #3182ce;
+                    }
+                }
+
+                .delete-review-btn {
+                    background-color: #f56565;
+
+                    &:hover {
+                        background-color: #e53e3e;
+                    }
+                }
+
+                .save-review-btn {
+                    background-color: #38a169;
+
+                    &:hover {
+                        background-color: #2f855a;
+                    }
+                }
+
+                .cancel-review-btn {
+                    background-color: #718096;
+
+                    &:hover {
+                        background-color: #4a5568;
+                    }
+                }
+
+            }
+
+
+
+
+
+
+
+
+
+
 
             .testimonial-icon,
             .step-icon,
