@@ -9,7 +9,7 @@ import logoImage from '@/assets/images/OneFlowLogo.webp';
 import { useAppDispatch } from '@/redux/hooks';
 import { logout } from '@/redux/reducers/login/authReducer';
 import EditProfileForm from "@/components/login/modal/EditProfileForm";
-import { useChatList } from '@/hooks/ai/useChatList';
+// import { useChatList } from '@/hooks/ai/useChatList';
 import { useSearch } from "@/hooks/common/useSearch";
 
 const Header = ({ onMenuClick, showNav = true }: HeaderProps) => {
@@ -21,14 +21,14 @@ const Header = ({ onMenuClick, showNav = true }: HeaderProps) => {
     navigate('/total_search'); // 검색 결과 페이지로 이동
   };
 
-  const {
-    handleFetchChatList  // useAiPage에서 새로 추가할 함수
-  } = useChatList();
+  // const {
+  //   handleFetchChatList  // useAiPage에서 새로 추가할 함수
+  // } = useChatList();
 
-  const handleChatSelect = async () => {
-    await handleFetchChatList();
-    // 필요한 경우 채팅 탭으로 다시 전환
-  };
+  // const handleChatSelect = async () => {
+  //   await handleFetchChatList();
+  //   // 필요한 경우 채팅 탭으로 다시 전환
+  // };
 
 
 
@@ -38,8 +38,8 @@ const Header = ({ onMenuClick, showNav = true }: HeaderProps) => {
 
   const { isSignUpModalOpen, setIsSignUpModalOpen,
     handleLogoClick, showScheduleDropdown,
-    setShowScheduleDropdown, setIsAiModalOpen,
-    isAiModalOpen, isEditProfileModalOpen, setIsEditProfileModalOpen,
+    setShowScheduleDropdown,
+    isEditProfileModalOpen, setIsEditProfileModalOpen,
     showCustomerSupportDropdown, setShowCustomerSupportDropdown
   } = useHeader();
 
@@ -53,7 +53,7 @@ const Header = ({ onMenuClick, showNav = true }: HeaderProps) => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     dispatch(logout());
-    navigate('/');
+    navigate(-1);
   };
 
   return (
