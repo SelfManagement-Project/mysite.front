@@ -3,10 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useHeader } from '@/hooks/common/useHeader';
 import { useAppSelector } from '@/redux/hooks';
 import Modal from "@/components/common/Modal";
-import AiModal from "@/components/common/AiModal";
 import EditProfileModal from "@/components/common/EditProfileModal";
 import SignUpForm from "@/components/login/SignUpForm";
-import AiPage from "@/components/ai/AiPage";
 import logoImage from '@/assets/images/OneFlowLogo.webp';
 import { useAppDispatch } from '@/redux/hooks';
 import { logout } from '@/redux/reducers/login/authReducer';
@@ -184,17 +182,22 @@ const Header = ({ onMenuClick, showNav = true }: HeaderProps) => {
               <button onClick={() => onMenuClick("LocationServices")}>위치 기반 서비스</button>
             </li>
             <li>
-              <button onClick={() => setIsAiModalOpen(true)}>
+              <button
+                onClick={() => {
+                  const width = 1280;
+                  const height = 960;
+                  const left = (window.screen.width / 2) - (width / 2);
+                  const top = (window.screen.height / 2) - (height / 2);
+
+                  window.open(
+                    '/ai-service',
+                    'AIChatWindow',
+                    `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`
+                  );
+                }}
+              >
                 AI 챗봇 서비스
               </button>
-              <AiModal
-                isOpen={isAiModalOpen}
-                onClose={() => setIsAiModalOpen(false)}
-                title="AI 챗봇 서비스"
-                onSelectChat={handleChatSelect}
-              >
-                <AiPage />
-              </AiModal>
             </li>
             <li
               className="dropdown"

@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './reducers/login/authReducer';
 import profileReducer from './reducers/login/modal/profileReducer';
 import urlReducer from './reducers/urlSlice';
-import chatReducer from './reducers/ai/aiReducer';
+import chatReducer from './reducers/ai/aiChatReducer';
 import searchReducer from './reducers/common/searchReducer';
 import healthReducer from './reducers/health/healthReducer';
 import exerciseTrackingReducer from './reducers/health/modal/exerciseTrackingReducer';

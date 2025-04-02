@@ -1,8 +1,11 @@
-import '@/assets/styles/components/ai/AiPage.scss';
-import { useAiPage } from '@/hooks/ai/useAiPage';
+import '@/assets/styles/components/ai/AiChat.scss';
+import { useAiChat } from '@/hooks/ai/useAiChat';
 import { RecentChat, AiPageProps } from '@/types/ai/interfaces';
+import { useState } from 'react'; // useState 추가
 
-const AiPage = ({ selectedChatId }: AiPageProps) => {
+const AiChat = ({ selectedChatId }: AiPageProps) => {
+    const [sidebarVisible, setSidebarVisible] = useState(false); // 사이드바 상태 추가
+
     const {
         message,
         chatMessages,
@@ -15,11 +18,20 @@ const AiPage = ({ selectedChatId }: AiPageProps) => {
         messagesEndRef,
         recentChats,
         handleFetchChatHistory
-    } = useAiPage(selectedChatId);
+    } = useAiChat(selectedChatId);
 
+    // 사이드바 토글 함수
+    const toggleSidebar = () => {
+        setSidebarVisible(!sidebarVisible);
+    };
 
     return (
-        <div className="chatbot-container">
+        <div className={`chatbot-container ${sidebarVisible ? '' : 'sidebar-hidden'}`}>
+            {/* 토글 버튼을 chat-main 밖으로 이동 - 항상 보이게 됨 */}
+            <button className="toggle-sidebar-btn" onClick={toggleSidebar}>
+                {sidebarVisible ? "←" : "→"}
+            </button>
+
             <div className="sidebar">
                 <button className="new-chat-btn" onClick={handleNewChat}>
                     <i className="fas fa-plus"></i>
@@ -34,7 +46,7 @@ const AiPage = ({ selectedChatId }: AiPageProps) => {
                                 <li
                                     key={chat.chatId || `chat-${index}`}
                                     className="chat-history-item"
-                                    onClick={() => handleFetchChatHistory(chat.chatId)} // 추가됨
+                                    onClick={() => handleFetchChatHistory(chat.chatId)}
                                 >
                                     • {chat.message && chat.message.length > 12
                                         ? chat.message.substring(0, 12) + '...'
@@ -70,7 +82,6 @@ const AiPage = ({ selectedChatId }: AiPageProps) => {
                                 <div className="message-text">{msg.content}</div>
                             </div>
                         </div>
-
                     ))}
                     {isLoading && (
                         <div className="loading-message">
@@ -94,8 +105,6 @@ const AiPage = ({ selectedChatId }: AiPageProps) => {
                         disabled={!canSendMessage}
                     />
                     <div className="input-buttons">
-                        {/* <button className="function-btn">파일첨부</button>
-                        <button className="function-btn">음성입력</button> */}
                         <button
                             className="send-btn"
                             onClick={handleSendMessage}
@@ -110,4 +119,4 @@ const AiPage = ({ selectedChatId }: AiPageProps) => {
     );
 };
 
-export default AiPage;
+export default AiChat;

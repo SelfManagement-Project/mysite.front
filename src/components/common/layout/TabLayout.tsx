@@ -4,7 +4,7 @@ import HabitHub from "@/components/schedule/HabitHub";
 import Notifications from "@/components/schedule/Notifications";
 import LocationServices from "@/components/location/LocationServices";
 import HealthPage from "@/components/health/HealthPage";
-import AiPage from "@/components/ai/AiPage";
+import AiPage from "@/components/ai/AiChat";
 import FinancePage from "@/components/finance/FinancePage";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";

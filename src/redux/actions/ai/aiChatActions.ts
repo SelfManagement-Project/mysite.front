@@ -1,6 +1,6 @@
 // redux/actions/chatActions.ts
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { chatService } from '@/services/ai/aiServices';
+import { chatService } from '@/services/ai/aiChatServices';
 import { 
     chatListRecentRequest,
     chatListRecentSuccess,
@@ -8,7 +8,7 @@ import {
     chatHistoryRequest,
     chatHistorySuccess,
     chatHistoryFailure
-} from '@/redux/reducers/ai/aiReducer';
+} from '@/redux/reducers/ai/aiChatReducer';
 import { chatListService } from '@/services/ai/chatListService';
 
 export const chatListRecent = createAsyncThunk(

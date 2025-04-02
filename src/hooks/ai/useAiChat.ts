@@ -2,9 +2,9 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { store } from '@/redux/store';
 import { ChatMessage, RecentChat } from '@/types/ai/interfaces';
 import { useAppDispatch } from '@/redux/hooks';
-import { chatListRecent, fetchChatHistory } from '@/redux/actions/ai/aiActions';
+import { chatListRecent, fetchChatHistory } from '@/redux/actions/ai/aiChatActions';
 
-export const useAiPage = (chatId?: number | null) => {
+export const useAiChat = (chatId?: number | null) => {
     const dispatch = useAppDispatch();
     const [message, setMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);

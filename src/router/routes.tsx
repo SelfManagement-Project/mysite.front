@@ -16,6 +16,7 @@ import TabPage from "@/pages/tab/TabPage";
 import AnnouncementsPage from "@/pages/announcements/AnnouncementsPage";
 import HelpCenterPage from "@/pages/helpcenter/HelpCenterPage";
 import LearnMorePage from "@/pages/learnmore/LearnMorePage";
+import AiPage from "@/pages/ai/AiPage";
 
 export const routes: RouteObject[] = [
   {
@@ -27,7 +28,7 @@ export const routes: RouteObject[] = [
     element: <BlankLayout><LoginPage /></BlankLayout>,
   },
   {
-    path: "/oauth/kakao/callback", 
+    path: "/oauth/kakao/callback",
     element: <BlankLayout><KakaoCallback /></BlankLayout>
   },
   {
@@ -75,19 +76,27 @@ export const routes: RouteObject[] = [
   {
     path: "/announcements",
     element: (
-        <DefaultLayout showNav={false}><AnnouncementsPage /></DefaultLayout>
+      <DefaultLayout showNav={false}><AnnouncementsPage /></DefaultLayout>
     ),
   },
   {
     path: "/help",
     element: (
-        <DefaultLayout showNav={false}><HelpCenterPage /></DefaultLayout>
+      <DefaultLayout showNav={false}><HelpCenterPage /></DefaultLayout>
     ),
   },
   {
     path: "/learn-more",
     element: (
-        <DefaultLayout showNav={false}><LearnMorePage /></DefaultLayout>
+      <DefaultLayout showNav={false}><LearnMorePage /></DefaultLayout>
+    ),
+  },
+  {
+    path: "/ai-service",
+    element: (
+      <ProtectedRoute>
+        <BlankLayout><AiPage /></BlankLayout>
+      </ProtectedRoute>
     ),
   },
 

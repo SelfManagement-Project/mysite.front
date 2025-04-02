@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { ChatList } from '@/types/components';
 import { useAppDispatch } from '@/redux/hooks';
-import { fetchChatList } from '@/redux/actions/ai/aiActions';
+import { fetchChatList } from '@/redux/actions/ai/aiChatActions';
 
 export const useChatList = () => {
     const dispatch = useAppDispatch();
