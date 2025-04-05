@@ -8,6 +8,7 @@ import AiPage from "@/components/ai/AiChat";
 import FinancePage from "@/components/finance/FinancePage";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "@/assets/styles/components/common/layout/TabLayout.scss";
 
 const TabLayout = () => {
   const {

@@ -1,0 +1,305 @@
+// TabLayout.scss - 고급 버전
+.tab-box {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    --tab-radius: 12px;
+    --content-radius: 16px;
+    --primary-gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark-color, #7986cb) 100%);
+    --secondary-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --active-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    --tab-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.tab-container {
+    width: 100%;
+    background-color: var(--background-color);
+    padding: 28px;
+    max-width: 1680px;
+    margin: 0 auto;
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 5%;
+        width: 90%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.08), transparent);
+    }
+
+    @media (max-width: 768px) {
+        padding: 20px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 16px;
+    }
+}
+
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 16px;
+    position: relative;
+    z-index: 1;
+
+    &::before {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        right: 0;
+        height: 20px;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), transparent);
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+        gap: 12px;
+    }
+
+    @media (max-width: 480px) {
+        gap: 8px;
+    }
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 217px;
+    position: relative;
+    padding: 16px 20px;
+    border-radius: var(--tab-radius);
+    background: var(--card-bg, #fff);
+    box-shadow: var(--tab-shadow);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+    border: none;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border-color);
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--secondary-gradient);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+
+        &::before {
+            opacity: 1;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        min-width: 180px;
+    }
+
+    @media (max-width: 768px) {
+        min-width: 150px;
+        padding: 14px 16px;
+    }
+
+    @media (max-width: 480px) {
+        min-width: 0;
+        flex: 1 1 calc(50% - 8px);
+        padding: 12px;
+    }
+
+    span {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+    }
+
+    .close-button {
+        margin-left: 12px;
+        background: transparent;
+        border: none;
+        color: inherit;
+        opacity: 0.6;
+        cursor: pointer;
+        font-size: 14px;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+
+        &:hover {
+            opacity: 1;
+            background-color: rgba(0, 0, 0, 0.08);
+            transform: rotate(90deg);
+        }
+    }
+}
+
+.tab.active {
+    background: var(--primary-gradient);
+    font-weight: 600;
+    // color: white;
+    box-shadow: var(--active-shadow);
+    transform: translateY(-4px);
+
+    &::before {
+        opacity: 0;
+    }
+
+    .close-button {
+        opacity: 0.8;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+            opacity: 1;
+        }
+    }
+}
+
+.tab-content {
+    flex: 1;
+    overflow-y: auto;
+    // margin-top: 32px;
+    padding: 32px;
+    border-radius: var(--content-radius);
+    background: var(--primary-gradient);
+    box-shadow: var(--active-shadow);
+    color: white;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.1), transparent 70%);
+        border-radius: inherit;
+        pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+        margin-top: 24px;
+        padding: 24px;
+    }
+
+    @media (max-width: 480px) {
+        margin-top: 20px;
+        padding: 20px;
+        border-radius: 12px;
+    }
+}
+
+// 탭 드래그 효과
+.tab[draggable="true"] {
+    &:active {
+        cursor: grabbing;
+        transform: scale(0.98) translateY(-2px);
+        opacity: 0.9;
+    }
+}
+
+// 애니메이션 효과
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.tab-content {
+    animation: fadeIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.tab {
+    animation: slideIn 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    animation-fill-mode: both;
+}
+
+// 각 탭마다 애니메이션 지연 적용
+@for $i from 1 through 10 {
+    .tab:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.05}s;
+    }
+}
+
+// 다크 모드 최적화 (옵션)
+@media (prefers-color-scheme: dark) {
+    .tab:not(.active) {
+        background: rgba(255, 255, 255, 0.05);
+        // color: rgba(255, 255, 255, 0.9);
+        
+        
+        &::before {
+            background: linear-gradient(90deg, var(--primary-color), transparent);
+            border: 3px solid var(--hover-bg);
+        }
+
+        .close-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+
+    .tab-container::after {
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    }
+}
+
+// 고급 스크롤바 스타일링
+.tab-content {
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+    }
+}
