@@ -1,16 +1,28 @@
 // components/common/ProtectedRoute.tsx
 import { Navigate, useLocation } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const isAuthenticated = localStorage.getItem('token') !== null;
+const isTokenExpired = (token: string) => {
+  try {
+    const decoded: any = jwtDecode(token);
+    return decoded.exp * 1000 < Date.now();
+  } catch {
+    return true;
+  }
+};
+
+const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+  const token = localStorage.getItem('token');
   const location = useLocation();
-  
+
+  const isAuthenticated = token && !isTokenExpired(token);
+
   if (!isAuthenticated) {
-    // 현재 위치 정보를 state로 전달하여 로그인 후 원래 페이지로 돌아올 수 있게 함
+    localStorage.removeItem('token');
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
-  
-  return <>{children}</>;
+
+  return children;
 };
 
 export default ProtectedRoute;

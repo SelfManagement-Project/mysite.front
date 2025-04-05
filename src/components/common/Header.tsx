@@ -53,7 +53,7 @@ const Header = ({ onMenuClick, showNav = true }: HeaderProps) => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     dispatch(logout());
-    navigate(-1);
+    navigate('/');
   };
 
   return (
