@@ -9,7 +9,6 @@ const TabPage = () => {
     const navigate = useNavigate();
     useEffect(() => {
         const token = localStorage.getItem("token");
-        console.log('tab::::::',token);
         if (!token) {
             navigate("/login");
         }

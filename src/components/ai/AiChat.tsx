@@ -1,10 +1,13 @@
 import '@/assets/styles/components/ai/AiChat.scss';
 import { useAiChat } from '@/hooks/ai/useAiChat';
 import { RecentChat, AiPageProps } from '@/types/ai/interfaces';
-import { useState } from 'react'; // useState 추가
+
+import Lottie from 'lottie-react';
+import loading from '@/assets/animations/loading.json'; // 애니메이션 JSON 파일 경로
+import error1 from '@/assets/animations/error1.json'; // 애니메이션 JSON 파일 경로
 
 const AiChat = ({ selectedChatId }: AiPageProps) => {
-    const [sidebarVisible, setSidebarVisible] = useState(false); // 사이드바 상태 추가
+
 
     const {
         message,
@@ -17,13 +20,13 @@ const AiChat = ({ selectedChatId }: AiPageProps) => {
         handleNewChat,
         messagesEndRef,
         recentChats,
-        handleFetchChatHistory
+        handleFetchChatHistory,
+        sidebarVisible,
+        toggleSidebar,
+        hasError
     } = useAiChat(selectedChatId);
 
-    // 사이드바 토글 함수
-    const toggleSidebar = () => {
-        setSidebarVisible(!sidebarVisible);
-    };
+
 
     return (
         <div className={`chatbot-container ${sidebarVisible ? '' : 'sidebar-hidden'}`}>
@@ -86,10 +89,26 @@ const AiChat = ({ selectedChatId }: AiPageProps) => {
                     {isLoading && (
                         <div className="loading-message">
                             <div className="typing-indicator">
-                                <span></span>
-                                <span></span>
-                                <span></span>
+
+                                <div className="loading-animation">
+                                    <Lottie animationData={loading} loop={true} className="ai-mascot" />
+                                </div>
+                                <div className='typing-dots'>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
                             </div>
+                        </div>
+                    )}
+
+                    {hasError && (
+                        <div className="ai-error-message">
+                            <Lottie animationData={error1} loop={true} className="ai-mascot" />
+                            <p className="speech-bubble">
+                                죄송해요! 현재 답변을 드릴 수 없어요 😢 <br />
+                                잠시 후 다시 시도해주세요.
+                            </p>
                         </div>
                     )}
                     <div ref={messagesEndRef} />

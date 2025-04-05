@@ -13,6 +13,9 @@ import 'swiper/swiper-bundle.css'; // 또는 'swiper/swiper-bundle.min.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faHeartbeat, faChartLine } from '@fortawesome/free-solid-svg-icons';
 
+import Lottie from 'lottie-react';
+import aiMascotJson from '@/assets/animations/aiMascot.json'; // 애니메이션 JSON 파일 경로
+
 const IndexPage = () => {
   const navigate = useNavigate();
 
@@ -34,10 +37,13 @@ const IndexPage = () => {
           <div className="text-section">
             <div className="gradient-text">OneFlow</div>
             <h1>일상을 스마트하게 최적화</h1>
-            <p>
-              AI 기반 통합 라이프스타일 플랫폼으로
-              당신의 일정, 건강, 재무를 혁신적으로 관리하세요
-            </p>
+            <div className="ai-feature-info">
+              <div className="ai-mascot-box">
+                <Lottie animationData={aiMascotJson} loop />
+              </div>
+              <p className='speech-bubble'>AI 기반 통합 라이프스타일 플랫폼으로
+                당신의 일정, 건강, 재무를 혁신적으로 관리하세요</p>
+            </div>
             <div className="feature-highlights">
               {[
                 { icon: faCalendar, text: '지능형 일정 관리', path: '/dashboard' },

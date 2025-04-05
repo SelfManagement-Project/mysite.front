@@ -1,413 +1,444 @@
 // assets/styles/pages/IndexPage.scss
 .index-page {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+  position: relative;
+  max-height: 810px;
+  overflow-y: auto;
+  font-family: 'Noto Sans KR', sans-serif;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(66, 153, 225, 0.08) 0%, transparent 70%);
+    z-index: 1;
+  }
+
+  .main-container {
+    flex-grow: 1;
     display: flex;
-    flex-direction: column;
-    background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
     position: relative;
-    max-height: 810px;
-    overflow-y: auto;
-    font-family: 'Noto Sans KR', sans-serif;
-  
-    &::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at center, rgba(66, 153, 225, 0.08) 0%, transparent 70%);
-      z-index: 1;
+    z-index: 2;
+  }
+
+  .content-wrapper {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+    gap: 60px;
+  }
+
+  .text-section {
+    flex: 1;
+    z-index: 3;
+
+    .gradient-text {
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, #4299e1, #63b3ed);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      margin-bottom: 12px;
     }
-  
-    .main-container {
-      flex-grow: 1;
+
+    h1 {
+      font-size: 3.2rem;
+      color: #2d3748;
+      margin-bottom: 20px;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .ai-feature-info {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 60px 24px;
-      position: relative;
-      z-index: 2;
-    }
-  
-    .content-wrapper {
-      display: flex;
-      align-items: center;
-      max-width: 1200px;
-      width: 100%;
-      gap: 60px;
-    }
-  
-    .text-section {
-      flex: 1;
-      z-index: 3;
-  
-      .gradient-text {
-        font-size: 1.2rem;
-        background: linear-gradient(135deg, #4299e1, #63b3ed);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-weight: 700;
-        margin-bottom: 12px;
+
+      .ai-mascot-box {
+        width: 170px;
+        height: 170px;
+        align-content: end;
       }
-  
-      h1 {
-        font-size: 3.2rem;
-        color: #2d3748;
-        margin-bottom: 20px;
-        line-height: 1.2;
-        font-weight: 800;
-      }
-  
-      p {
-        font-size: 1.1rem;
-        color: #4a5568;
-        margin-bottom: 32px;
-        line-height: 1.6;
-      }
-  
-      .feature-highlights {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 24px;
-        margin-bottom: 40px;
-  
-        .feature {
-          display: flex;
-          align-items: center;
-          gap: 15px;
-          color: #4a5568;
-          transition: transform 0.3s ease;
-  
-          &:hover {
-            transform: translateY(-2px);
-          }
-  
-          .feature-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            background: rgba(66, 153, 225, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(66, 153, 225, 0.1);
-  
-            i, svg {
-              font-size: 24px;
-              color: #4299e1;
-            }
-          }
-  
-          &:hover .feature-icon {
-            transform: scale(1.05);
-            background: rgba(66, 153, 225, 0.15);
-            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.2);
-          }
-        }
-      }
-  
-      .cta-section {
-        display: flex;
-        gap: 16px;
-        flex-wrap: wrap;
-  
-        .service-btn {
-          padding: 14px 28px;
-          border: none;
-          border-radius: 12px;
-          font-size: 1rem;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          display: flex;
-          align-items: center;
-          gap: 10px;
-  
-          &.primary-btn {
-            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
-            color: white;
-            box-shadow: 0 4px 14px rgba(66, 153, 225, 0.3);
-  
-            &:hover {
-              transform: translateY(-3px);
-              box-shadow: 0 6px 20px rgba(66, 153, 225, 0.4);
-            }
-            
-            &:active {
-              transform: translateY(-1px);
-              box-shadow: 0 4px 10px rgba(66, 153, 225, 0.3);
-            }
-          }
-  
-          &.secondary-btn {
-            background: transparent;
-            border: 2px solid #4299e1;
-            color: #4299e1;
-  
-            &:hover {
-              background: rgba(66, 153, 225, 0.1);
-              transform: translateY(-3px);
-              box-shadow: 0 4px 10px rgba(66, 153, 225, 0.1);
-            }
-            
-            &:active {
-              transform: translateY(-1px);
-            }
-          }
-        }
-      }
-    }
-  
-    .illustration-section {
-      flex: 1;
-      position: relative;
-  
-      .illustration-wrapper {
+
+      .speech-bubble {
         position: relative;
-  
+        background: #c2e0f7; /* 말풍선 배경색 */
+        border-radius: 12px;
+        padding: 16px 20px;
+        color: #4a5568;
+        line-height: 1.6;
+        max-width: 400px;
+        margin-left: 16px; /* 마스코트와 간격 */
+        align-content: center;
+      }
+      
+      /* 꼬리: 왼쪽 중간에서 오른쪽을 향해 나옴 */
+      .speech-bubble::before {
+        content: "";
+        position: absolute;
+        top: 30%;
+        left: -25px; /* ← 꼬리가 커졌으니 살짝 더 왼쪽으로 */
+        transform: translateY(-50%);
+        border-width: 18px;
+        border-style: solid;
+        border-color: transparent #c2e0f7 transparent transparent;
+      }
+      
+    }
+
+    .feature-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-bottom: 40px;
+      margin-top: 40px;
+
+      .feature {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        color: #4a5568;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: translateY(-2px);
+        }
+
+        .feature-icon {
+          width: 50px;
+          height: 50px;
+          border-radius: 12px;
+          background: rgba(66, 153, 225, 0.1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.3s ease;
+          box-shadow: 0 2px 10px rgba(66, 153, 225, 0.1);
+
+          i,
+          svg {
+            font-size: 24px;
+            color: #4299e1;
+          }
+        }
+
+        &:hover .feature-icon {
+          transform: scale(1.05);
+          background: rgba(66, 153, 225, 0.15);
+          box-shadow: 0 4px 12px rgba(66, 153, 225, 0.2);
+        }
+      }
+    }
+
+    .cta-section {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+
+      .service-btn {
+        padding: 14px 28px;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        &.primary-btn {
+          background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+          color: white;
+          box-shadow: 0 4px 14px rgba(66, 153, 225, 0.3);
+
+          &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(66, 153, 225, 0.4);
+          }
+
+          &:active {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(66, 153, 225, 0.3);
+          }
+        }
+
+        &.secondary-btn {
+          background: transparent;
+          border: 2px solid #4299e1;
+          color: #4299e1;
+
+          &:hover {
+            background: rgba(66, 153, 225, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(66, 153, 225, 0.1);
+          }
+
+          &:active {
+            transform: translateY(-1px);
+          }
+        }
+      }
+    }
+  }
+
+  .illustration-section {
+    flex: 1;
+    position: relative;
+
+    .illustration-wrapper {
+      position: relative;
+
+      .main-illustration {
+        max-width: 100%;
+        height: auto;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+        position: relative;
+        z-index: 2;
+      }
+
+      .illustration-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at center, transparent 0%, rgba(66, 153, 225, 0.1) 100%);
+        border-radius: 16px;
+        z-index: 3;
+      }
+    }
+
+    // Swiper 관련 스타일
+    .vertical-slider {
+      height: 400px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+      .swiper-slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        overflow: hidden;
+
         .main-illustration {
           max-width: 100%;
-          height: auto;
+          max-height: 100%;
+          object-fit: contain;
           border-radius: 16px;
-          box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
-          position: relative;
-          z-index: 2;
+          transition: transform 0.5s ease;
         }
-  
-        .illustration-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: radial-gradient(circle at center, transparent 0%, rgba(66, 153, 225, 0.1) 100%);
-          border-radius: 16px;
-          z-index: 3;
+
+        &:hover .main-illustration {
+          transform: scale(1.03);
         }
       }
-  
-      // Swiper 관련 스타일
-      .vertical-slider {
-        height: 400px;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  
-        .swiper-slide {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background-color: #fff;
-          overflow: hidden;
-  
-          .main-illustration {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            border-radius: 16px;
-            transition: transform 0.5s ease;
-          }
-          
-          &:hover .main-illustration {
-            transform: scale(1.03);
+
+      .swiper-pagination-bullet {
+        background-color: #4299e1;
+        opacity: 0.6;
+        width: 8px;
+        height: 8px;
+        transition: all 0.3s ease;
+
+        &-active {
+          opacity: 1;
+          background-color: #3182ce;
+          width: 10px;
+          height: 10px;
+        }
+      }
+    }
+  }
+}
+
+// 다크 모드 지원
+.dark .index-page {
+  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+
+  &::before {
+    background: radial-gradient(circle at center, rgba(90, 103, 216, 0.08) 0%, transparent 70%);
+  }
+
+  .text-section {
+    .gradient-text {
+      background: linear-gradient(135deg, #63b3ed, #90cdf4);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    h1 {
+      color: #e2e8f0;
+    }
+
+    p {
+      color: #a0aec0;
+    }
+
+    .feature-highlights {
+      .feature {
+        color: #cbd5e0;
+
+        .feature-icon {
+          background: rgba(90, 103, 216, 0.15);
+          box-shadow: 0 2px 10px rgba(90, 103, 216, 0.15);
+
+          i,
+          svg {
+            color: #63b3ed;
           }
         }
-  
-        .swiper-pagination-bullet {
-          background-color: #4299e1;
-          opacity: 0.6;
-          width: 8px;
-          height: 8px;
-          transition: all 0.3s ease;
-  
-          &-active {
-            opacity: 1;
-            background-color: #3182ce;
-            width: 10px;
-            height: 10px;
+
+        &:hover .feature-icon {
+          background: rgba(90, 103, 216, 0.2);
+          box-shadow: 0 4px 12px rgba(90, 103, 216, 0.25);
+        }
+      }
+    }
+
+    .cta-section {
+      .service-btn {
+        &.primary-btn {
+          background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%);
+          box-shadow: 0 4px 14px rgba(90, 103, 216, 0.3);
+
+          &:hover {
+            box-shadow: 0 6px 20px rgba(90, 103, 216, 0.4);
+          }
+        }
+
+        &.secondary-btn {
+          border-color: #63b3ed;
+          color: #63b3ed;
+
+          &:hover {
+            background: rgba(90, 103, 216, 0.1);
           }
         }
       }
     }
   }
-  
-  // 다크 모드 지원
-  .dark .index-page {
-    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
-    
-    &::before {
-      background: radial-gradient(circle at center, rgba(90, 103, 216, 0.08) 0%, transparent 70%);
+
+  .illustration-section {
+    .vertical-slider {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+      .swiper-slide {
+        background-color: #2d3748;
+      }
+
+      .swiper-pagination-bullet {
+        background-color: #63b3ed;
+
+        &-active {
+          background-color: #90cdf4;
+        }
+      }
     }
-    
+  }
+}
+
+// 반응형 디자인
+@media (max-width: 1024px) {
+  .index-page {
+    .content-wrapper {
+      flex-direction: column;
+      gap: 40px;
+    }
+
     .text-section {
-      .gradient-text {
-        background: linear-gradient(135deg, #63b3ed, #90cdf4);
-        -webkit-background-clip: text;
-        background-clip: text;
-      }
-      
+      text-align: center;
+      padding: 0 20px;
+
       h1 {
-        color: #e2e8f0;
+        font-size: 2.8rem;
       }
-      
-      p {
-        color: #a0aec0;
-      }
-      
+
       .feature-highlights {
-        .feature {
-          color: #cbd5e0;
-          
-          .feature-icon {
-            background: rgba(90, 103, 216, 0.15);
-            box-shadow: 0 2px 10px rgba(90, 103, 216, 0.15);
-            
-            i, svg {
-              color: #63b3ed;
-            }
-          }
-          
-          &:hover .feature-icon {
-            background: rgba(90, 103, 216, 0.2);
-            box-shadow: 0 4px 12px rgba(90, 103, 216, 0.25);
-          }
-        }
+        justify-content: center;
       }
-      
+
       .cta-section {
-        .service-btn {
-          &.primary-btn {
-            background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%);
-            box-shadow: 0 4px 14px rgba(90, 103, 216, 0.3);
-            
-            &:hover {
-              box-shadow: 0 6px 20px rgba(90, 103, 216, 0.4);
-            }
-          }
-          
-          &.secondary-btn {
-            border-color: #63b3ed;
-            color: #63b3ed;
-            
-            &:hover {
-              background: rgba(90, 103, 216, 0.1);
-            }
-          }
-        }
+        justify-content: center;
       }
     }
-    
+
+    .illustration-section {
+      width: 90%;
+      max-width: 600px;
+
+      .vertical-slider {
+        height: 350px;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .index-page {
+    .main-container {
+      padding: 40px 20px;
+    }
+
+    .text-section {
+      h1 {
+        font-size: 2.4rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      .feature-highlights {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+    }
+
     .illustration-section {
       .vertical-slider {
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        
-        .swiper-slide {
-          background-color: #2d3748;
-        }
-        
-        .swiper-pagination-bullet {
-          background-color: #63b3ed;
-          
-          &-active {
-            background-color: #90cdf4;
-          }
-        }
+        height: 300px;
       }
     }
   }
-  
-  // 반응형 디자인
-  @media (max-width: 1024px) {
-    .index-page {
-      .content-wrapper {
+}
+
+@media (max-width: 480px) {
+  .index-page {
+    .text-section {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .gradient-text {
+        font-size: 1rem;
+      }
+
+      .cta-section {
         flex-direction: column;
-        gap: 40px;
-      }
-      
-      .text-section {
-        text-align: center;
-        padding: 0 20px;
-        
-        h1 {
-          font-size: 2.8rem;
-        }
-        
-        .feature-highlights {
-          justify-content: center;
-        }
-        
-        .cta-section {
-          justify-content: center;
-        }
-      }
-      
-      .illustration-section {
-        width: 90%;
-        max-width: 600px;
-        
-        .vertical-slider {
-          height: 350px;
-        }
-      }
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .index-page {
-      .main-container {
-        padding: 40px 20px;
-      }
-      
-      .text-section {
-        h1 {
-          font-size: 2.4rem;
-        }
-        
-        p {
-          font-size: 1rem;
-        }
-        
-        .feature-highlights {
-          flex-direction: column;
-          align-items: center;
-          gap: 20px;
-        }
-      }
-      
-      .illustration-section {
-        .vertical-slider {
-          height: 300px;
-        }
-      }
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .index-page {
-      .text-section {
-        h1 {
-          font-size: 2rem;
-        }
-        
-        .gradient-text {
-          font-size: 1rem;
-        }
-        
-        .cta-section {
-          flex-direction: column;
+        width: 100%;
+
+        .service-btn {
           width: 100%;
-          
-          .service-btn {
-            width: 100%;
-          }
-        }
-      }
-      
-      .illustration-section {
-        .vertical-slider {
-          height: 250px;
         }
       }
     }
+
+    .illustration-section {
+      .vertical-slider {
+        height: 250px;
+      }
+    }
   }
+}

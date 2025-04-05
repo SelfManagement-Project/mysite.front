@@ -27,6 +27,6 @@ npm install -D @types/node
 npm install -D @vitejs/plugin-react
 npm install react-native-web
 npm install jwt-decode
-
+npm install lottie-react
 npm install swiper
 npm install @fortawesome/react-fontawesome @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons

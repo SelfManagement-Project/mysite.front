@@ -19,6 +19,9 @@ export const useAiChat = (chatId?: number | null) => {
     const userID = store.getState().auth.user?.apiData.userId;
 
     const [recentChats, setRecentChats] = useState<RecentChat[]>([]);
+    const [sidebarVisible, setSidebarVisible] = useState(false); // 사이드바 상태 추가
+
+    const [hasError, setHasError] = useState(false); // 상태 추가
 
     const handleChatListRecent = async () => {
         const response = await dispatch(chatListRecent());
@@ -27,7 +30,7 @@ export const useAiChat = (chatId?: number | null) => {
         }
     };
 
-    
+
 
     useEffect(() => {
         handleChatListRecent();
@@ -42,79 +45,94 @@ export const useAiChat = (chatId?: number | null) => {
         }
     }, [chatId]);
 
-const handleFetchChatHistory = async (chatId: number) => {
-    // console.log(chatId);
-    setIsLoading(true);
-    
-    // 기존 WebSocket 연결 닫기
-    if (ws.current) {
-        ws.current.close();
-    }
-    
-    try {
-        const response = await dispatch(fetchChatHistory(chatId));
-        
-        if (response.payload && response.payload.apiData) {
-            const historyData = responseToChatMessages(response.payload.apiData);
-            setChatMessages(historyData);
-            
-            // 선택한 채팅 ID로 새 WebSocket 연결 생성
-            const wsUrl = `${baseWsUrl}/api/chat/ws/chat/${userID}/${chatId}`;
-            ws.current = new WebSocket(wsUrl);
-            
-            // WebSocket 이벤트 핸들러 설정
-            ws.current.onopen = () => {
-                setCanSendMessage(true);
-            };
-            
-            ws.current.onmessage = (event) => {
-                const data = JSON.parse(event.data);
-                const aiContent = data.error || data.response;
-                
-                if (typingInterval.current) clearInterval(typingInterval.current);
-                
-                setIsLoading(false);
-                setIsTyping(true);
-                
-                setChatMessages((prev) => [...prev, { type: 'ai', content: '' }]);
-                
-                let charIndex = 0;
-                typingInterval.current = setInterval(() => {
-                    setChatMessages((prev) => {
-                        const updatedMessages = [...prev];
-                        const lastIndex = updatedMessages.length - 1;
-                        updatedMessages[lastIndex].content = aiContent.slice(0, charIndex);
-                        return updatedMessages;
-                    });
-                    charIndex += 1;
-                    
-                    if (charIndex > aiContent.length) {
-                        if (typingInterval.current) clearInterval(typingInterval.current);
-                        setIsTyping(false);
-                        
-                        setTimeout(() => {
-                            handleChatListRecent();
-                        }, 500);
-                    }
-                }, 20);
-            };
-            
-            ws.current.onclose = () => {
-                setCanSendMessage(false);
-            };
+    const handleFetchChatHistory = async (chatId: number) => {
+        // console.log(chatId);
+        setIsLoading(true);
+
+        // 기존 WebSocket 연결 닫기
+        if (ws.current) {
+            ws.current.close();
         }
-    } catch (e) {
-        console.error(e);
-    } finally {
-        setIsLoading(false);
-    }
-};
+
+        try {
+            const response = await dispatch(fetchChatHistory(chatId));
+
+            if (response.payload && response.payload.apiData) {
+                const historyData = responseToChatMessages(response.payload.apiData);
+                setChatMessages(historyData);
+
+                // 선택한 채팅 ID로 새 WebSocket 연결 생성
+                const wsUrl = `${baseWsUrl}/api/chat/ws/chat/${userID}/${chatId}`;
+                ws.current = new WebSocket(wsUrl);
+
+                // WebSocket 이벤트 핸들러 설정
+                ws.current.onopen = () => {
+                    setCanSendMessage(true);
+                };
+
+                ws.current.onmessage = (event) => {
+                    const data = JSON.parse(event.data);
+                    const aiContent = data.error || data.response;
+
+                    if (typingInterval.current) clearInterval(typingInterval.current);
+
+                    setIsLoading(false);
+                    setIsTyping(true);
+
+                    setChatMessages((prev) => [...prev, { type: 'ai', content: '' }]);
+
+                    let charIndex = 0;
+                    typingInterval.current = setInterval(() => {
+                        setChatMessages((prev) => {
+                            const updatedMessages = [...prev];
+                            const lastIndex = updatedMessages.length - 1;
+                            updatedMessages[lastIndex].content = aiContent.slice(0, charIndex);
+                            return updatedMessages;
+                        });
+                        charIndex += 1;
+
+                        if (charIndex > aiContent.length) {
+                            if (typingInterval.current) clearInterval(typingInterval.current);
+                            setIsTyping(false);
+
+                            setTimeout(() => {
+                                handleChatListRecent();
+                            }, 500);
+                        }
+                    }, 20);
+                };
+
+                ws.current.onclose = () => {
+                    setCanSendMessage(false);
+                };
+            }
+        } catch (e) {
+            console.error(e);
+            setHasError(true);  // 에러 발생 상태 저장
+
+            setChatMessages(prev => [
+                ...prev,
+                {
+                    type: 'ai',
+                    content: '죄송해요! 현재 답변을 드릴 수 없어요 😢 잠시 후 다시 시도해주세요.',
+                    timestamp: new Date().toISOString(),
+                }
+            ]);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     const responseToChatMessages = (data: any[]): ChatMessage[] => {
         return data.map(item => ({
             type: item.messageType === 'user' ? 'user' : 'ai',
             content: item.content
         }));
+    };
+
+    // 사이드바 토글 함수
+    const toggleSidebar = () => {
+        setSidebarVisible(!sidebarVisible);
     };
 
 
@@ -270,5 +288,8 @@ const handleFetchChatHistory = async (chatId: number) => {
         canSendMessage,
         recentChats,
         handleFetchChatHistory,
+        sidebarVisible, setSidebarVisible,
+        toggleSidebar,
+        hasError, setHasError
     };
 };

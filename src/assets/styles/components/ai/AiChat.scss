@@ -5,7 +5,7 @@
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-  height: 70vh;
+  height: 60vh;
   min-height: 600px;
   border: 1px solid #eaeef3;
   position: relative;
@@ -33,7 +33,7 @@
       background: linear-gradient(135deg, #1c6ce3 0%, #1559c0 100%);
     }
   }
-  
+
   // 사이드바 숨김 상태 수정
   &.sidebar-hidden {
     .sidebar {
@@ -47,13 +47,13 @@
     .chat-main {
       width: 100%;
       margin-left: 0;
-      
+
       // 메시지 영역과 입력 영역 조정
       .chat-messages {
         width: 100%;
         max-width: 100%;
       }
-      
+
       .chat-input-container {
         width: 100%;
         max-width: 100%;
@@ -335,27 +335,79 @@
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
           animation: pulse 2s infinite;
 
-          span {
-            width: 10px;
-            height: 10px;
-            background: #666;
-            border-radius: 50%;
-            animation: typing 1.2s infinite ease-in-out;
 
-            &:nth-child(1) {
-              animation-delay: 0.2s;
-            }
+          .loading-animation {
+            width: 200px;
+            height: 200px;
+          }
 
-            &:nth-child(2) {
-              animation-delay: 0.4s;
-            }
+          .typing-dots {
+            display: flex;
+            position: relative;
+            background: #c2e0f7;
+            /* 말풍선 배경색 */
+            border-radius: 12px;
+            padding: 16px 20px;
+            color: #4a5568;
+            line-height: 1.6;
+            width: 150px;
+            height: 75px;
+            margin-left: 16px;
+            /* 마스코트와 간격 */
+            align-content: center;
+            justify-content: center;
 
-            &:nth-child(3) {
-              animation-delay: 0.6s;
+            span {
+              width: 10px;
+              height: 10px;
+              background: #666;
+              margin-top: 20px;
+              border-radius: 50%;
+              animation: typing 1.2s infinite ease-in-out;
+
+              &:nth-child(1) {
+                animation-delay: 0.2s;
+              }
+
+              &:nth-child(2) {
+                animation-delay: 0.4s;
+              }
+
+              &:nth-child(3) {
+                animation-delay: 0.6s;
+              }
             }
+          }
+
+          /* 꼬리: 왼쪽 중간에서 오른쪽을 향해 나옴 */
+          .typing-dots::before {
+            content: "";
+            position: absolute;
+            top: 30%;
+            left: -25px;
+            /* ← 꼬리가 커졌으니 살짝 더 왼쪽으로 */
+            transform: translateY(-50%);
+            border-width: 18px;
+            border-style: solid;
+            border-color: transparent #c2e0f7 transparent transparent;
           }
         }
       }
+
+      .ai-error-message {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      .ai-error-message .ai-mascot {
+        width: 80px;
+        height: auto;
+        margin-right: 12px;
+      }
+
+
+
     }
 
     .chat-input-container {

@@ -1,3 +1,5 @@
+import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+
 // Footer.jsx
 const Footer = () => {
   return (
@@ -35,10 +37,17 @@ const Footer = () => {
           <div className="footer-contact">
             <p>고객 지원 이메일: support@oneflow.com</p>
             <p>고객 센터: 1234-5678</p>
+            <p>주소: 경기도 하남시 신장동 (OneFlow)</p>
             <div className="social-links">
-              <a href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
-              <a href="#" target="_blank" rel="noopener noreferrer">Facebook</a>
-              <a href="#" target="_blank" rel="noopener noreferrer">Twitter</a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                <FaInstagram /> Instagram
+              </a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                <FaFacebook /> Facebook
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                <FaTwitter /> Twitter
+              </a>
             </div>
           </div>
         </div>
