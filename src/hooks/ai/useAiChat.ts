@@ -3,6 +3,7 @@ import { store } from '@/redux/store';
 import { ChatMessage, RecentChat } from '@/types/ai/interfaces';
 import { useAppDispatch } from '@/redux/hooks';
 import { chatListRecent, fetchChatHistory } from '@/redux/actions/ai/aiChatActions';
+import { v4 as uuidv4 } from 'uuid'; // uuid 라이브러리 설치 필요: npm install uuid @types/uuid
 
 export const useAiChat = (chatId?: number | null) => {
     const dispatch = useAppDispatch();
@@ -12,6 +13,7 @@ export const useAiChat = (chatId?: number | null) => {
     const [canSendMessage, setCanSendMessage] = useState(false);
     const ws = useRef<WebSocket | null>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const [deviceId, setDeviceId] = useState<string | null>(null);
 
     const typingInterval = useRef<NodeJS.Timeout | null>(null);
     const [isTyping, setIsTyping] = useState(false); // 타이핑 애니메이션 전용
@@ -23,6 +25,27 @@ export const useAiChat = (chatId?: number | null) => {
 
     const [hasError, setHasError] = useState(false); // 상태 추가
 
+    // 디바이스 ID 생성 또는 가져오기
+    const getDeviceId = useCallback(() => {
+        // 로컬 스토리지에서 디바이스 ID 확인
+        let storedDeviceId = localStorage.getItem('device_id');
+        
+        // 없으면 새로 생성
+        if (!storedDeviceId) {
+            storedDeviceId = `web_${uuidv4()}`;
+            localStorage.setItem('device_id', storedDeviceId);
+        }
+        
+        console.log('디바이스 ID:', storedDeviceId);
+        setDeviceId(storedDeviceId);
+        return storedDeviceId;
+    }, []);
+
+    // 컴포넌트 마운트 시 디바이스 ID 초기화
+    useEffect(() => {
+        getDeviceId();
+    }, [getDeviceId]);
+
     const handleChatListRecent = async () => {
         const response = await dispatch(chatListRecent());
         if (response.payload && response.payload.apiData) {
@@ -30,13 +53,9 @@ export const useAiChat = (chatId?: number | null) => {
         }
     };
 
-
-
     useEffect(() => {
         handleChatListRecent();
     }, []);
-
-
 
     // 💡 chatId 변경 시 대화 기록 불러오기 추가
     useEffect(() => {
@@ -46,7 +65,6 @@ export const useAiChat = (chatId?: number | null) => {
     }, [chatId]);
 
     const handleFetchChatHistory = async (chatId: number) => {
-        // console.log(chatId);
         setIsLoading(true);
 
         // 기존 WebSocket 연결 닫기
@@ -61,12 +79,18 @@ export const useAiChat = (chatId?: number | null) => {
                 const historyData = responseToChatMessages(response.payload.apiData);
                 setChatMessages(historyData);
 
-                // 선택한 채팅 ID로 새 WebSocket 연결 생성
-                const wsUrl = `${baseWsUrl}/api/chat/ws/chat/${userID}/${chatId}`;
+                // 디바이스 ID 가져오기
+                const currentDeviceId = deviceId || getDeviceId();
+
+                // 선택한 채팅 ID로 새 WebSocket 연결 생성 (디바이스 ID 포함)
+                const wsUrl = `${baseWsUrl}/api/chat/ws/chat/${userID}/${chatId}/${currentDeviceId}`;
+                console.log('웹소켓 연결 시도:', wsUrl);
+                
                 ws.current = new WebSocket(wsUrl);
 
                 // WebSocket 이벤트 핸들러 설정
                 ws.current.onopen = () => {
+                    console.log('웹소켓 연결 성공');
                     setCanSendMessage(true);
                 };
 
@@ -103,6 +127,12 @@ export const useAiChat = (chatId?: number | null) => {
                 };
 
                 ws.current.onclose = () => {
+                    console.log('웹소켓 연결 종료');
+                    setCanSendMessage(false);
+                };
+
+                ws.current.onerror = (error) => {
+                    console.error('웹소켓 오류:', error);
                     setCanSendMessage(false);
                 };
             }
@@ -135,18 +165,19 @@ export const useAiChat = (chatId?: number | null) => {
         setSidebarVisible(!sidebarVisible);
     };
 
-
-
-
-
-
     useEffect(() => {
         const chat_id = chatId ?? Date.now();
-        // console.log('chat_id:', chat_id);
-        const wsUrl = `${baseWsUrl}/api/chat/ws/chat/${userID}/${chat_id}`;
+        // 디바이스 ID 가져오기
+        const currentDeviceId = deviceId || getDeviceId();
+        
+        // 웹소켓 URL에 디바이스 ID 추가
+        const wsUrl = `${baseWsUrl}/api/chat/ws/chat/${userID}/${chat_id}/${currentDeviceId}`;
+        console.log('웹소켓 연결 시도:', wsUrl);
+        
         ws.current = new WebSocket(wsUrl);
 
         ws.current.onopen = () => {
+            console.log('웹소켓 연결 성공');
             setCanSendMessage(true);
         };
 
@@ -175,8 +206,7 @@ export const useAiChat = (chatId?: number | null) => {
                     if (typingInterval.current) clearInterval(typingInterval.current);
                     setIsTyping(false); // 타이핑 끝났을 때
 
-                    // 방법 3: 타이핑 효과가 끝난 후 대화 목록 갱신
-                    // 약간의 지연을 주어 서버에 데이터가 완전히 저장될 시간을 확보
+                    // 타이핑 효과가 끝난 후 대화 목록 갱신
                     setTimeout(() => {
                         handleChatListRecent();
                     }, 500);
@@ -185,6 +215,12 @@ export const useAiChat = (chatId?: number | null) => {
         };
 
         ws.current.onclose = () => {
+            console.log('웹소켓 연결 종료');
+            setCanSendMessage(false);
+        };
+
+        ws.current.onerror = (error) => {
+            console.error('웹소켓 오류:', error);
             setCanSendMessage(false);
         };
 
@@ -192,7 +228,7 @@ export const useAiChat = (chatId?: number | null) => {
             if (typingInterval.current) clearInterval(typingInterval.current);
             ws.current?.close();
         };
-    }, [userID, chatId]);
+    }, [userID, chatId, deviceId]);
 
     const handleMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setMessage(e.target.value);
@@ -200,14 +236,18 @@ export const useAiChat = (chatId?: number | null) => {
 
     const handleSendMessage = useCallback(() => {
         if (!message.trim() || !canSendMessage || isLoading || isTyping || !ws.current) return;
-        // console.log('testestste',chatId);
+        
         const userMessage: ChatMessage = { type: 'user', content: message };
         setChatMessages(prev => [...prev, userMessage]);
         setIsLoading(true); // AI 응답 기다리는 동안 true
         setMessage('');
 
-        ws.current.send(JSON.stringify({ message }));
-    }, [message, canSendMessage, isLoading, isTyping]);
+        // 메시지 전송 시 디바이스 ID 포함
+        ws.current.send(JSON.stringify({ 
+            message,
+            device_id: deviceId
+        }));
+    }, [message, canSendMessage, isLoading, isTyping, deviceId]);
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') handleSendMessage();
@@ -225,10 +265,17 @@ export const useAiChat = (chatId?: number | null) => {
 
         // 새로운 WebSocket 연결 생성
         const new_chat_id = Date.now();
-        const wsUrl = `${baseWsUrl}/api/chat/ws/chat/${userID}/${new_chat_id}`;
+        // 디바이스 ID 가져오기
+        const currentDeviceId = deviceId || getDeviceId();
+        
+        // 웹소켓 URL에 디바이스 ID 추가
+        const wsUrl = `${baseWsUrl}/api/chat/ws/chat/${userID}/${new_chat_id}/${currentDeviceId}`;
+        console.log('새 채팅 웹소켓 연결 시도:', wsUrl);
+        
         ws.current = new WebSocket(wsUrl);
 
         ws.current.onopen = () => {
+            console.log('웹소켓 연결 성공');
             setCanSendMessage(true);
         };
 
@@ -258,8 +305,6 @@ export const useAiChat = (chatId?: number | null) => {
                     if (typingInterval.current) clearInterval(typingInterval.current);
                     setIsTyping(false);
 
-                    // 방법 3: 타이핑 효과가 끝난 후 대화 목록 갱신
-                    // 약간의 지연을 주어 서버에 데이터가 완전히 저장될 시간을 확보
                     setTimeout(() => {
                         handleChatListRecent();
                     }, 500);
@@ -268,6 +313,12 @@ export const useAiChat = (chatId?: number | null) => {
         };
 
         ws.current.onclose = () => {
+            console.log('웹소켓 연결 종료');
+            setCanSendMessage(false);
+        };
+
+        ws.current.onerror = (error) => {
+            console.error('웹소켓 오류:', error);
             setCanSendMessage(false);
         };
     };
@@ -288,8 +339,10 @@ export const useAiChat = (chatId?: number | null) => {
         canSendMessage,
         recentChats,
         handleFetchChatHistory,
-        sidebarVisible, setSidebarVisible,
+        sidebarVisible, 
+        setSidebarVisible,
         toggleSidebar,
-        hasError, setHasError
+        hasError, 
+        setHasError
     };
 };
