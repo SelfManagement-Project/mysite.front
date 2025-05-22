@@ -9,7 +9,7 @@ import Toast from '@/components/schedule/Toast'
 import '@/assets/styles/components/schedule/Calendar.scss'
 import { useCalendar } from '@/hooks/schedule/useCalendar';
 import CalendarModal from "@/components/common/CalendarModal";
-import CalendarInsert from "@/components/schedule/CalendarInsert";
+import CalendarInsert from "@/components/schedule/modal/CalendarInsert";
 
 const Calendar = () => {
   const {

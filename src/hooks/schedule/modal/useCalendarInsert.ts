@@ -20,9 +20,12 @@ export const useCalendarInsert = () => {
             let startDate, endDate, start, end;
 
             if (allDay) {
+                console.log('allDay::::::::', allDay);
                 // 종일 이벤트인 경우
                 startDate = formData.get('startDate') as string;
+                console.log('startDate::::::::', startDate);
                 endDate = formData.get('endDate') as string;
+                console.log('endDate::::::::', endDate);
                 start = '00:00';
                 end = '23:59';
             } else {
